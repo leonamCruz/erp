@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="PT-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Clientes</title>
+
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../static/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/js/mascara-cpf.js"></script>
+    <script src="../static/js/validacoes.js"></script>
+    <link rel="icon" href="../static/img/logo-menor.webp">
+</head>
+<body>
+<form>
+    <div class="d-flex flex-column justify-content-center vh-100 container">
+        <div class="d-flex justify-content-center mb-3">
+            <img src="../static/img/logo-menor.webp" width="100">
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6 d-flex">
+                <div class="form-check ">
+                    <input class="form-check-input" type="radio" name="identificacao" id="cpf" value="cpf" checked>
+                    <label class="form-check-label" for="cpf">
+                        CPF
+                    </label>
+                </div>
+                <div class="form-check mx-2">
+                    <input class="form-check-input" type="radio" name="identificacao" id="cnpj" value="cnpj">
+                    <label class="form-check-label" for="cnpj">
+                        CNPJ
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-between">
+            <div class="col-md-4 mb-3">
+                <label for="nome" class="form-label">Nome do Cliente</label>
+                <input maxlength="100" class="form-control" id="nome" type="text"
+                       placeholder="Digite o nome do Cliente">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label id="label-cpf-cnpj" for="cpf-or-cnpj" class="form-label">CPF ou CNPJ</label>
+                <input class="form-control" id="cpf-or-cnpj" type="text" placeholder="Digite o CPF ou CNPJ">
+            </div>
+
+            <!-- Campo de Contato -->
+            <div class="col-md-4 mb-3">
+                <label for="numero" class="form-label">Número para Contato</label>
+                <input class="form-control" id="numero" type="text" placeholder="Digite o número para contato">
+            </div>
+        </div>
+
+        <!-- Campos de Endereço -->
+        <div class="row mb-3">
+            <div class="col-md-2 mb-3">
+                <label for="cep" class="form-label">CEP</label>
+                <input class="form-control" id="cep" type="text" placeholder="Digite o CEP" maxlength="9">
+            </div>
+
+            <div class="col-md-10 mb-3">
+                <label for="rua" class="form-label">Rua</label>
+                <input class="form-control" id="rua" type="text" placeholder="Digite a rua">
+            </div>
+        </div>
+        <div class="row mb-3 d-flex justify-content-between">
+            <div class="col-md-3">
+                <label for="numero-endereco" class="form-label">Número</label>
+                <input class="form-control" id="numero-endereco" type="text" placeholder="Número da residência">
+            </div>
+            <div class="col-md-3">
+                <label for="bairro" class="form-label">Bairro</label>
+                <input class="form-control" id="bairro" type="text" placeholder="Digite o bairro">
+            </div>
+            <div class="col-md-3">
+                <label for="cidade" class="form-label">Cidade</label>
+                <input class="form-control" id="cidade" type="text" placeholder="Digite a cidade">
+            </div>
+            <div class="col-md-3 d-flex align-items-center align-items-md-end">
+                <div class="dropdown">
+                    <button id="estado" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        Estado
+                    </button>
+                    <ul class="dropdown-menu " style="max-height: 200px; overflow-y: auto;">
+                        <li th:each="entry : ${estados}">
+                            <a class="dropdown-item" th:text="${entry.key}" th:data-value="${entry.value}"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const dropdownButton = document.querySelector('.dropdown-toggle');
+                const dropdownItems = document.querySelectorAll('.dropdown-item');
+
+                dropdownItems.forEach(function (item) {
+                    item.addEventListener('click', function () {
+                        dropdownButton.textContent = item.textContent;
+                    });
+                });
+            });
+        </script>
+        <div>
+            <a class="btn btn-primary">Salvar Cliente</a>
+        </div>
+    </div>
+</form>
+</body>
+</html>
