@@ -2,6 +2,7 @@ package tech.leonam.erp.clientes.controle;
 
 import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.leonam.erp.clientes.modelo.ClienteModelo;
@@ -20,6 +21,8 @@ public class ClienteControle {
     @PostMapping
     public ResponseEntity<ClienteModelo> salvarCliente(@RequestBody ClienteModeloDTO dto) {
         try {
+            if (servico.cpfExiste(dto.getCpfOrCnpj())) return ResponseEntity.status(HttpStatus.CONFLICT).build();
+
             servico.salvarCliente(dto);
             return ResponseEntity.noContent().build();
         } catch (ClienteNaoFoiSalvo e) {

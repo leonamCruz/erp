@@ -7,7 +7,6 @@ import tech.leonam.erp.clientes.modelo.ClienteModelo;
 import tech.leonam.erp.clientes.modelo.ClienteModeloDTO;
 import tech.leonam.erp.clientes.repositorio.ClienteRepositorio;
 import tech.leonam.erp.excessoes.ClienteNaoDeletado;
-import tech.leonam.erp.excessoes.ClienteNaoExiste;
 import tech.leonam.erp.excessoes.ClienteNaoFoiSalvo;
 
 @Service
@@ -26,7 +25,7 @@ public class ClienteServico {
     public void deletaClientePorId(int id) throws ClienteNaoDeletado {
         repositorio.deletaPorID(id);
     }
-    public boolean idExisteNoBD(int id) throws ClienteNaoExiste {
-        return repositorio.existeID(id);
+    public boolean cpfExiste(String cpf){
+        return repositorio.existeID(cpf);
     }
 }

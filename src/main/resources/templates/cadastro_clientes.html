@@ -8,6 +8,7 @@
     <script src="../static/js/bootstrap.bundle.min.js"></script>
     <script src="../static/js/mascara-cpf.js"></script>
     <script src="../static/js/validacoes.js"></script>
+    <script src="../static/js/salvar-cliente.js"></script>
     <link rel="icon" href="../static/img/logo-menor.webp">
 </head>
 <body>
@@ -81,7 +82,7 @@
                             aria-expanded="false">
                         Estado
                     </button>
-                    <ul class="dropdown-menu " style="max-height: 200px; overflow-y: auto;">
+                    <ul id="menu-legal" class="dropdown-menu " style="max-height: 200px; overflow-y: auto;">
                         <li th:each="entry : ${estados}">
                             <a class="dropdown-item" th:text="${entry.key}" th:data-value="${entry.value}"></a>
                         </li>
@@ -96,13 +97,13 @@
 
                 dropdownItems.forEach(function (item) {
                     item.addEventListener('click', function () {
-                        dropdownButton.textContent = item.textContent;
+                        dropdownButton.textContent = item.textContent
                     });
                 });
             });
         </script>
         <div>
-            <a class="btn btn-primary">Salvar Cliente</a>
+            <button class="btn btn-primary" id="save-client-button" type="button">Salvar Cliente</button>
         </div>
     </div>
 </form>

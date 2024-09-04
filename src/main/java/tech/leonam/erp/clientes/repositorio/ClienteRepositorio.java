@@ -17,7 +17,7 @@ public class ClienteRepositorio {
     private static final String INSERT_INTO = "INSERT INTO clientes (is_cpf, nome, cpf_or_cnpj, numero_contato, cep, endereco, bairro, cidade, uf, numero_casa) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String DELETE_BY_ID = "delete from clientes where id = ?";
-    private static final String EXISTS_ID = "select 1 from clientes where id = ? limit 1";
+    private static final String EXISTS_ID = "select 1 from clientes where cpf_or_cnpj = ? limit 1";
 
     private JdbcTemplate jdbcTemplate;
 
@@ -62,8 +62,14 @@ public class ClienteRepositorio {
 
     }
 
-    public boolean existeID(int id) {
-        Integer result = jdbcTemplate.queryForObject(EXISTS_ID, new Object[]{id}, Integer.class);
+    public boolean existeID(String cpf) {
+        Integer result = null;
+        try {
+            result = jdbcTemplate.queryForObject(EXISTS_ID, new Object[]{cpf}, Integer.class);
+        } catch (EmptyResultDataAccessException e) {
+            // Nenhum resultado foi encontrado, result permanecerá como null
+        }
         return result != null;
     }
+
 }
