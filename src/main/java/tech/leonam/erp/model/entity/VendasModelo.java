@@ -1,4 +1,4 @@
-package tech.leonam.erp.vendas.modelo;
+package tech.leonam.erp.model.entity;
 
 import lombok.Data;
 import lombok.Getter;

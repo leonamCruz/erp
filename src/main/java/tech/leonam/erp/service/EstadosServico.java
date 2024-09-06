@@ -1,10 +1,11 @@
-package tech.leonam.erp.infos.servico;
-
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-import tech.leonam.erp.infos.repositorio.EstadoRepository;
+package tech.leonam.erp.service;
 
 import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
+import lombok.AllArgsConstructor;
+import tech.leonam.erp.repository.EstadoRepository;
 
 @Service
 @AllArgsConstructor

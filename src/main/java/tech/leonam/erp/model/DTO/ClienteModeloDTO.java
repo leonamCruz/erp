@@ -1,9 +1,8 @@
-package tech.leonam.erp.clientes.modelo;
+package tech.leonam.erp.model.DTO;
 
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.br.CPF;
 
 @Data
 @Getter

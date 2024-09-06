@@ -1,4 +1,4 @@
-package tech.leonam.erp.infos.repositorio;
+package tech.leonam.erp.repository;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
