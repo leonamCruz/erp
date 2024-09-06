@@ -76,18 +76,24 @@
                 <label for="cidade" class="form-label">Cidade</label>
                 <input class="form-control" id="cidade" type="text" placeholder="Digite a cidade">
             </div>
-            <div class="col-md-3 d-flex align-items-center align-items-md-end">
-                <div class="dropdown">
-                    <button id="estado" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            <div class="col-md-3">
+                    <!-- <button id="estado" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                         Estado
                     </button>
-                    <ul id="menu-legal" class="dropdown-menu " style="max-height: 200px; overflow-y: auto;">
+                     <ul id="menu-legal" class="dropdown-menu " style="max-height: 200px; overflow-y: auto;">
                         <li th:each="entry : ${estados}">
                             <a class="dropdown-item" th:text="${entry.key}" th:data-value="${entry.value}"></a>
                         </li>
-                    </ul>
-                </div>
+                    </ul> --> 
+                    <label class="form-label" for="estado">Estado</label>
+                    <select class="form-control border-2 rounded-3" id="estado" name="estado" required>
+                        <option value="" selected>Choose...</option>
+                        <option th:each="estado : ${estados}"
+                          th:text="${estado.extenso}" th:data-value="${estado.codigo}"></option>
+                    </select>
+            </div>
+            <div>
             </div>
         </div>
         <script>
