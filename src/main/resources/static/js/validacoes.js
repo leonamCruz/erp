@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const numeroEnderecoInput = document.getElementById('numero-endereco')
     const bairroInput = document.getElementById('bairro')
     const cidadeInput = document.getElementById('cidade')
-    const estadoInput = document.querySelectorAll('.dropdown-toggle')
+    const estadoInput = document.getElementById('estado')
 
     function updateFields() {
         if (cpfRadio.checked) {
@@ -54,29 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const data = await response.json();
-            console.log(data);
 
             if (data) {
                 ruaInput.value = data.street || '';
                 bairroInput.value = data.neighborhood || '';
                 cidadeInput.value = data.city || '';
-                console.log(data.state);
-
-                if (data.state) {
-                    const dropdownItems = document.querySelectorAll('.dropdown-menu .dropdown-item');
-                    let itemFound = false;
-
-                    dropdownItems.forEach(item => {
-                        if (item.getAttribute('data-value') === data.state) {
-                            item.click();
-                            itemFound = true;
-                        }
-                    });
-
-                    if (!itemFound) {
-                        console.warn(`Estado '${data.state}' não encontrado nas opções do dropdown.`);
-                    }
-                }
+                estadoInput.value = data.state || ''
 
                 numeroEnderecoInput.focus();
             }
