@@ -1,4 +1,4 @@
-package tech.leonam.erp.vendas.modelo;
+package tech.leonam.erp.model.DTO;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Data
 @Getter

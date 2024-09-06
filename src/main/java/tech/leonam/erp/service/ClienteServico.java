@@ -1,13 +1,15 @@
-package tech.leonam.erp.clientes.servico;
+package tech.leonam.erp.service;
 
-import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import tech.leonam.erp.clientes.modelo.ClienteModelo;
-import tech.leonam.erp.clientes.modelo.ClienteModeloDTO;
-import tech.leonam.erp.clientes.repositorio.ClienteRepositorio;
-import tech.leonam.erp.excessoes.ClienteNaoDeletado;
-import tech.leonam.erp.excessoes.ClienteNaoFoiSalvo;
+
+import lombok.AllArgsConstructor;
+import tech.leonam.erp.exceptions.ClienteNaoDeletado;
+import tech.leonam.erp.exceptions.ClienteNaoFoiSalvo;
+import tech.leonam.erp.model.DTO.ClienteModeloDTO;
+import tech.leonam.erp.model.entity.ClienteModelo;
+import tech.leonam.erp.repository.ClienteRepositorio;
+
 
 @Service
 @AllArgsConstructor

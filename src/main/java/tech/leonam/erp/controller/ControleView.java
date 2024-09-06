@@ -1,14 +1,15 @@
-package tech.leonam.erp.visualizacao;
-
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import tech.leonam.erp.infos.servico.EstadosServico;
+package tech.leonam.erp.controller;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import lombok.AllArgsConstructor;
+import tech.leonam.erp.service.EstadosServico;
 
 @Controller
 @AllArgsConstructor
