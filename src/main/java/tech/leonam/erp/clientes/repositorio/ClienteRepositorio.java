@@ -66,8 +66,9 @@ public class ClienteRepositorio {
         Integer result = null;
         try {
             result = jdbcTemplate.queryForObject(EXISTS_ID, new Object[]{cpf}, Integer.class);
-        } catch (EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException ignored) {
             // Nenhum resultado foi encontrado, result permanecerá como null
+            // Essa atrocidade foi feita pq bugava quando não tinha
         }
         return result != null;
     }
