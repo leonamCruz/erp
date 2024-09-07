@@ -1,5 +1,5 @@
-create database erp_teste;
-use erp_teste;
+-- create database erp_teste;
+use leonam_erp_teste;
 
 create table if not exists clientes
 (
