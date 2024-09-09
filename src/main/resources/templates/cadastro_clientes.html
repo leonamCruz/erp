@@ -12,7 +12,7 @@
     <link rel="icon" href="../static/img/logo-menor.webp">
 </head>
 <body>
-    <form>
+    <form id="clientForm">
         <div class="d-flex flex-column justify-content-center vh-100 container">
             <div class="d-flex justify-content-center mb-3">
                 <img src="../static/img/logo-menor.webp" width="100">
@@ -37,21 +37,19 @@
                 <div class="col-md-4 mb-3">
                     <label for="nome" class="form-label">Nome do Cliente</label>
                     <input maxlength="100" class="form-control" id="nome" type="text"
-                    placeholder="Digite o nome do Cliente">
+                    placeholder="Digite o nome do Cliente" required>
                 </div>
                 <div class="col-md-4 mb-3">
                     <label id="label-cpf-cnpj" for="cpf-or-cnpj" class="form-label">CPF ou CNPJ</label>
                     <input class="form-control" id="cpf-or-cnpj" type="text" placeholder="Digite o CPF ou CNPJ">
                 </div>
                 
-                <!-- Campo de Contato -->
                 <div class="col-md-4 mb-3">
                     <label for="numero" class="form-label">Número para Contato</label>
                     <input class="form-control" id="numero" type="text" placeholder="Digite o número para contato">
                 </div>
             </div>
             
-            <!-- Campos de Endereço -->
             <div class="row mb-3">
                 <div class="col-md-2 mb-3">
                     <label for="cep" class="form-label">CEP</label>
