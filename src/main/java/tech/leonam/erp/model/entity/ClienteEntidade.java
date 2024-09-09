@@ -7,22 +7,26 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
 @Getter
 @Setter
-public class VendasModelo {
+public class ClienteEntidade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    private String servico;
-    private BigDecimal valorTotal;
-    private Long idCliente;
-    private String comentario;
-    private String formaDePagamento;
+    private String nome;
+    private String cpf;
+    private String cnpj;
+    private String numeroContato;
+    private String cep;
+    private String endereco;
+    private String bairro;
+    private String cidade;
+    private String uf;
+    private int numeroCasa;
     private LocalDateTime dataCadastro;
 
 }

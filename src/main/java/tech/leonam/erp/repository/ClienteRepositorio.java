@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import tech.leonam.erp.exceptions.ClienteNaoDeletado;
 import tech.leonam.erp.exceptions.ClienteNaoFoiSalvo;
 import tech.leonam.erp.model.DTO.ClienteModeloDTO;
-import tech.leonam.erp.model.entity.ClienteModelo;
+import tech.leonam.erp.model.entity.ClienteEntidade;
 
 
 @Repository
@@ -23,10 +23,10 @@ public class ClienteRepositorio {
 
     private JdbcTemplate jdbcTemplate;
 
-    public ClienteModelo procuraClientePorId(int id) throws EmptyResultDataAccessException {
+    public ClienteEntidade procuraClientePorId(int id) throws EmptyResultDataAccessException {
         var linha = jdbcTemplate.queryForMap(SELECT_BY_ID, id);
 
-        ClienteModelo cliente = new ClienteModelo();
+        ClienteEntidade cliente = new ClienteEntidade();
         cliente.setId((Integer) linha.get("id"));
         cliente.setCPF((Boolean) linha.get("is_cpf"));
         cliente.setNome((String) linha.get("nome"));

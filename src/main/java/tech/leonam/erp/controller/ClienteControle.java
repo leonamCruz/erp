@@ -16,7 +16,7 @@ import lombok.AllArgsConstructor;
 import tech.leonam.erp.exceptions.ClienteNaoDeletado;
 import tech.leonam.erp.exceptions.ClienteNaoFoiSalvo;
 import tech.leonam.erp.model.DTO.ClienteModeloDTO;
-import tech.leonam.erp.model.entity.ClienteModelo;
+import tech.leonam.erp.model.entity.ClienteEntidade;
 import tech.leonam.erp.service.ClienteServico;
 
 @RestController
@@ -27,7 +27,7 @@ public class ClienteControle {
     private final ClienteServico servico;
 
     @PostMapping
-    public ResponseEntity<ClienteModelo> salvarCliente(@RequestBody ClienteModeloDTO dto) {
+    public ResponseEntity<ClienteEntidade> salvarCliente(@RequestBody ClienteModeloDTO dto) {
         try {
             if (servico.cpfExiste(dto.getCpfOrCnpj())) return ResponseEntity.status(HttpStatus.CONFLICT).build();
 
@@ -39,7 +39,7 @@ public class ClienteControle {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClienteModelo> buscarCliente(@PathVariable int id) {
+    public ResponseEntity<ClienteEntidade> buscarCliente(@PathVariable int id) {
         try {
             return ResponseEntity.ok().body(servico.procuraAtravesDoId(id));
         } catch (EmptyResultDataAccessException e) {

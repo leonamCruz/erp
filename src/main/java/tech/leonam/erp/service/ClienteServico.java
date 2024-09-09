@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import tech.leonam.erp.exceptions.ClienteNaoDeletado;
 import tech.leonam.erp.exceptions.ClienteNaoFoiSalvo;
 import tech.leonam.erp.model.DTO.ClienteModeloDTO;
-import tech.leonam.erp.model.entity.ClienteModelo;
+import tech.leonam.erp.model.entity.ClienteEntidade;
 import tech.leonam.erp.repository.ClienteRepositorio;
 
 
@@ -20,7 +20,7 @@ public class ClienteServico {
         repositorio.salvaCliente(dto);
 
     }
-    public ClienteModelo procuraAtravesDoId(int id) throws EmptyResultDataAccessException {
+    public ClienteEntidade procuraAtravesDoId(int id) throws EmptyResultDataAccessException {
         return repositorio.procuraClientePorId(id);
     }
 
