@@ -1,21 +1,25 @@
 package tech.leonam.erp.model.entity;
 
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Data
 @Getter
 @Setter
-public class ClienteEntidade {
+@Entity
+@Builder
+public class Cliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private String cpf;
@@ -26,7 +30,7 @@ public class ClienteEntidade {
     private String bairro;
     private String cidade;
     private String uf;
-    private int numeroCasa;
+    private Integer numeroCasa;
     private LocalDateTime dataCadastro;
 
 }
