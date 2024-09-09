@@ -15,42 +15,45 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.AllArgsConstructor;
 import tech.leonam.erp.exceptions.ClienteNaoDeletado;
 import tech.leonam.erp.exceptions.ClienteNaoFoiSalvo;
-import tech.leonam.erp.model.DTO.ClienteModeloDTO;
-import tech.leonam.erp.model.entity.ClienteEntidade;
-import tech.leonam.erp.service.ClienteServico;
+import tech.leonam.erp.exceptions.IdentificadorInvalidoException;
+import tech.leonam.erp.model.DTO.ClienteDTO;
+import tech.leonam.erp.model.entity.Cliente;
+import tech.leonam.erp.service.ClienteService;
 
 @RestController
-@RequestMapping("/api/cliente")
 @AllArgsConstructor
+@RequestMapping("/api/cliente")
 public class ClienteControle {
 
-    private final ClienteServico servico;
+    private final ClienteService clienteServico;
 
     @PostMapping
-    public ResponseEntity<ClienteEntidade> salvarCliente(@RequestBody ClienteModeloDTO dto) {
+    public ResponseEntity<String> salvarCliente(@RequestBody ClienteDTO clienteDto)
+            throws IdentificadorInvalidoException {
         try {
-            if (servico.cpfExiste(dto.getCpfOrCnpj())) return ResponseEntity.status(HttpStatus.CONFLICT).build();
-
-            servico.salvarCliente(dto);
-            return ResponseEntity.noContent().build();
+            clienteServico.salvarCliente(clienteDto);
+            return ResponseEntity.status(HttpStatus.OK).body("Cliente criado com sucesso!");
         } catch (ClienteNaoFoiSalvo e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Houve um erro na criação do cliente, por favor entre em contato com os desenvolvedores");
+        } catch (IdentificadorInvalidoException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("CPF/CNPJ já cadastrado.");
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClienteEntidade> buscarCliente(@PathVariable int id) {
+    public ResponseEntity<Cliente> buscarCliente(@PathVariable Long id) throws IdentificadorInvalidoException {
         try {
-            return ResponseEntity.ok().body(servico.procuraAtravesDoId(id));
+            return ResponseEntity.ok().body(clienteServico.procuraAtravesDoId(id));
         } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.notFound().build();
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteCliente(@PathVariable int id){
+    public ResponseEntity<Object> deleteCliente(@PathVariable Long id) {
         try {
-            servico.deletaClientePorId(id);
+            clienteServico.deletaClientePorId(id);
             return ResponseEntity.noContent().build();
         } catch (ClienteNaoDeletado e) {
             return ResponseEntity.badRequest().build();
@@ -58,9 +61,13 @@ public class ClienteControle {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> atualizarCliente(@PathVariable int id, @RequestBody ClienteModeloDTO dto){
-        return null;
+    public ResponseEntity<String> atualizarCliente(@PathVariable Long id, @RequestBody ClienteDTO clienteDto) {
+        try {
+            clienteServico.atualizarCliente(clienteDto, id);
+            return ResponseEntity.ok().body("Cliente alterado com sucesso");
+        } catch (ClienteNaoFoiSalvo e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao deletar cliente, por favor entre em contato com os desenvolvedores.");
+        }
     }
-
 
 }

@@ -1,5 +1,8 @@
 package tech.leonam.erp.model.entity;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -7,16 +10,13 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
 @Data
 @Getter
 @Setter
-public class VendasModelo {
+public class Vendas {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String servico;
     private BigDecimal valorTotal;

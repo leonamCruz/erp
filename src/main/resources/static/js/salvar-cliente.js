@@ -1,8 +1,8 @@
-document.addEventListener('DOMContentLoaded',async function () {
-    
-    document.getElementById('clientForm').addEventListener('submit', async function(event) {
-        event.preventDefault(); 
-        
+document.addEventListener('DOMContentLoaded', async function () {
+
+    document.getElementById('clientForm').addEventListener('submit', async function (event) {
+        event.preventDefault();
+
         // Coleta os valores dos campos do formulário
         const isCPF = document.querySelector('#cpf').checked;
         const nome = document.querySelector('#nome').value.trim();
@@ -14,12 +14,18 @@ document.addEventListener('DOMContentLoaded',async function () {
         const cidade = document.querySelector('#cidade').value.trim();
         const uf = document.getElementById('estado').value;
         const numeroCasa = parseInt(document.querySelector('#numero-endereco').value.trim(), 10) || 0;
-    
+
+        const apenasNumeros = cpfOrCnpj.replace(/\D/g, '');
+
+        const cpf = apenasNumeros.length === 11 ? apenasNumeros : null;
+        const cnpj = apenasNumeros.length === 14 ? apenasNumeros : null;
+
         // Dados que serão enviados
         let formData = {
             isCPF,
             nome,
-            cpfOrCnpj,
+            cpf,
+            cnpj,
             numeroContato,
             cep,
             endereco,
@@ -28,11 +34,9 @@ document.addEventListener('DOMContentLoaded',async function () {
             uf,
             numeroCasa
         };
-        
+
         console.log("Dados do formulário:", formData); // Exibe os dados no console para verificação
-    
         try {
-            // Faz a requisição assíncrona para enviar os dados
             const response = await fetch('/api/cliente', {
                 method: 'POST',
                 headers: {
@@ -40,20 +44,20 @@ document.addEventListener('DOMContentLoaded',async function () {
                 },
                 body: JSON.stringify(formData)
             });
-    
-            // Verifica se a resposta do servidor foi bem-sucedida
-            if (response.ok) {
-                const data = await response.json();
+        
+            if (response.ok || response.status === 201) {
+                const data = await response.text();
                 console.log('Sucesso:', data);
                 alert('Formulário enviado com sucesso!');
             } else {
-                console.error('Erro na resposta do servidor:', response.statusText);
-                alert('Erro ao enviar o formulário. Por favor, tente novamente.');
+                let errorMessage = await response.text();
+                const statusCode = response.status;
+                alert(`Erro ao enviar o formulário (Código ${statusCode}): ${errorMessage}`);
+                console.error(`Erro ${statusCode}: ${errorMessage}`);
             }
         } catch (error) {
             console.error('Erro na requisição:', error);
             alert('Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.');
         }
     });
-    
 })
