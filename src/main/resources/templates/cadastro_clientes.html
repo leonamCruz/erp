@@ -77,7 +77,7 @@
                 <div class="col-md-3">
                     <label class="form-label" for="estado">Estado</label>
                     <select class="form-control border-2 rounded-3" id="estado" name="estado" required>
-                        <option value="" selected>Choose...</option>
+                        <option value="" selected>Selecione o Estado</option>
                         <option th:each="estado : ${estados}"
                         th:text="${estado.extenso}" th:value="${estado.sigla}"></option>
                     </select>
