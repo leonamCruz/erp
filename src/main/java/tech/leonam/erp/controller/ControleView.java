@@ -32,6 +32,21 @@ public class ControleView {
         return "cadastro_clientes";
     }
 
+    @GetMapping("/atualizar_clientes")
+    public String atualizar_clientes(Model model) {
+        return "atualizar_clientes";
+    }
+
+    @GetMapping("/listar_clientes")
+    public String listar_clientes(Model model) {
+        return "listar_clientes";
+    }
+
+    @GetMapping("/deletar_clientes")
+    public String deletar_clientes(Model model) {
+        return "deletar_clientes";
+    }
+
     @GetMapping("/sidebar")
     public String sidebar(Model model) {
         return "sidebar";
