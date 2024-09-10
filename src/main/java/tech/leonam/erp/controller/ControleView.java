@@ -11,10 +11,16 @@ import tech.leonam.erp.model.enums.UF;
 @AllArgsConstructor
 public class ControleView {
 
-    @GetMapping("/cadastrarclientes")
-    public String cadastroDeClientes(Model model) {
+    @GetMapping("/home")
+    public String home(Model model) {
         model.addAttribute("estados", UF.values());
-        return "cadastro_clientes";
+        return "home";
+    }
+
+    @GetMapping("/")
+    public String index(Model model) {
+        model.addAttribute("estados", UF.values());
+        return "home";
     }
 
     @GetMapping("/vendas")
