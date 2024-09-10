@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', async function () {
-
     document.getElementById('clientForm').addEventListener('submit', async function (event) {
         event.preventDefault()
 
@@ -11,75 +10,55 @@ document.addEventListener('DOMContentLoaded', async function () {
         const endereco = document.querySelector('#rua').value.trim()
         const bairro = document.querySelector('#bairro').value.trim()
         const cidade = document.querySelector('#cidade').value.trim()
-        const uf = document.getElementById('estado').value;
-        const numeroCasa = parseInt(document.querySelector('#numero-endereco').value.trim(), 10) || 0;
+        const uf = document.getElementById('estado').value
+        const numeroCasa = parseInt(document.querySelector('#numero-endereco').value.trim(), 10) || 0
 
         const apenasNumeros = cpfOrCnpj.replace(/\D/g, '')
-
         const cpf = apenasNumeros.length === 11 ? apenasNumeros : null
         const cnpj = apenasNumeros.length === 14 ? apenasNumeros : null
 
-        let formDataCPF = {
-            nome,
-            cpf,
-            numeroContato,
-            cep,
-            endereco,
-            bairro,
-            cidade,
-            uf,
-            numeroCasa
-        }
-        let formDataCNPJ = {
-            nome,
-            cnpj,
-            numeroContato,
-            cep,
-            endereco,
-            bairro,
-            cidade,
-            uf,
-            numeroCasa
-        }
+        const formData = isCPF ?
+            { nome, cpf, numeroContato, cep, endereco, bairro, cidade, uf, numeroCasa } :
+            { nome, cnpj, numeroContato, cep, endereco, bairro, cidade, uf, numeroCasa }
 
-        const api = 'http://localhost:8080/api/cliente/';
-        let response;
+        const api = '/api/cliente/'
         const metodo = 'POST'
+
         try {
+            const endpoint = isCPF ? 'cpf' : 'cnpj'
+            console.log("Dados do formulário:", formData)
 
-            if(isCPF) {
-                console.log("Dados do formulário:", formDataCPF)
+            const response = await fetch(api + endpoint, {
+                method: metodo,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            })
 
-                response = await fetch(api + 'cpf', {
-                    method: metodo,
-                    headers: {
-                        'Content-Type':'application/json'
-                    },
-                    body: JSON.stringify(formDataCPF)
-                })
-            } else {
-                console.log("Dados do formulário:", formDataCNPJ)
-
-                response = await fetch(api + 'cnpj', {
-                    method: metodo,
-                    headers: {
-                        'Content-Type':'application/json'
-                    },
-                    body: JSON.stringify(formDataCNPJ)
-                })
-            }
             if (response.ok || response.status === 201) {
-                const data = await response.text();
-                console.log('Sucesso:', data);
-                alert('Formulário enviado com sucesso!');
+                const data = await response.text()
+                console.log('Sucesso:', data)
+                alert('Formulário enviado com sucesso!')
             } else {
-                let errorMessage = await response.text()
-                const statusCode = response.status
-                alert(`Erro ao enviar o formulário (Código ${statusCode}): ${errorMessage}`)
-                console.error(`Erro ${statusCode}: ${errorMessage}`)
+                let errorMessage = 'Erro desconhecido'
+                try {
+                    const errorData = await response.json()
+                    console.log(errorData)
+
+                    if (errorData && typeof errorData === 'object') {
+                        const errorMessages = Object.values(errorData)
+                        if (errorMessages.length > 0) {
+                            errorMessage = errorMessages[0]
+                        }
+                    }
+
+                } catch (jsonError) {
+                    errorMessage = await response.text()
+                }
+
+                alert(`Erro ao enviar o formulário: ${errorMessage}`)
             }
         } catch (error) {
-            console.error('Erro na requisição:', error);
+            console.error('Erro na requisição:', error)
             alert('Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.')
         }
     })
