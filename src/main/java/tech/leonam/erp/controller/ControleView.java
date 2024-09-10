@@ -22,4 +22,9 @@ public class ControleView {
         return "vendas";
     }
 
+    @GetMapping("/sidebar")
+    public String sidebar(Model model) {
+        return "sidebar";
+    }
+
 }
