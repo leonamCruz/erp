@@ -13,19 +13,23 @@ public class ControleView {
 
     @GetMapping("/home")
     public String home(Model model) {
-        model.addAttribute("estados", UF.values());
         return "home";
     }
-
+    
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("estados", UF.values());
         return "home";
     }
-
+    
     @GetMapping("/vendas")
     public String vendas(Model model) {
         return "vendas";
+    }
+    
+    @GetMapping("/cadastro_clientes")
+    public String cadastro_clientes(Model model) {
+        model.addAttribute("estados", UF.values());
+        return "cadastro_clientes";
     }
 
     @GetMapping("/sidebar")

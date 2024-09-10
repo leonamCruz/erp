@@ -3,15 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro de Clientes</title>
+    <title>Home</title>
 
     <link href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="../static/css/sidebar.css" rel="stylesheet">
-    <script src="../static/js/sidebar.js"></script>
-    <script src="../static/js/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="../static/js/mascara-cpf.js"></script>
-    <script src="../static/js/validacoes.js"></script>
-    <script src="../static/js/salvar-cliente.js"></script>
+
     <link rel="icon" href="../static/img/logo-menor.webp">
 </head>
 
@@ -19,9 +15,41 @@
     <div class="container-fluid">
         <div class="row flex-nowrap">
             <div th:replace="~{sidebar}"></div>
-            <div th:replace="~{cliente/cadastro_clientes}"></div>
+            <div class="col d-flex flex-column justify-content-evenly">
+                <section class="bg-light text-center" style="padding: 120px 0">
+                    <div class="container">
+                        <h1 class="display-3">Bem-vindo à Nossa Página Inicial</h1>
+                        <p class="lead">Descubra mais sobre nossos serviços e ofertas.</p>
+                        <a href="#" class="btn btn-primary btn-lg">Saiba Mais</a>
+                    </div>
+                </section>
+    
+                <section class="py-5">
+                    <div class="container">
+                        <div class="row d-flex">
+                            <div class="col-md-4 text-center">
+                                <h2 class="display-5">Seção 1</h2>
+                                <p class="lead">Texto introdutório sobre a primeira seção.</p>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <h2 class="display-5">Seção 2</h2>
+                                <p class="lead">Mais informações sobre a segunda seção.</p>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <h2 class="display-5">Seção 3</h2>
+                                <p class="lead">Breve descrição da terceira seção.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
+    <script src="../static/js/sidebar.js"></script>
+    <script src="../static/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../static/js/mascara-cpf.js"></script>
+    <script src="../static/js/validacoes.js"></script>
+    <script src="../static/js/salvar-cliente.js"></script>
 </body>
 
 </html>
