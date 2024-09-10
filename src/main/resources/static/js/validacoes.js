@@ -80,10 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
     cpfRadio.addEventListener('change', updateFields)
     cnpjRadio.addEventListener('change', updateFields)
 
-    cpfOrCnpjInput.addEventListener('input', () => {
-        cpfOrCnpjInput.value = formatCpfOrCnpj(cpfOrCnpjInput.value)
-    })
-
     numeroParaContato.addEventListener('input', () => {
         numeroParaContato.value = formatPhoneNumber(numeroParaContato.value)
     })
