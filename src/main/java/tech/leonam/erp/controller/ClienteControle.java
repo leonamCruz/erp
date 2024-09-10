@@ -1,5 +1,6 @@
 package tech.leonam.erp.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,8 @@ import lombok.AllArgsConstructor;
 import tech.leonam.erp.exceptions.ClienteNaoDeletado;
 import tech.leonam.erp.exceptions.ClienteNaoFoiSalvo;
 import tech.leonam.erp.exceptions.IdentificadorInvalidoException;
-import tech.leonam.erp.model.DTO.ClienteDTO;
+import tech.leonam.erp.model.DTO.ClienteComCnpjDTO;
+import tech.leonam.erp.model.DTO.ClienteComCpfDTO;
 import tech.leonam.erp.model.entity.Cliente;
 import tech.leonam.erp.service.ClienteService;
 
@@ -27,17 +29,29 @@ public class ClienteControle {
 
     private final ClienteService clienteServico;
 
-    @PostMapping
-    public ResponseEntity<String> salvarCliente(@RequestBody ClienteDTO clienteDto)
-            throws IdentificadorInvalidoException {
+    @PostMapping("/cnpj")
+    public ResponseEntity<String> salvarCliente(@RequestBody @Valid ClienteComCnpjDTO clienteDto) {
         try {
             clienteServico.salvarCliente(clienteDto);
             return ResponseEntity.status(HttpStatus.OK).body("Cliente criado com sucesso!");
         } catch (ClienteNaoFoiSalvo e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Houve um erro na criação do cliente, por favor entre em contato com os desenvolvedores");
+                    .body(e.getMessage());
         } catch (IdentificadorInvalidoException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("CPF/CNPJ já cadastrado.");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("CNPJ já cadastrado.");
+        }
+    }
+
+    @PostMapping("/cpf")
+    public ResponseEntity<String> salvarCliente(@RequestBody @Valid ClienteComCpfDTO clienteDto) {
+        try {
+            clienteServico.salvarCliente(clienteDto);
+            return ResponseEntity.status(HttpStatus.OK).body("Cliente criado com sucesso!");
+        } catch (ClienteNaoFoiSalvo e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        } catch (IdentificadorInvalidoException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("CPF já cadastrado.");
         }
     }
 
@@ -61,12 +75,14 @@ public class ClienteControle {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> atualizarCliente(@PathVariable Long id, @RequestBody ClienteDTO clienteDto) {
+    public ResponseEntity<String> atualizarCliente(@PathVariable Long id, @RequestBody ClienteComCnpjDTO clienteDto) {
         try {
             clienteServico.atualizarCliente(clienteDto, id);
             return ResponseEntity.ok().body("Cliente alterado com sucesso");
         } catch (ClienteNaoFoiSalvo e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao deletar cliente, por favor entre em contato com os desenvolvedores.");
+        } catch (IdentificadorInvalidoException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 

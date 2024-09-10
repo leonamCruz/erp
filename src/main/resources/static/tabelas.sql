@@ -1,1 +1,0 @@
-create database leonam_erp_teste;

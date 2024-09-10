@@ -23,21 +23,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function formatPhoneNumber(value) {
-        const cleaned = value.replace(/\D/g, '');
+        const cleaned = value.replace(/\D/g, '')
 
         if (cleaned.length === 10) {
             return cleaned
                 .replace(/^(\d{2})(\d{4})(\d{4})$/, '$1 $2-$3')
-                .slice(0, 13);
-        } else if (cleaned.length === 11 ) {
+                .slice(0, 13)
+        } else if (cleaned.length === 11) {
             return cleaned
                 .replace(/^(\d{2})(\d{5})(\d{4})$/, '$1 $2-$3')
-                .slice(0, 14);
+                .slice(0, 14)
         }
 
-        return value;
+        return value
     }
-
 
     function formatCep(value) {
         return value
@@ -48,47 +47,76 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchAddress(cep) {
         try {
-            const response = await fetch(`https://brasilapi.com.br/api/cep/v1/${cep}`);
+            const response = await fetch(`https://brasilapi.com.br/api/cep/v1/${cep}`)
             if (!response.ok) {
-                throw new Error(`Network response was not ok: ${response.statusText}`);
+                throw new Error(`Network response was not ok: ${response.statusText}`)
             }
 
-            const data = await response.json();
-
-            if (data) {
-                ruaInput.value = data.street || '';
-                bairroInput.value = data.neighborhood || '';
-                cidadeInput.value = data.city || '';
-                estadoInput.value = data.state || ''
-
-                numeroEnderecoInput.focus();
-            }
+            const data = await response.json()
+            updateAddressFields(data)
         } catch (error) {
-            console.error('Erro ao buscar o endereço:', error);
+            console.error('Erro ao buscar o endereço:', error)
         }
     }
 
-    cepInput.addEventListener('input', () => {
-        cepInput.value = formatCep(cepInput.value)
+    function updateAddressFields(data) {
+        if (data) {
+            ruaInput.value = data.street || ''
+            bairroInput.value = data.neighborhood || ''
+            cidadeInput.value = data.city || ''
+            estadoInput.value = data.state || ''
 
+            numeroEnderecoInput.focus()
+        }
+    }
+
+    function formatCpfOrCnpj(value) {
+        let input = value.replace(/\D/g, '')
+        if (cpfRadio.checked) {
+            input = formatCpf(input)
+        } else if (cnpjRadio.checked) {
+            input = formatCnpj(input)
+        }
+        return input
+    }
+
+    function formatCpf(value) {
+        if (value.length > 11) value = value.substring(0, 11)
+        if (value.length > 6) value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{1,2})$/, '$1.$2.$3-$4')
+        else if (value.length > 3) value = value.replace(/^(\d{3})(\d{3})$/, '$1.$2')
+        return value
+    }
+
+    function formatCnpj(value) {
+        if (value.length > 14) value = value.substring(0, 14)
+        if (value.length > 12) value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5')
+        else if (value.length > 6) value = value.replace(/^(\d{2})(\d{3})(\d{3})$/, '$1.$2.$3')
+        else if (value.length > 2) value = value.replace(/^(\d{2})(\d{3})$/, '$1.$2')
+        return value
+    }
+
+    function handleCpfOrCnpjInput(event) {
+        const input = event.target.value
+        event.target.value = formatCpfOrCnpj(input)
+    }
+
+    function handleCepInput() {
+        cepInput.value = formatCep(cepInput.value)
         if (cepInput.value.length === 9) {
             const cep = cepInput.value.replace('-', '')
             fetchAddress(cep)
         }
-    })
+    }
 
     cpfRadio.addEventListener('change', updateFields)
     cnpjRadio.addEventListener('change', updateFields)
-
-    cpfOrCnpjInput.addEventListener('input', () => {
-        cpfOrCnpjInput.value = formatCpfOrCnpj(cpfOrCnpjInput.value)
-    })
-
+    cepInput.addEventListener('input', handleCepInput)
     numeroParaContato.addEventListener('input', () => {
         numeroParaContato.value = formatPhoneNumber(numeroParaContato.value)
     })
 
     numeroParaContato.setAttribute('maxlength', '13')
+    cpfOrCnpjInput.addEventListener('input', handleCpfOrCnpjInput)
 
     updateFields()
 })
