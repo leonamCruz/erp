@@ -3,6 +3,7 @@ package tech.leonam.erp.model.entity;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,6 +14,7 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
+@Entity
 public class Vendas {
 
     @Id

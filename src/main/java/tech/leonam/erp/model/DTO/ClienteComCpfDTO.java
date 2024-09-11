@@ -1,14 +1,8 @@
 package tech.leonam.erp.model.DTO;
 
-import jakarta.validation.constraints.NotBlank;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
-import tech.leonam.erp.model.entity.Cliente;
 
-import java.time.LocalDateTime;
+import lombok.Data;
 
 @Data
 public class ClienteComCpfDTO extends ClienteAbstract {

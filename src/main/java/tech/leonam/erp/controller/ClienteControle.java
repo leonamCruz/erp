@@ -1,7 +1,9 @@
 package tech.leonam.erp.controller;
 
 import jakarta.validation.Valid;
+
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
@@ -62,6 +65,17 @@ public class ClienteControle {
         } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<Cliente>> buscarTodosOsCLientes(
+        @PathVariable @RequestParam(defaultValue = "0") Integer pagina, 
+        @RequestParam(defaultValue = "10")Integer linhasPorPagina, 
+        @PathVariable @RequestParam(defaultValue = "nome") String orderBy, 
+        @RequestParam(defaultValue = "ASC") String direcao) {
+        
+        Page<Cliente> clientes = clienteServico.buscarTodosOsCLientes(pagina, linhasPorPagina, orderBy, direcao);
+        return ResponseEntity.ok(clientes);
     }
 
     @DeleteMapping("/{id}")
