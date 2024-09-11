@@ -7,49 +7,81 @@
 
     <link href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="../static/css/sidebar.css" rel="stylesheet">
-
     <link rel="icon" href="../static/img/logo-menor.webp">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="../static/js/listar-clientes.js"></script>
 </head>
 
 <body>
     <div class="container-fluid">
         <div class="row flex-nowrap">
             <div th:replace="~{sidebar}"></div>
-            <div class="col d-flex flex-column justify-content-evenly">
-                <section class="bg-light text-center" style="padding: 120px 0">
-                    <div class="container">
-                        <h1 class="display-3">Bem-vindo à Nossa Página Inicial</h1>
-                        <p class="lead">Descubra mais sobre nossos serviços e ofertas.</p>
-                        <a href="#" class="btn btn-primary btn-lg">Saiba Mais</a>
-                    </div>
-                </section>
-    
-                <section class="py-5">
-                    <div class="container">
-                        <div class="row d-flex">
-                            <div class="col-md-4 text-center">
-                                <h2 class="display-5">Seção 1</h2>
-                                <p class="lead">Texto introdutório sobre a primeira seção.</p>
-                            </div>
-                            <div class="col-md-4 text-center">
-                                <h2 class="display-5">Seção 2</h2>
-                                <p class="lead">Mais informações sobre a segunda seção.</p>
-                            </div>
-                            <div class="col-md-4 text-center">
-                                <h2 class="display-5">Seção 3</h2>
-                                <p class="lead">Breve descrição da terceira seção.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
+            <section class="col">
+                <div
+                    class="container table-responsive d-flex flex-column justify-content-evenly vh-100 border shadow-lg px-5">
+                    <h1 class="my-4">Lista de Clientes</h1>
+
+                    <table class="table table-bordered border-black table-hover text-center">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Numero</th>
+                                <th>Endereco</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="clienteTableBody">
+                            <!-- <tr th:each="cliente : ${clientes}" class="align-middle">
+                                <td th:text="${cliente.id}" th:value="${cliente.id}" id="id"></td>
+                                <td th:text="${cliente.nome}" th:value="${cliente.nome}" id="nome" style="width: 20em;"></td>
+                                <td th:text="${cliente.numeroContato}" th:value="${cliente.numeroContato}" id="numeroContato"></td>
+                                <td>
+                                    <span th:text="${cliente.endereco}" th:value="${cliente.endereco}" id="endereco"></span>,
+                                    <span th:text="${cliente.bairro}" th:value="${cliente.bairro}" id="bairro"></span>,
+                                    <span th:text="${cliente.cidade}" th:value="${cliente.cidade}" id="cidade"></span> -
+                                    <span th:text="${cliente.uf}" th:value="${cliente.uf}" id="uf"></span>
+                                </td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a class="btn btn-primary btn-sm mx-1"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a class="btn btn-danger btn-sm mx-1" onclick="return confirm('Deseja realmente deletar o cliente?');"><i class="fa-solid fa-trash-can"></i></a>
+                                    </div>
+                                </td>
+                            </tr> -->
+                        </tbody>
+                        <caption class="text-center my-5">
+                            <nav aria-label="paginacao" class="d-flex justify-content-center">
+                                <ul class="pagination pagination-lg">
+                                    <li class="page-item" th:classappend="${paginaCorrente == 1} ? 'disabled'">
+                                        <a class="page-link" th:href="@{/clientes?page=${paginaCorrente - 1}}"
+                                            aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item" th:classappend="${paginaCorrente == i} ? 'disabled'"
+                                        th:each="i : ${#numbers.sequence(1, totalPages)}">
+                                        <a class="page-link" th:href="@{'/listar_clientes?pagina=' + ${i}}"
+                                            th:text="${i}" th:value="${i}" id="pagina"></a>
+                                    </li>
+                                    <li class="page-item" th:classappend="${paginaCorrente == totalPages} ? 'disabled'">
+                                        <a class="page-link" th:href="@{/clientes?page=${paginaCorrente + 1}}"
+                                            aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </caption>
+                    </table>
+                    <input type="hidden" id="pagina" th:data.value="${paginaCorrente}"></input>
+                </div>
+            </section>
+
         </div>
-    </div>
-    <script src="../static/js/sidebar.js"></script>
-    <script src="../static/js/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="../static/js/mascara-cpf.js"></script>
-    <script src="../static/js/validacoes.js"></script>
-    <script src="../static/js/salvar-cliente.js"></script>
+        <script src="../static/js/sidebar.js"></script>
+        <script src="../static/js/bootstrap/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>

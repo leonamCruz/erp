@@ -23,7 +23,7 @@ public class DbMuckConfig {
     public String saveAll() {
         List<Cliente> clientes = new ArrayList<>();
 
-        clientes.add(new Cliente(null, "Ana Silva", "12345678900", null, "11987654321", "01000000", "Rua A", "Centro", "Sao Paulo", "SP", 123, LocalDateTime.now()));
+        clientes.add(new Cliente(null, "Ana Silva", "12345678900", null, "11987654321", "01000000", "Avenida Presidente Juscelino Kubitschek de OliveiraAvenida Presidente Juscelino Kubitschek de OliveiraAvenida Presidente Juscelino  A", "Centro", "Sao Paulo", "SP", 123, LocalDateTime.now()));
         clientes.add(new Cliente(null, "Joao Oliveira", "23456789011", null, "11987654322", "02000000", "Rua B", "Jardim", "Sao Paulo", "SP", 456, LocalDateTime.now()));
         clientes.add(new Cliente(null, "Maria Santos", "34567890122", null, "11987654323", "03000000", "Rua C", "Vila", "Sao Paulo", "SP", 789, LocalDateTime.now()));
         clientes.add(new Cliente(null, "Pedro Almeida", "45678901233", null, "11987654324", "04000000", "Rua D", "Sao Pedro", "Sao Paulo", "SP", 101, LocalDateTime.now()));
@@ -48,6 +48,10 @@ public class DbMuckConfig {
         clientes.add(new Cliente(null, "Bruno Costa", null, "34567890000122", "11987654343", "23000000", "Rua W", "Vila Maria", "Sao Paulo", "SP", 2020, LocalDateTime.now()));
         clientes.add(new Cliente(null, "Carla Santos", null, "45678901000133", "11987654344", "24000000", "Rua X", "Perdizes", "Sao Paulo", "SP", 2121, LocalDateTime.now()));
         clientes.add(new Cliente(null, "Lucas Rodrigues", null, "56789012000144", "11987654345", "25000000", "Rua Y", "Vila Leopoldina", "Sao Paulo", "SP", 2222, LocalDateTime.now()));
+        clientes.add(new Cliente(null, "Tatiane Pereira", null, "67890123000155", "11987654346", "26000000", "Rua Z", "Sao Bernardo", "Sao Paulo", "SP", 2323, LocalDateTime.now()));
+        clientes.add(new Cliente(null, "Tatiane Pereira", null, "67890123000155", "11987654346", "26000000", "Rua Z", "Sao Bernardo", "Sao Paulo", "SP", 2323, LocalDateTime.now()));
+        clientes.add(new Cliente(null, "Tatiane Pereira", null, "67890123000155", "11987654346", "26000000", "Rua Z", "Sao Bernardo", "Sao Paulo", "SP", 2323, LocalDateTime.now()));
+        clientes.add(new Cliente(null, "Tatiane Pereira", null, "67890123000155", "11987654346", "26000000", "Rua Z", "Sao Bernardo", "Sao Paulo", "SP", 2323, LocalDateTime.now()));
         clientes.add(new Cliente(null, "Tatiane Pereira", null, "67890123000155", "11987654346", "26000000", "Rua Z", "Sao Bernardo", "Sao Paulo", "SP", 2323, LocalDateTime.now()));
         clientes.add(new Cliente(null, "Andre Martins", null, "78901234000166", "11987654347", "27000000", "Rua AA", "Jardim Sao Paulo", "Sao Paulo", "SP", 2424, LocalDateTime.now()));
         clientes.add(new Cliente(null, "Marcela Lima", null, "89012345000177", "11987654348", "28000000", "Rua AB", "Jardim Marajoara", "Sao Paulo", "SP", 2525, LocalDateTime.now()));

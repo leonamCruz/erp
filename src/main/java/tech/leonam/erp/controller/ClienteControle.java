@@ -70,8 +70,8 @@ public class ClienteControle {
     @GetMapping("/page")
     public ResponseEntity<Page<Cliente>> buscarTodosOsCLientes(
         @PathVariable @RequestParam(defaultValue = "0") Integer pagina, 
-        @RequestParam(defaultValue = "10")Integer linhasPorPagina, 
-        @PathVariable @RequestParam(defaultValue = "nome") String orderBy, 
+        @RequestParam(defaultValue = "20") Integer linhasPorPagina, 
+        @PathVariable @RequestParam(defaultValue = "id") String orderBy, 
         @RequestParam(defaultValue = "ASC") String direcao) {
         
         Page<Cliente> clientes = clienteServico.buscarTodosOsCLientes(pagina, linhasPorPagina, orderBy, direcao);
