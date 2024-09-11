@@ -4,12 +4,12 @@ document.addEventListener('DOMContentLoaded', async function () {
     const pagina = params.get('pagina');
 
     function loadClientes(pagina) {
-        fetch('api/cliente/page?pagina=' + (pagina-1))
+        fetch('api/cliente/page?pagina=' + (pagina - 1))
             .then(response => {
                 return response.json();
             })
             .then(clientes => {
-                
+
                 var tbody = document.getElementById("clienteTableBody");
                 tbody.innerHTML = ""; // Limpa a tabela antes de adicionar novos dados
 
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     <td>
                         <div class="d-flex">
                             <a class="btn btn-primary btn-sm mx-1"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a class="btn btn-danger btn-sm mx-1" onclick="return confirm('Deseja realmente deletar o cliente?');"><i class="fa-solid fa-trash-can"></i></a>
+                            <a href="#" class="btn btn-danger btn-sm mx-1" onclick="deleteCliente(${cliente.id});"><i class="fa-solid fa-trash-can"></i></a>           
                         </div>
                     </td>
                 `;
@@ -42,5 +42,29 @@ document.addEventListener('DOMContentLoaded', async function () {
                 alert('Erro na requisição:', error);
             });
     }
-    loadClientes(pagina); 
+
+    
+    loadClientes(pagina);
+    
 });
+
+function deleteCliente(id) {
+    if (confirm('Deseja realmente deletar o cliente?')) {
+        fetch(`api/cliente/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                // Inclua outros headers se necessário
+            }
+        }).then(response => {
+            if (response.ok) {
+                // Ação após a exclusão, como recarregar a página ou atualizar a lista
+                location.reload();
+            } else {
+                alert('Falha ao deletar o cliente.');
+            }
+        }).catch(error => {
+            console.error('Erro:', error);
+        });
+    }
+}
