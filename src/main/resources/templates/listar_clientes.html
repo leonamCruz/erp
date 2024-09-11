@@ -26,7 +26,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Nome</th>
-                                <th>Numero</th>
+                                <th>Contato</th>
                                 <th>Endereco</th>
                                 <th>Ações</th>
                             </tr>
@@ -48,7 +48,7 @@
                                             th:text="${i}" th:value="${i}" id="pagina"></a>
                                     </li>
                                     <li class="page-item" th:classappend="${paginaCorrente == totalPages} ? 'disabled'">
-                                        <a class="page-link" th:href="@{'listar_clientes?pagina='+ ${paginaCorrente + 1}}"
+                                        <a confirm="Deseja realmente atualizar o cliente?"   class="page-link" th:href="@{'listar_clientes?pagina='+ ${paginaCorrente + 1}}"
                                             aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>

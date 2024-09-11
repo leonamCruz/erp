@@ -20,16 +20,16 @@ document.addEventListener('DOMContentLoaded', async function () {
                     tr.innerHTML = `
                     <td>${cliente.id}</td>
                     <td style="width: 20em;">${cliente.nome}</td>
-                    <td>${cliente.numeroContato}</td>
+                    <td style="width: 150px;">${formatPhoneNumber(cliente.numeroContato)}</td>
                     <td>
                         <span>${cliente.endereco}</span>,
                         <span>${cliente.bairro}</span>,
                         <span>${cliente.cidade}</span> -
                         <span>${cliente.uf}</span>
                     </td>
-                    <td>
+                    <td style="width: 10px;">
                         <div class="d-flex">
-                            <a class="btn btn-primary btn-sm mx-1"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a class="btn btn-primary btn-sm mx-1" onclick="if (confirm('Deseja realmente atualizar o cliente?')) { window.location.href = '/atualizar_cliente?id=${cliente.id}'; } return false;"><i class="fa-solid fa-pen-to-square"></i></a>
                             <a href="#" class="btn btn-danger btn-sm mx-1" onclick="deleteCliente(${cliente.id});"><i class="fa-solid fa-trash-can"></i></a>           
                         </div>
                     </td>
@@ -67,4 +67,19 @@ function deleteCliente(id) {
             console.error('Erro:', error);
         });
     }
+}
+function formatPhoneNumber(value) {
+    const cleaned = value.replace(/\D/g, '')
+
+    if (cleaned.length === 10) {
+        return cleaned
+            .replace(/^(\d{2})(\d{4})(\d{4})$/, '$1 $2-$3')
+            .slice(0, 13)
+    } else if (cleaned.length === 11) {
+        return cleaned
+            .replace(/^(\d{2})(\d{5})(\d{4})$/, '$1 $2-$3')
+            .slice(0, 14)
+    }
+
+    return value
 }
