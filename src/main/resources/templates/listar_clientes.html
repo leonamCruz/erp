@@ -54,7 +54,7 @@
                             <nav aria-label="paginacao" class="d-flex justify-content-center">
                                 <ul class="pagination pagination-lg">
                                     <li class="page-item" th:classappend="${paginaCorrente == 1} ? 'disabled'">
-                                        <a class="page-link" th:href="@{/clientes?page=${paginaCorrente - 1}}"
+                                        <a class="page-link" th:href="@{'listar_clientes?pagina='+ ${paginaCorrente - 1}}"
                                             aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
@@ -65,7 +65,7 @@
                                             th:text="${i}" th:value="${i}" id="pagina"></a>
                                     </li>
                                     <li class="page-item" th:classappend="${paginaCorrente == totalPages} ? 'disabled'">
-                                        <a class="page-link" th:href="@{/clientes?page=${paginaCorrente + 1}}"
+                                        <a class="page-link" th:href="@{'listar_clientes?pagina='+ ${paginaCorrente + 1}}"
                                             aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
