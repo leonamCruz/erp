@@ -3,14 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro Clientes</title>
+    <title>Atualizar Cliente</title>
 
     <link href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="../static/css/sidebar.css" rel="stylesheet">
-    <script src="../static/js/sidebar.js"></script>
-    <script src="../static/js/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="../static/js/validacoes.js"></script>
-    <script src="../static/js/salvar-cliente.js"></script>
     <link rel="icon" href="../static/img/logo-menor.webp">
 </head>
 
@@ -41,6 +37,11 @@
                                     </label>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-1 mb-5">
+                            <label class="form-label">id</label>
+                            <input width="10" class="form-control" id="id" type="number" placeholder="ID" required
+                                disabled th:value="${id}" style="cursor: not-allowed;">
                         </div>
                         <div class="row d-flex justify-content-between">
                             <div class="col-md-4 mb-3">
@@ -100,14 +101,19 @@
                             </div>
                         </div>
                         <div class="d-flex algn-items-center justify-content-center">
-                            <button class="btn btn-lg btn-danger mt-5 mx-2" type="reset">Limpar</button>
-                            <button class="btn btn-lg  btn-success px-3 mt-5 mx-2" id="save-client-button"
-                                type="submit">Salvar</button>
+                            <button class="btn btn-lg btn-warning mt-5 mx-2"
+                                onclick="location.href='/listar_clientes?pagina=1'" type="button">Voltar</button>
+                            <button class="btn btn-lg  btn-success px-3 mt-5 mx-2" type="submit">Atualizar</button>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+    <script src="../static/js/sidebar.js"></script>
+    <script src="../static/js/atualizar-cliente.js"></script>
+    <script src="../static/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../static/js/validacoes.js"></script>
 </body>
+
 </html>

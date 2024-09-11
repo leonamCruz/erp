@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="PT-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Listar Clientes</title>
+
+    <link href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/sidebar.css" rel="stylesheet">
+    <link rel="icon" href="../static/img/logo-menor.webp">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="../static/js/listar-clientes.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div th:replace="~{sidebar}"></div>
+            <section class="col">
+                <div
+                    class="container table-responsive d-flex flex-column justify-content-evenly vh-100 border shadow-lg px-5">
+                    <h1 class="my-4">Lista de Clientes</h1>
+
+                    <table class="table table-bordered border-black table-hover text-center">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Contato</th>
+                                <th>Endereco</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="clienteTableBody">
+                        </tbody>
+                        <caption class="text-center my-5">
+                            <nav aria-label="paginacao" class="d-flex justify-content-center">
+                                <ul class="pagination pagination-lg">
+                                    <li class="page-item" th:classappend="${paginaCorrente == 1} ? 'disabled'">
+                                        <a class="page-link" th:href="@{'listar_clientes?pagina='+ ${paginaCorrente - 1}}"
+                                            aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item" th:classappend="${paginaCorrente == i} ? 'disabled'"
+                                        th:each="i : ${#numbers.sequence(1, totalPages)}">
+                                        <a class="page-link" th:href="@{'/listar_clientes?pagina=' + ${i}}"
+                                            th:text="${i}" th:value="${i}" id="pagina"></a>
+                                    </li>
+                                    <li class="page-item" th:classappend="${paginaCorrente == totalPages} ? 'disabled'">
+                                        <a confirm="Deseja realmente atualizar o cliente?"   class="page-link" th:href="@{'listar_clientes?pagina='+ ${paginaCorrente + 1}}"
+                                            aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </caption>
+                    </table>
+                    <input type="hidden" id="pagina" th:data.value="${paginaCorrente}"></input>
+                </div>
+            </section>
+
+        </div>
+        <script src="../static/js/sidebar.js"></script>
+        <script src="../static/js/bootstrap/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

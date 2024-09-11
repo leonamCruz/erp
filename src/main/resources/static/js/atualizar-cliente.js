@@ -1,7 +1,11 @@
 document.addEventListener('DOMContentLoaded', async function () {
     document.getElementById('clientForm').addEventListener('submit', async function (event) {
         event.preventDefault()
-
+        const url = new URL(window.location.href);
+        const params = new URLSearchParams(url.search);
+        const param = params.get('id');
+        const id = Number(param);
+        
         const nome = document.querySelector('#nome').value.trim()
         const cpfOrCnpj = document.querySelector('#cpf-or-cnpj').value.trim()
         const numeroContato = document.querySelector('#numero').value.trim()
@@ -14,12 +18,12 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         const identificacao = cpfOrCnpj.replace(/\D/g, '')
 
-        const formData  = { nome, identificacao, numeroContato, cep, endereco, bairro, cidade, uf, numeroCasa };
-        const api = '/api/cliente'
-        const metodo = 'POST'
+        const formData = { nome, identificacao, numeroContato, cep, endereco, bairro, cidade, uf, numeroCasa };
+
+        const api = `/api/cliente/${id}`
+        const metodo = 'PUT'
 
         try {
-
             const response = await fetch(api, {
                 method: metodo,
                 headers: { 'Content-Type': 'application/json' },
