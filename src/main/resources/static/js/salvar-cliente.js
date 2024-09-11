@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     document.getElementById('clientForm').addEventListener('submit', async function (event) {
         event.preventDefault()
 
-        const isCPF = document.querySelector('#cpf').checked
         const nome = document.querySelector('#nome').value.trim()
         const cpfOrCnpj = document.querySelector('#cpf-or-cnpj').value.trim()
         const numeroContato = document.querySelector('#numero').value.trim()
@@ -13,22 +12,15 @@ document.addEventListener('DOMContentLoaded', async function () {
         const uf = document.getElementById('estado').value
         const numeroCasa = parseInt(document.querySelector('#numero-endereco').value.trim(), 10) || 0
 
-        const apenasNumeros = cpfOrCnpj.replace(/\D/g, '')
-        const cpf = apenasNumeros.length === 11 ? apenasNumeros : null
-        const cnpj = apenasNumeros.length === 14 ? apenasNumeros : null
+        const identificacao = cpfOrCnpj.replace(/\D/g, '')
 
-        const formData = isCPF ?
-            { nome, cpf, numeroContato, cep, endereco, bairro, cidade, uf, numeroCasa } :
-            { nome, cnpj, numeroContato, cep, endereco, bairro, cidade, uf, numeroCasa }
-
-        const api = '/api/cliente/'
+        const formData  = { nome, identificacao, numeroContato, cep, endereco, bairro, cidade, uf, numeroCasa };
+        const api = '/api/cliente'
         const metodo = 'POST'
 
         try {
-            const endpoint = isCPF ? 'cpf' : 'cnpj'
-            console.log("Dados do formulário:", formData)
 
-            const response = await fetch(api + endpoint, {
+            const response = await fetch(api, {
                 method: metodo,
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
