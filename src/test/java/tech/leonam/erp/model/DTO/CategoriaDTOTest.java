@@ -12,7 +12,6 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class CategoriaDTOTest {
     CategoriaDTO categoria;
@@ -27,14 +26,13 @@ class CategoriaDTOTest {
         StringBuilder letrasAleatorias = new StringBuilder();
         for (int i = 0; i < quantidadeDeLetras; i++) {
             int codigoAleatorio = random.nextInt(62);
-            char caractereAleatorio;
-            if (codigoAleatorio < 26) {
-                caractereAleatorio = (char) ('A' + codigoAleatorio);
-            } else if (codigoAleatorio < 52) {
-                caractereAleatorio = (char) ('a' + (codigoAleatorio - 26));
-            } else {
-                caractereAleatorio = (char) ('0' + (codigoAleatorio - 52));
-            }
+            char caractereAleatorio = switch (codigoAleatorio / 26) {
+                case 0 -> (char) ('A' + codigoAleatorio);
+                case 1 -> (char) ('a' + (codigoAleatorio - 26));
+                case 2 -> (char) ('0' + (codigoAleatorio - 52));
+                default -> throw new IllegalStateException("Código aleatório fora do esperado.");
+            };
+
             letrasAleatorias.append(caractereAleatorio);
         }
 
@@ -42,7 +40,7 @@ class CategoriaDTOTest {
     }
 
     @BeforeEach
-    void setup(){
+    void setup() {
         categoria = new CategoriaDTO();
 
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -52,7 +50,7 @@ class CategoriaDTOTest {
     }
 
     @Test
-    void DTOCorreto(){
+    void DTOCorreto() {
         categoria.setAtivo(true);
 
         categoria.setNome(retornaQuantidadeDeLetrasAleatorias(3));
@@ -64,7 +62,7 @@ class CategoriaDTOTest {
     }
 
     @Test
-    void DTOIncorreto(){
+    void DTOIncorreto() {
         categoria.setAtivo(null);
         categoria.setNome(retornaQuantidadeDeLetrasAleatorias(2));
         categoria.setDescricao(retornaQuantidadeDeLetrasAleatorias(511));
@@ -75,10 +73,9 @@ class CategoriaDTOTest {
     }
 
     @Test
-    void quantidadeDeLetrasCerta(){
+    void quantidadeDeLetrasCerta() {
         assertEquals(4, retornaQuantidadeDeLetrasAleatorias(4).length(), "Quantidade de letras deve ser 4");
     }
-
 
 
 }
