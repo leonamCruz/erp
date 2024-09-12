@@ -93,7 +93,12 @@
 			<version>5.13.0</version>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>com.arakelian</groupId>
+			<artifactId>faker</artifactId>
+			<version>4.0.1</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
