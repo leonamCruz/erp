@@ -12,7 +12,7 @@ public class Estoque {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    private String nomeDoProduto;
+    private String nome;
 
     @ManyToOne
     private Categoria categoria;
