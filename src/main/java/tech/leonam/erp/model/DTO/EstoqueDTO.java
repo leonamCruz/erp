@@ -1,6 +1,9 @@
 package tech.leonam.erp.model.DTO;
 
+import jakarta.validation.constraints.NegativeOrZero;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 import jdk.jfr.Timespan;
 import jdk.jfr.Timestamp;
 import lombok.AllArgsConstructor;
@@ -18,10 +21,12 @@ import java.time.LocalDateTime;
 public class EstoqueDTO {
 
     @NotBlank
+    @Size(min = 3, max = 255, message = "Verifique o tamanho do nome.")
     private String nome;
-    @NotBlank
+    @PositiveOrZero(message = "Verifique se o Preço Unitário é maior ou igual que 0.")
     private BigDecimal precoUnitario;
     @NotBlank
+    @PositiveOrZero(message = "Verifique se a quantidade é maior ou igual a 0.")
     private Long quantidade;
     @Timestamp
     private LocalDateTime validade;

@@ -3,10 +3,7 @@ package tech.leonam.erp.model.entity;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +19,8 @@ public class Servico {
     private Long id;
     private String nome;
     private BigDecimal valorTotal;
-    private Long idCliente;
+    @ManyToOne
+    private Cliente cliente;
     private String comentario;
     private String formaDePagamento;
     private LocalDateTime dataCadastro;
