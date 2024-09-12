@@ -1,5 +1,6 @@
 package tech.leonam.erp.model.entity;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -30,6 +31,7 @@ import tech.leonam.erp.util.PessoaJuridica;
 @NoArgsConstructor
 public class Cliente implements Serializable{
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id

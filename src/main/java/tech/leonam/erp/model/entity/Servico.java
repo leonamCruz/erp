@@ -15,12 +15,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Vendas {
+public class Servico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String servico;
+    private String nome;
     private BigDecimal valorTotal;
     private Long idCliente;
     private String comentario;

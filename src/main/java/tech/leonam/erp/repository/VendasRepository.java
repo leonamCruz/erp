@@ -1,7 +1,7 @@
 package tech.leonam.erp.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import tech.leonam.erp.model.entity.Vendas;
+import tech.leonam.erp.model.entity.Servico;
 
-public interface VendasRepository extends JpaRepository<Vendas, Long> {
+public interface VendasRepository extends JpaRepository<Servico, Long> {
 }

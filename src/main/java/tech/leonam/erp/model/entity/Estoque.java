@@ -1,12 +1,10 @@
 package tech.leonam.erp.model.entity;
 
-import java.time.LocalDateTime;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -15,7 +13,12 @@ public class Estoque {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String nomeDoProduto;
-    private int quantidade;
+
+    @ManyToOne
+    private Categoria categoria;
+    private BigDecimal precoUnitario;
+    private BigDecimal quantidade;
+
     private LocalDateTime validade;
     private LocalDateTime dataCadastro;
     private LocalDateTime dataDaCompra;
