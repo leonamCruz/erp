@@ -94,10 +94,9 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.arakelian</groupId>
-			<artifactId>faker</artifactId>
-			<version>4.0.1</version>
-			<scope>test</scope>
+			<groupId>com.github.javafaker</groupId>
+			<artifactId>javafaker</artifactId>
+			<version>1.0.2</version>
 		</dependency>
 	</dependencies>
 

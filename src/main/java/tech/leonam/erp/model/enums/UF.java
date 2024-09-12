@@ -1,5 +1,8 @@
 package tech.leonam.erp.model.enums;
 
+import java.security.SecureRandom;
+import java.util.Random;
+
 public enum UF {
     AC("AC", "Acre"),
     AL("AL", "Alagoas"),
@@ -43,5 +46,18 @@ public enum UF {
 
     public String getExtenso() {
         return extenso;
+    }
+
+    public static String estadoAleatorio(){
+
+        SecureRandom random = new SecureRandom();
+
+        UF[] ufs = UF.values();
+
+        int indiceAleatorio = random.nextInt(ufs.length);
+
+        UF ufAleatorio = ufs[indiceAleatorio];
+
+        return ufAleatorio.getSigla();
     }
 }
