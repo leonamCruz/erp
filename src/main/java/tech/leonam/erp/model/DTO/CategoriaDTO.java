@@ -1,8 +1,13 @@
 package tech.leonam.erp.model.DTO;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class CategoriaDTO {
     @NotBlank
     @Size(min = 3, max = 255, message = "Verifique o tamanho do nome.")
@@ -10,6 +15,6 @@ public class CategoriaDTO {
     @NotBlank
     @Size(min = 3, max = 510, message = "Verifique o tamanho da descrição")
     private String descricao;
-    @NotBlank(message = "Verifique o campo de \"ativo\".")
+    @NotNull(message = "Verifique o campo de \"ativo\".")
     private Boolean ativo;
 }

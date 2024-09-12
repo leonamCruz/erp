@@ -1,20 +1,84 @@
 package tech.leonam.erp.model.DTO;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@Test
+import java.security.SecureRandom;
+import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 class CategoriaDTOTest {
+    CategoriaDTO categoria;
+    Validator validator;
+    SecureRandom random;
+
+    String retornaQuantidadeDeLetrasAleatorias(int quantidadeDeLetras) {
+        if (quantidadeDeLetras <= 0) {
+            throw new IllegalArgumentException("Quantidade de letras deve ser maior que zero.");
+        }
+
+        StringBuilder letrasAleatorias = new StringBuilder();
+        for (int i = 0; i < quantidadeDeLetras; i++) {
+            int codigoAleatorio = random.nextInt(62);
+            char caractereAleatorio;
+            if (codigoAleatorio < 26) {
+                caractereAleatorio = (char) ('A' + codigoAleatorio);
+            } else if (codigoAleatorio < 52) {
+                caractereAleatorio = (char) ('a' + (codigoAleatorio - 26));
+            } else {
+                caractereAleatorio = (char) ('0' + (codigoAleatorio - 52));
+            }
+            letrasAleatorias.append(caractereAleatorio);
+        }
+
+        return letrasAleatorias.toString();
+    }
 
     @BeforeEach
     void setup(){
+        categoria = new CategoriaDTO();
 
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
+
+        random = new SecureRandom();
     }
 
     @Test
     void DTOCorreto(){
-        CategoriaDTO dto = new CategoriaDTO();
+        categoria.setAtivo(true);
 
+        categoria.setNome(retornaQuantidadeDeLetrasAleatorias(3));
+        categoria.setDescricao(retornaQuantidadeDeLetrasAleatorias(510));
+
+        Set<ConstraintViolation<CategoriaDTO>> violations = validator.validate(categoria);
+
+        assertThat(violations).isEmpty();
     }
+
+    @Test
+    void DTOIncorreto(){
+        categoria.setAtivo(null);
+        categoria.setNome(retornaQuantidadeDeLetrasAleatorias(2));
+        categoria.setDescricao(retornaQuantidadeDeLetrasAleatorias(511));
+
+        Set<ConstraintViolation<CategoriaDTO>> violations = validator.validate(categoria);
+
+        assertThat(violations).hasSize(3);
+    }
+
+    @Test
+    void quantidadeDeLetrasCerta(){
+        assertEquals(4, retornaQuantidadeDeLetrasAleatorias(4).length(), "Quantidade de letras deve ser 4");
+    }
+
+
 
 }
