@@ -29,6 +29,10 @@ import tech.leonam.erp.service.ClienteService;
 public class ClienteControle {
 
     private final ClienteService clienteServico;
+    private static final String PADRAO_LINHAS_POR_PAGINA = "20";
+    private static final String PADRAO_PAGINA = "0";
+    private static final String PADRAO_DE_ORDEM = "id";
+    private static final String PADRAO_DE_DIRECAO = "ASC";
 
 
     @PostMapping
@@ -55,10 +59,10 @@ public class ClienteControle {
 
     @GetMapping("/page")
     public ResponseEntity<Page<Cliente>> buscarTodosOsCLientes(
-        @PathVariable @RequestParam(defaultValue = "0") Integer pagina, 
-        @RequestParam(defaultValue = "20") Integer linhasPorPagina, 
-        @PathVariable @RequestParam(defaultValue = "id") String orderBy, 
-        @RequestParam(defaultValue = "ASC") String direcao) {
+        @PathVariable @RequestParam(defaultValue = PADRAO_PAGINA) Integer pagina,
+        @RequestParam(defaultValue = PADRAO_LINHAS_POR_PAGINA) Integer linhasPorPagina,
+        @PathVariable @RequestParam(defaultValue = PADRAO_DE_ORDEM) String orderBy,
+        @RequestParam(defaultValue = PADRAO_DE_DIRECAO) String direcao) {
         
         Page<Cliente> clientes = clienteServico.buscarTodosOsCLientes(pagina, linhasPorPagina, orderBy, direcao);
         return ResponseEntity.ok(clientes);
