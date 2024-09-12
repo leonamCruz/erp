@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 @AllArgsConstructor
 public class EmailService {
 
-    private JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender;
     private static final String FILE_NAME = "Relatório";
 
     public void sendMail(String to, String subject, String text, File file) throws MessagingException {

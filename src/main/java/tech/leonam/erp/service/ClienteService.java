@@ -45,7 +45,7 @@ public class ClienteService {
             throws ClienteNaoFoiSalvo, IdentificadorInvalidoException {
         verificaSeExisteIdOuDaThrow(id);
 
-        var clienteTratado = modelMapper.map(clienteDTO, Cliente.class);
+        Cliente clienteTratado = modelMapper.map(clienteDTO, Cliente.class);
 
         if (clienteDTO.getIdentificacao().length() == 11) {
             clienteTratado.setTipoPessoa(TipoPessoa.FISICA);

@@ -3,16 +3,11 @@ package tech.leonam.erp.model.entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import jakarta.persistence.*;
 import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 import org.hibernate.validator.group.GroupSequenceProvider;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,14 +35,10 @@ public class Cliente implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotBlank(message = "Nome é obrigatório")
     private String nome;
-
-    @CPF(groups = PessoaFisica.class, message = "CPF inválido")
-    @CNPJ(groups = PessoaJuridica.class, message = "CNPJ inválido")
     private String identificacao;
 
+    @Transient
     @Enumerated(EnumType.STRING)
     private TipoPessoa tipoPessoa;
     private String numeroContato;
