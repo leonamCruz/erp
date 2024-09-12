@@ -1,6 +1,7 @@
 package tech.leonam.erp.model.DTO;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,14 +31,19 @@ public class ClienteDTO {
     @CNPJ(groups = PessoaJuridica.class, message = "CNPJ inválido")
     private String identificacao;
 
+    @Size(min = 5, max = 255, message = "Verifique o campo de endereço")
     private String endereco;
 
+    @Size(min = 3, max = 255, message = "Verifique o campo do bairro")
     private String bairro;
 
+    @Size(min = 3, max = 255, message = "Verifique o campo da cidade")
     private String cidade;
 
+    @Size(min = 2, max = 2, message = "Verifique o campo do estado")
     private String uf;
 
+    @PositiveOrZero(message = "Verifique o número da casa")
     private int numeroCasa;
 
 }
