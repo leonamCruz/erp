@@ -2,28 +2,27 @@ package tech.leonam.erp.model.entity;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Set;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import lombok.AllArgsConstructor;
@@ -32,10 +31,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import tech.leonam.erp.model.enums.StatusServico;
 
 /**
- * Entidade que representa um serviço oferecido.
+ * @apiNote
+ * Entidade que representa um tipo de pagamento, sua ideia principal é
+ * para que o cliente tenha controle de processos de pagamento e se seram
+ * alterados ou não em um futuro próximo. Sua principal caracteristica está
+ * presente em sua relação com o serviço
  */
 @Entity
 @Getter
@@ -45,7 +47,7 @@ import tech.leonam.erp.model.enums.StatusServico;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @EntityListeners(AuditingEntityListener.class)
-public class Servico implements Serializable {
+public class TipoPagamento implements Serializable{
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -57,40 +59,16 @@ public class Servico implements Serializable {
     @Column(nullable = false, length = 250)
     private String nome;
 
-    @Column(nullable = false)
-    private BigDecimal preco;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_cliente", nullable = false)
-    private Cliente cliente;
-
     @Lob
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String descricao;
 
-    @ManyToOne
-    private TipoPagamento tipoPagamento;
+    @Column
+    private Boolean ativo;
 
-    @Enumerated(EnumType.STRING)
-    private StatusServico status;
-
-    @Column(nullable = false)
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime pagamentoPrevista;
-
-    @Column(nullable = true)
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime pagamentoFinal;
-
-    @CreationTimestamp
-    @Column(nullable = false, updatable = false)
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime dataCriacao;
-
-    @UpdateTimestamp
-    @Column(nullable = false)
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime dataUltimaModificacao;
+    @JsonIgnore
+    @OneToMany(mappedBy = "tipoPagamento", fetch = FetchType.LAZY)
+    private Set<Servico> servicos;
 
     @CreatedBy
     @Column(nullable = false, updatable = false)
@@ -100,13 +78,32 @@ public class Servico implements Serializable {
     @LastModifiedBy
     private String modificadoPor;
 
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime dataCriacao;
+
+    @Column
+    @LastModifiedDate
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime dataModificacao;
+
     @PrePersist
-    public void prePersist(){
+    public void prePersist() {
         this.dataCriacao = LocalDateTime.now();
+        this.ativo = true;
     }
 
     @PreUpdate
-    public void preUpdate(){
-        this.dataUltimaModificacao = LocalDateTime.now();
+    public void preUpdate() {
+        this.dataModificacao = LocalDateTime.now();
+    }
+
+    public void ativar() {
+        this.ativo = true;
+    }
+
+    public void desativar() {
+        this.ativo = false;
     }
 }
