@@ -3,6 +3,10 @@ package tech.leonam.erp.model.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/*
+ * Status corrente do serviço
+ */
+
 @Getter
 @AllArgsConstructor
 public enum StatusServico {
