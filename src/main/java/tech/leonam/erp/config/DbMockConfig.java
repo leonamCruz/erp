@@ -44,7 +44,7 @@ public class DbMockConfig {
         for(var i = 0; i < quantidade; i++){
             Cliente cliente = new Cliente();
 
-            cliente.setDataCadastro(LocalDateTime.parse(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))));
+            cliente.setDataCadastro(LocalDateTime.now());
 
             cliente.setNome(faker.name().fullName());
             cliente.setNumeroContato(faker.phoneNumber().phoneNumber());

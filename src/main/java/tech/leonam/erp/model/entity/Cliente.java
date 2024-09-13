@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 import org.hibernate.validator.group.GroupSequenceProvider;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -50,6 +51,7 @@ public class Cliente implements Serializable{
     private String cidade;
     private String uf;
     private Integer numeroCasa;
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataCadastro;
 
 }
