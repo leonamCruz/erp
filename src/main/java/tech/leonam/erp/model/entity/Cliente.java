@@ -3,14 +3,26 @@ package tech.leonam.erp.model.entity;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Set;
 
-import jakarta.persistence.*;
-import org.hibernate.validator.constraints.br.CNPJ;
-import org.hibernate.validator.constraints.br.CPF;
 import org.hibernate.validator.group.GroupSequenceProvider;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.validation.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,8 +31,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import tech.leonam.erp.model.enums.TipoPessoa;
 import tech.leonam.erp.util.ClienteGroupSequenceProvider;
-import tech.leonam.erp.util.PessoaFisica;
-import tech.leonam.erp.util.PessoaJuridica;
 
 @Data
 @Getter
@@ -30,7 +40,7 @@ import tech.leonam.erp.util.PessoaJuridica;
 @AllArgsConstructor
 @GroupSequenceProvider(ClienteGroupSequenceProvider.class)
 @NoArgsConstructor
-public class Cliente implements Serializable{
+public class Cliente implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -51,8 +61,23 @@ public class Cliente implements Serializable{
     private String cidade;
     private String uf;
     private Integer numeroCasa;
-    
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private Set<Servico> servicos;
+
+    @CreatedBy
+    private String criadoPor;
+
+    @CreatedDate
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime dataCadastro;
+    private LocalDateTime dataCriacao;
+
+    @LastModifiedBy
+    private String modificadoPor;
+
+    @LastModifiedDate
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime dataModificacao;
 
 }

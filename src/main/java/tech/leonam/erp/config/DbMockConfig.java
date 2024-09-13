@@ -1,16 +1,15 @@
 package tech.leonam.erp.config;
 
 import java.security.SecureRandom;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.github.javafaker.Faker;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+
+import com.github.javafaker.Faker;
 
 import lombok.AllArgsConstructor;
 import tech.leonam.erp.model.entity.Cliente;
@@ -43,8 +42,6 @@ public class DbMockConfig {
 
         for(var i = 0; i < quantidade; i++){
             Cliente cliente = new Cliente();
-
-            cliente.setDataCadastro(LocalDateTime.now());
 
             cliente.setNome(faker.name().fullName());
             cliente.setNumeroContato(faker.phoneNumber().phoneNumber());
