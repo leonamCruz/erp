@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
@@ -16,9 +15,13 @@ import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import tech.leonam.erp.model.entity.Cliente;
+import tech.leonam.erp.model.entity.Servico;
 import tech.leonam.erp.model.entity.TipoPagamento;
 import tech.leonam.erp.model.enums.StatusServico;
 
@@ -28,7 +31,9 @@ import tech.leonam.erp.model.enums.StatusServico;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ServicoDTO implements Serializable {
 
@@ -46,9 +51,8 @@ public class ServicoDTO implements Serializable {
     @Digits(integer = 12, fraction = 2, message = "O preço deve ter no máximo 6 dígitos inteiros e 2 decimais")
     private BigDecimal preco;
 
-    @Valid 
-    @NotNull(message = "O cliente é obrigatório e não pode ser nulo")
-    private ClienteDTO clienteDTO;
+    @NotNull(message = "O cliente id é obrigatório e não pode ser nulo")
+    private Long clienteId;
 
     @Size(max = 500, message = "A descrição pode ter no máximo 500 caracteres")
     private String descricao;
@@ -59,9 +63,9 @@ public class ServicoDTO implements Serializable {
     @NotNull(message = "O status do serviço é obrigatório")
     private StatusServico status;
 
-    @NotNull(message = "A data de pagamento prevista é obrigatória")
-    @Future(message = "A data de pagamento prevista deve ser uma data futura")
-    private LocalDateTime pagamentoPrevista;
+    @NotNull(message = "A data de pagamento previsto é obrigatória")
+    @Future(message = "A data de pagamento previsto deve ser uma data futura")
+    private LocalDateTime pagamentoPrevisto;
 
     @NotNull(message = "A data de pagamento final é obrigatória")
     @FutureOrPresent(message = "A data de pagamento final deve ser no presente ou no futuro")
@@ -69,6 +73,44 @@ public class ServicoDTO implements Serializable {
     private LocalDateTime pagamentoFinal;
 
     private String modificadoPor;
+    private LocalDateTime dataUltimaModificacao;
     private LocalDateTime dataCriacao;
     private String criadoPor;
+
+    public static Servico paraEntidade(ServicoDTO servicoDTO) {
+        return Servico.builder()
+                .id(null)
+                .nome(servicoDTO.getNome())
+                .preco(servicoDTO.getPreco())
+                .cliente(Cliente.builder().id(servicoDTO.getClienteId()).build())
+                .descricao(servicoDTO.getDescricao())
+                .tipoPagamento(TipoPagamento.builder().id(servicoDTO.getId()).build())
+                .status(servicoDTO.getStatus())
+                .pagamentoPrevisto(servicoDTO.getPagamentoPrevisto())
+                .pagamentoFinal(servicoDTO.getPagamentoFinal())
+                .dataCriacao(null)
+                .dataUltimaModificacao(null)
+                .criadoPor(servicoDTO.getCriadoPor())
+                .modificadoPor(servicoDTO.getModificadoPor())
+                .build();
+    }
+
+    public static ServicoDTO paraDTO(Servico servico) {
+        return ServicoDTO.builder()
+                .id(servico.getId())
+                .nome(servico.getNome())
+                .preco(servico.getPreco())
+                .clienteId(servico.getCliente()
+                        .getId())
+                .descricao(servico.getDescricao())
+                .tipoPagamento(servico.getTipoPagamento())
+                .status(servico.getStatus())
+                .pagamentoPrevisto(servico.getPagamentoPrevisto())
+                .pagamentoFinal(servico.getPagamentoFinal())
+                .modificadoPor(servico.getModificadoPor())
+                .dataCriacao(servico.getDataCriacao())
+                .criadoPor(servico.getCriadoPor())
+                .dataUltimaModificacao(servico.getDataUltimaModificacao())
+                .build();
+    }
 }

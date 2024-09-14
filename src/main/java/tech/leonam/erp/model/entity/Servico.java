@@ -27,6 +27,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,6 +41,7 @@ import tech.leonam.erp.model.enums.StatusServico;
 @Entity
 @Getter
 @Setter
+@Builder
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -76,7 +78,7 @@ public class Servico implements Serializable {
 
     @Column(nullable = false)
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime pagamentoPrevista;
+    private LocalDateTime pagamentoPrevisto;
 
     @Column(nullable = true)
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")

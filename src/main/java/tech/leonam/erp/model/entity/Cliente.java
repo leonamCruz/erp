@@ -38,8 +38,8 @@ import tech.leonam.erp.util.ClienteGroupSequenceProvider;
 @Entity
 @Builder
 @AllArgsConstructor
-@GroupSequenceProvider(ClienteGroupSequenceProvider.class)
 @NoArgsConstructor
+@GroupSequenceProvider(ClienteGroupSequenceProvider.class)
 public class Cliente implements Serializable {
 
     @Serial
