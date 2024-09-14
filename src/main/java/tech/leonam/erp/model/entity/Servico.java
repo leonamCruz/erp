@@ -92,7 +92,7 @@ public class Servico implements Serializable {
     @UpdateTimestamp
     @Column(nullable = false)
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime dataUltimaModificacao;
+    private LocalDateTime dataModificacao;
 
     @CreatedBy
     @Column(nullable = false, updatable = false)
@@ -109,6 +109,6 @@ public class Servico implements Serializable {
 
     @PreUpdate
     public void preUpdate(){
-        this.dataUltimaModificacao = LocalDateTime.now();
+        this.dataModificacao = LocalDateTime.now();
     }
 }
