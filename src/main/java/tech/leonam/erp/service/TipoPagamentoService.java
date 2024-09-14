@@ -16,7 +16,7 @@ import tech.leonam.erp.repository.TipoPagamentoRepository;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class  TipoPagamentoService {
+public class TipoPagamentoService {
     private final TipoPagamentoRepository tipoPagamentoRepository;
 
     public TipoPagamento buscarTipoPagamentoPeloId(Long id) throws IdentificadorInvalidoException {
@@ -38,9 +38,10 @@ public class  TipoPagamentoService {
     }
 
     @Transactional
-    public Long salvarTipoPagamento(TipoPagamentoDTO tipoPagamentoDTO) {
+    public Long salvarTipoPagamento(TipoPagamentoDTO tipoPagamentoDTO){
         log.info("Salvando novo tipo de pagamento: {}", tipoPagamentoDTO);
         TipoPagamento tipoPagamento = TipoPagamentoDTO.paraEntidade(tipoPagamentoDTO);
+        log.info("Tipo de pagamento tratado");
         Long id = tipoPagamentoRepository.save(tipoPagamento).getId();
         log.info("Tipo de pagamento salvo com ID: {}", id);
         return id;

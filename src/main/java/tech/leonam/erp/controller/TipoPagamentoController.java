@@ -30,15 +30,11 @@ public class TipoPagamentoController {
     private final TipoPagamentoService tipoPagamentoService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<TipoPagamento> buscarTipoPagamentoPeloId(@PathVariable Long id) {
+    public ResponseEntity<TipoPagamento> buscarTipoPagamentoPeloId(@PathVariable Long id)
+            throws IdentificadorInvalidoException {
         log.info("Requisição GET para buscar tipo de pagamento com ID: {}", id);
-        try {
-            TipoPagamento tipoPagamento = tipoPagamentoService.buscarTipoPagamentoPeloId(id);
-            return ResponseEntity.ok(tipoPagamento);
-        } catch (IdentificadorInvalidoException e) {
-            log.error("Erro ao buscar tipo de pagamento com ID: {}", id, e);
-            return ResponseEntity.notFound().build();
-        }
+        TipoPagamento tipoPagamento = tipoPagamentoService.buscarTipoPagamentoPeloId(id);
+        return ResponseEntity.ok(tipoPagamento);
     }
 
     @GetMapping
@@ -77,13 +73,9 @@ public class TipoPagamentoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarTipoPagamentoPeloId(@PathVariable Long id) {
+    public ResponseEntity<Void> deletarTipoPagamentoPeloId(@PathVariable Long id) throws IdentificadorInvalidoException {
         log.info("Requisição DELETE para deletar tipo de pagamento com ID: {}", id);
-        try {
-            tipoPagamentoService.deletarTipoPagamentoPeloId(id);
-        } catch (IdentificadorInvalidoException e) {
-            log.error("Erro ao atualizar tipo de pargamento com ID:",id ,e);
-        }
+        tipoPagamentoService.deletarTipoPagamentoPeloId(id);
         return ResponseEntity.noContent().build();
     }
 }

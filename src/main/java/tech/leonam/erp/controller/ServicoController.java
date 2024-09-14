@@ -32,13 +32,9 @@ public class ServicoController {
     private ServicoService servicoService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Servico> buscarServicoPeloId(@PathVariable @Min(1) Long id) {
-        try {
-            Servico servico = servicoService.buscarServicosPeloId(id);
-            return new ResponseEntity<>(servico, HttpStatus.OK);
-        } catch (IdentificadorInvalidoException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Servico> buscarServicoPeloId(@PathVariable @Min(1) Long id) throws IdentificadorInvalidoException {
+        Servico servico = servicoService.buscarServicosPeloId(id);
+        return new ResponseEntity<>(servico, HttpStatus.OK);
     }
 
     @GetMapping
@@ -53,40 +49,29 @@ public class ServicoController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> salvarServico(@Valid @RequestBody ServicoDTO servicoDTO) throws IdentificadorInvalidoException {
+    public ResponseEntity<Long> salvarServico(@Valid @RequestBody ServicoDTO servicoDTO)
+            throws IdentificadorInvalidoException {
         Long id = servicoService.salvarServico(servicoDTO);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Long> atualizarServico(@PathVariable @Min(1) Long id,
-            @Valid @RequestBody ServicoDTO servicoDTO) {
-        try {
+            @Valid @RequestBody ServicoDTO servicoDTO) throws IdentificadorInvalidoException {
             Long idAtualizado = servicoService.atualizarServico(id, servicoDTO);
             return new ResponseEntity<>(idAtualizado, HttpStatus.OK);
-        } catch (IdentificadorInvalidoException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarServicoPeloId(@PathVariable @Min(1) Long id) {
-        try {
+    public ResponseEntity<Void> deletarServicoPeloId(@PathVariable @Min(1) Long id) throws IdentificadorInvalidoException {
             servicoService.deletarServicoPeloId(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (IdentificadorInvalidoException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 
     @PatchMapping("/{id}/status")
     public ResponseEntity<Void> alterarStatusDoServico(@PathVariable @Min(1) Long id,
-            @RequestParam StatusServico status) {
-        try {
-            servicoService.alterarStatusDoServico(id, status);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (IdentificadorInvalidoException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+            @RequestParam StatusServico status) throws IdentificadorInvalidoException {
+        servicoService.alterarStatusDoServico(id, status);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

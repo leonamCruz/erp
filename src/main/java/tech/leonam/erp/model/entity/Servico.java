@@ -36,7 +36,7 @@ import lombok.Setter;
 import lombok.ToString;
 import tech.leonam.erp.model.enums.StatusServico;
 
-/**
+/**@apiNote
  * Entidade que representa um serviço oferecido.
  */
 @Entity
