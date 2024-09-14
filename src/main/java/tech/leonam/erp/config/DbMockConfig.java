@@ -145,4 +145,5 @@ public class DbMockConfig {
     private Long longSobreQuatidade(){
         return faker.number().numberBetween(1l, quantidade);
     }
+
 }

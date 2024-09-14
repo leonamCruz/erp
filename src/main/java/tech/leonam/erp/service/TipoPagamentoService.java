@@ -16,14 +16,14 @@ import tech.leonam.erp.repository.TipoPagamentoRepository;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class TipoPagamentoService {
+public class  TipoPagamentoService {
     private final TipoPagamentoRepository tipoPagamentoRepository;
 
     public TipoPagamento buscarTipoPagamentoPeloId(Long id) throws IdentificadorInvalidoException {
         log.info("Buscando tipo de pagamento com ID: {}", id);
         return tipoPagamentoRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.warn("Tipo de pagamento com ID: {} não foi encontrado", id);
+                    log.error("Tipo de pagamento com ID: {} não foi encontrado", id);
                     return new IdentificadorInvalidoException("Identificador do tipo de pagamento inválido");
                 });
     }
@@ -40,7 +40,8 @@ public class TipoPagamentoService {
     @Transactional
     public Long salvarTipoPagamento(TipoPagamentoDTO tipoPagamentoDTO) {
         log.info("Salvando novo tipo de pagamento: {}", tipoPagamentoDTO);
-        Long id = tipoPagamentoRepository.save(TipoPagamentoDTO.paraEntidade(tipoPagamentoDTO)).getId();
+        TipoPagamento tipoPagamento = TipoPagamentoDTO.paraEntidade(tipoPagamentoDTO);
+        Long id = tipoPagamentoRepository.save(tipoPagamento).getId();
         log.info("Tipo de pagamento salvo com ID: {}", id);
         return id;
     }
@@ -51,25 +52,27 @@ public class TipoPagamentoService {
         log.info("Atualizando tipo de pagamento com ID: {}", id);
         return tipoPagamentoRepository.findById(id)
                 .map(m -> {
+                    TipoPagamento tipoPagamento = TipoPagamentoDTO.paraEntidade(tipoPagamentoDTO);
                     tipoPagamentoDTO.setId(m.getId());
-                    Long updatedId = tipoPagamentoRepository.save(TipoPagamentoDTO.paraEntidade(tipoPagamentoDTO))
-                            .getId();
+                    log.info("Tipo de pagamento tratado");
+                    Long updatedId = tipoPagamentoRepository.save(tipoPagamento).getId();
                     log.info("Tipo de pagamento com ID: {} foi atualizado com sucesso", updatedId);
                     return updatedId;
                 }).orElseThrow(() -> {
-                    log.warn("Falha ao atualizar. Tipo de pagamento com ID: {} não encontrado", id);
+                    log.error("Falha ao atualizar. Tipo de pagamento com ID: {} não encontrado", id);
                     return new IdentificadorInvalidoException("Identificador do tipo de pagamento inválido");
                 });
     }
 
     @Transactional
-    public void deletarTipoPagamentoPeloId(Long id) {
+    public void deletarTipoPagamentoPeloId(Long id) throws IdentificadorInvalidoException {
         log.info("Deletando tipo de pagamento com ID: {}", id);
         if (tipoPagamentoRepository.existsById(id)) {
             tipoPagamentoRepository.deleteById(id);
             log.info("Tipo de pagamento com ID: {} deletado com sucesso", id);
         } else {
-            log.warn("Falha ao deletar. Tipo de pagamento com ID: {} não encontrado", id);
+            log.error("Falha ao deletar. Tipo de pagamento com ID: {} não encontrado", id);
+            throw new IdentificadorInvalidoException("Identificador do tipo de pagamento inválido");
         }
     }
 }

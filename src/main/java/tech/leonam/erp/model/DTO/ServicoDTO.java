@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Future;
@@ -58,7 +57,7 @@ public class ServicoDTO implements Serializable {
     private String descricao;
 
     @NotNull(message = "A forma de pagamento é obrigatória")
-    private TipoPagamento tipoPagamento;
+    private Long tipoPagamentoId;
 
     @NotNull(message = "O status do serviço é obrigatório")
     private StatusServico status;
@@ -69,7 +68,6 @@ public class ServicoDTO implements Serializable {
 
     @NotNull(message = "A data de pagamento final é obrigatória")
     @FutureOrPresent(message = "A data de pagamento final deve ser no presente ou no futuro")
-    @AssertTrue(message = "A data de pagamento final deve ser posterior ou igual à data prevista de pagamento")
     private LocalDateTime pagamentoFinal;
 
     private String modificadoPor;
@@ -79,7 +77,7 @@ public class ServicoDTO implements Serializable {
 
     public static Servico paraEntidade(ServicoDTO servicoDTO) {
         return Servico.builder()
-                .id(null)
+                .id(servicoDTO.getId())
                 .nome(servicoDTO.getNome())
                 .preco(servicoDTO.getPreco())
                 .cliente(Cliente.builder().id(servicoDTO.getClienteId()).build())
@@ -89,7 +87,7 @@ public class ServicoDTO implements Serializable {
                 .pagamentoPrevisto(servicoDTO.getPagamentoPrevisto())
                 .pagamentoFinal(servicoDTO.getPagamentoFinal())
                 .dataCriacao(null)
-                .dataUltimaModificacao(null)
+                .dataModificacao(null)
                 .criadoPor(servicoDTO.getCriadoPor())
                 .modificadoPor(servicoDTO.getModificadoPor())
                 .build();
@@ -103,14 +101,14 @@ public class ServicoDTO implements Serializable {
                 .clienteId(servico.getCliente()
                         .getId())
                 .descricao(servico.getDescricao())
-                .tipoPagamento(servico.getTipoPagamento())
+                .tipoPagamentoId(servico.getTipoPagamento().getId())
                 .status(servico.getStatus())
                 .pagamentoPrevisto(servico.getPagamentoPrevisto())
                 .pagamentoFinal(servico.getPagamentoFinal())
                 .modificadoPor(servico.getModificadoPor())
                 .dataCriacao(servico.getDataCriacao())
                 .criadoPor(servico.getCriadoPor())
-                .dataUltimaModificacao(servico.getDataUltimaModificacao())
+                .dataUltimaModificacao(servico.getDataModificacao())
                 .build();
     }
 }
