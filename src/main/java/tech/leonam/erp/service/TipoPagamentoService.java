@@ -38,17 +38,17 @@ public class TipoPagamentoService {
     }
 
     @Transactional
-    public Long salvarTipoPagamento(TipoPagamentoDTO tipoPagamentoDTO){
+    public TipoPagamento salvarTipoPagamento(TipoPagamentoDTO tipoPagamentoDTO){
         log.info("Salvando novo tipo de pagamento: {}", tipoPagamentoDTO);
         TipoPagamento tipoPagamento = TipoPagamentoDTO.paraEntidade(tipoPagamentoDTO);
         log.info("Tipo de pagamento tratado");
-        Long id = tipoPagamentoRepository.save(tipoPagamento).getId();
-        log.info("Tipo de pagamento salvo com ID: {}", id);
-        return id;
+        TipoPagamento resultado = tipoPagamentoRepository.save(tipoPagamento);
+        log.info("Tipo de pagamento salvo com ID: {}", resultado.getId());
+        return resultado;
     }
 
     @Transactional
-    public Long atualizarTipoPagamento(Long id, TipoPagamentoDTO tipoPagamentoDTO)
+    public TipoPagamento atualizarTipoPagamento(Long id, TipoPagamentoDTO tipoPagamentoDTO)
             throws IdentificadorInvalidoException {
         log.info("Atualizando tipo de pagamento com ID: {}", id);
         return tipoPagamentoRepository.findById(id)
@@ -56,9 +56,9 @@ public class TipoPagamentoService {
                     TipoPagamento tipoPagamento = TipoPagamentoDTO.paraEntidade(tipoPagamentoDTO);
                     tipoPagamentoDTO.setId(m.getId());
                     log.info("Tipo de pagamento tratado");
-                    Long updatedId = tipoPagamentoRepository.save(tipoPagamento).getId();
-                    log.info("Tipo de pagamento com ID: {} foi atualizado com sucesso", updatedId);
-                    return updatedId;
+                    TipoPagamento resultado = tipoPagamentoRepository.save(tipoPagamento);
+                    log.info("Tipo de pagamento com ID: {} foi atualizado com sucesso", resultado);
+                    return resultado;
                 }).orElseThrow(() -> {
                     log.error("Falha ao atualizar. Tipo de pagamento com ID: {} não encontrado", id);
                     return new IdentificadorInvalidoException("Identificador do tipo de pagamento inválido");

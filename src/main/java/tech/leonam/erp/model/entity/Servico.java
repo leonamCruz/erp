@@ -25,8 +25,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -36,8 +34,9 @@ import lombok.Setter;
 import lombok.ToString;
 import tech.leonam.erp.model.enums.StatusServico;
 
-/**@apiNote
- * Entidade que representa um serviço oferecido.
+/**
+ * @apiNote
+ *          Entidade que representa um serviço oferecido.
  */
 @Entity
 @Getter
@@ -103,14 +102,4 @@ public class Servico implements Serializable {
     @Column
     @LastModifiedBy
     private String modificadoPor;
-
-    @PrePersist
-    public void prePersist(){
-        this.dataCriacao = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    public void preUpdate(){
-        this.dataModificacao = LocalDateTime.now();
-    }
 }

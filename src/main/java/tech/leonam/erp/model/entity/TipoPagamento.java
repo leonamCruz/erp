@@ -5,10 +5,10 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -35,10 +35,12 @@ import lombok.ToString;
 
 /**
  * @apiNote
- * Entidade que representa um tipo de pagamento, sua ideia principal é
- * para que o cliente tenha controle de processos de pagamento e se seram
- * alterados ou não em um futuro próximo. Sua principal caracteristica está
- * presente em sua relação com o serviço
+ *          Entidade que representa um tipo de pagamento, sua ideia principal é
+ *          para que o cliente tenha controle de processos de pagamento e se
+ *          seram
+ *          alterados ou não em um futuro próximo. Sua principal caracteristica
+ *          está
+ *          presente em sua relação com o serviço
  */
 @Entity
 @Getter
@@ -49,7 +51,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @EntityListeners(AuditingEntityListener.class)
-public class TipoPagamento implements Serializable{
+public class TipoPagamento implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -80,19 +82,20 @@ public class TipoPagamento implements Serializable{
     @LastModifiedBy
     private String modificadoPor;
 
-    @CreatedDate
+    @CreationTimestamp
     @Column(nullable = false, updatable = false)
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataCriacao;
 
-    @Column
-    @LastModifiedDate
+    @Column(nullable = false)
+    @UpdateTimestamp
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataModificacao;
 
     @PrePersist
     public void prePersist() {
         this.dataCriacao = LocalDateTime.now();
+        this.dataModificacao = LocalDateTime.now();
         this.ativo = true;
     }
 

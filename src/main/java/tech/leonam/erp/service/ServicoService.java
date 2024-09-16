@@ -44,7 +44,7 @@ public class ServicoService {
     }
 
     @Transactional
-    public Long salvarServico(ServicoDTO servicoDTO) throws IdentificadorInvalidoException {
+    public Servico salvarServico(ServicoDTO servicoDTO) throws IdentificadorInvalidoException {
 
         Servico servicoTratado = ServicoDTO.paraEntidade(servicoDTO);
         log.info("Serviço tratado para persistência");
@@ -54,10 +54,10 @@ public class ServicoService {
         servicoTratado.setTipoPagamento(tipoBuscado);
         
         log.info("Salvando novo serviço: {}", servicoDTO);
-        Long id = servicoRepository.save(servicoTratado).getId();
+        Servico servico = servicoRepository.save(servicoTratado);
 
-        log.info("Serviço salvo com ID: {}", id);
-        return id;
+        log.info("Serviço salvo com ID: {}", servico.getId());
+        return servico;
     }
 
     @Transactional

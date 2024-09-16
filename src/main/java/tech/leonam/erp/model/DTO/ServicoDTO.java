@@ -63,7 +63,7 @@ public class ServicoDTO implements Serializable {
     private StatusServico status;
 
     @NotNull(message = "A data de pagamento previsto é obrigatória")
-    @Future(message = "A data de pagamento previsto deve ser uma data futura")
+    @Future(message = "A data de pagamento prevista deve ser no presente ou no futuro")
     private LocalDateTime pagamentoPrevisto;
 
     @NotNull(message = "A data de pagamento final é obrigatória")
@@ -71,7 +71,7 @@ public class ServicoDTO implements Serializable {
     private LocalDateTime pagamentoFinal;
 
     private String modificadoPor;
-    private LocalDateTime dataUltimaModificacao;
+    private LocalDateTime dataModificacao;
     private LocalDateTime dataCriacao;
     private String criadoPor;
 
@@ -108,7 +108,7 @@ public class ServicoDTO implements Serializable {
                 .modificadoPor(servico.getModificadoPor())
                 .dataCriacao(servico.getDataCriacao())
                 .criadoPor(servico.getCriadoPor())
-                .dataUltimaModificacao(servico.getDataModificacao())
+                .dataModificacao(servico.getDataModificacao())
                 .build();
     }
 }
