@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-import org.hibernate.validator.group.GroupSequenceProvider;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -13,37 +12,44 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import tech.leonam.erp.model.enums.TipoPessoa;
-import tech.leonam.erp.util.ClienteGroupSequenceProvider;
+import lombok.ToString;
 
-@Data
+/**
+ * @apiNote
+ * Entidade que representa um tipo de pagamento, sua ideia principal é
+ * para que o cliente tenha controle de processos de pagamento e se seram
+ * alterados ou não em um futuro próximo. Sua principal caracteristica está
+ * presente em sua relação com o serviço
+ */
+@Entity
 @Getter
 @Setter
-@Entity
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 @EntityListeners(AuditingEntityListener.class)
-@GroupSequenceProvider(ClienteGroupSequenceProvider.class)
-public class Cliente implements Serializable {
+public class TipoPagamento implements Serializable{
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -51,33 +57,35 @@ public class Cliente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, length = 250)
     private String nome;
-    private String identificacao;
 
-    @Transient
-    @Enumerated(EnumType.STRING)
-    private TipoPessoa tipoPessoa;
-    private String numeroContato;
-    private String cep;
-    private String endereco;
-    private String bairro;
-    private String cidade;
-    private String uf;
-    private Integer numeroCasa;
+    @Lob
+    @Column(nullable = false)
+    private String descricao;
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @Column
+    private Boolean ativo;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "tipoPagamento", fetch = FetchType.LAZY)
     private Set<Servico> servicos;
 
     @CreatedBy
+    @Column(nullable = false, updatable = false)
     private String criadoPor;
 
-    @CreatedDate
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime dataCriacao;
-
+    @Column
     @LastModifiedBy
     private String modificadoPor;
 
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime dataCriacao;
+
+    @Column
     @LastModifiedDate
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataModificacao;
@@ -85,10 +93,19 @@ public class Cliente implements Serializable {
     @PrePersist
     public void prePersist() {
         this.dataCriacao = LocalDateTime.now();
+        this.ativo = true;
     }
 
     @PreUpdate
     public void preUpdate() {
         this.dataModificacao = LocalDateTime.now();
+    }
+
+    public void ativar() {
+        this.ativo = true;
+    }
+
+    public void desativar() {
+        this.ativo = false;
     }
 }

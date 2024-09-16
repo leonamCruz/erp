@@ -1,7 +1,5 @@
 package tech.leonam.erp.service;
 
-import java.time.LocalDateTime;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,7 +25,6 @@ public class ClienteService {
     public void salvarCliente(ClienteDTO clienteDTO) throws ClienteNaoFoiSalvo, IdentificadorInvalidoException {
 
         Cliente cliente = modelMapper.map(clienteDTO, Cliente.class);
-        cliente.setDataCadastro(LocalDateTime.now());
         clienteRepository.save(cliente);
     }
 

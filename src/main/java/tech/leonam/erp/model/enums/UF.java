@@ -1,7 +1,6 @@
 package tech.leonam.erp.model.enums;
 
 import java.security.SecureRandom;
-import java.util.Random;
 
 public enum UF {
     AC("AC", "Acre"),
