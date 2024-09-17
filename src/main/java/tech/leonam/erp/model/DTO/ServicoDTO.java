@@ -5,7 +5,12 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
@@ -19,6 +24,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import tech.leonam.erp.model.entity.Cliente;
 import tech.leonam.erp.model.entity.Servico;
 import tech.leonam.erp.model.entity.TipoPagamento;
@@ -31,6 +37,7 @@ import tech.leonam.erp.model.enums.StatusServico;
 @Getter
 @Setter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -63,7 +70,7 @@ public class ServicoDTO implements Serializable {
     private StatusServico status;
 
     @NotNull(message = "A data de pagamento previsto é obrigatória")
-    @Future(message = "A data de pagamento previsto deve ser uma data futura")
+    @Future(message = "A data de pagamento prevista deve ser no presente ou no futuro")
     private LocalDateTime pagamentoPrevisto;
 
     @NotNull(message = "A data de pagamento final é obrigatória")
@@ -71,7 +78,9 @@ public class ServicoDTO implements Serializable {
     private LocalDateTime pagamentoFinal;
 
     private String modificadoPor;
-    private LocalDateTime dataUltimaModificacao;
+
+    private LocalDateTime dataModificacao;
+
     private LocalDateTime dataCriacao;
     private String criadoPor;
 
@@ -108,7 +117,7 @@ public class ServicoDTO implements Serializable {
                 .modificadoPor(servico.getModificadoPor())
                 .dataCriacao(servico.getDataCriacao())
                 .criadoPor(servico.getCriadoPor())
-                .dataUltimaModificacao(servico.getDataModificacao())
+                .dataModificacao(servico.getDataModificacao())
                 .build();
     }
 }

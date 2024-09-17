@@ -55,7 +55,7 @@ public class TipoPagamentoController {
     @PostMapping
     public ResponseEntity<Long> salvarTipoPagamento(@RequestBody TipoPagamentoDTO tipoPagamentoDTO) {
         log.info("Requisição POST para salvar novo tipo de pagamento: {}", tipoPagamentoDTO);
-        Long id = tipoPagamentoService.salvarTipoPagamento(tipoPagamentoDTO);
+        Long id = tipoPagamentoService.salvarTipoPagamento(tipoPagamentoDTO).getId();
         return ResponseEntity.ok(id);
     }
 
@@ -64,7 +64,7 @@ public class TipoPagamentoController {
             @RequestBody TipoPagamentoDTO tipoPagamentoDTO) {
         log.info("Requisição PUT para atualizar tipo de pagamento com ID: {}. Dados: {}", id, tipoPagamentoDTO);
         try {
-            Long updatedId = tipoPagamentoService.atualizarTipoPagamento(id, tipoPagamentoDTO);
+            Long updatedId = tipoPagamentoService.atualizarTipoPagamento(id, tipoPagamentoDTO).getId();
             return ResponseEntity.ok(updatedId);
         } catch (IdentificadorInvalidoException e) {
             log.error("Erro ao atualizar tipo de pagamento com ID: {}", id, e);

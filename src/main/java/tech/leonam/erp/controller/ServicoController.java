@@ -51,7 +51,7 @@ public class ServicoController {
     @PostMapping
     public ResponseEntity<Long> salvarServico(@Valid @RequestBody ServicoDTO servicoDTO)
             throws IdentificadorInvalidoException {
-        Long id = servicoService.salvarServico(servicoDTO);
+        Long id = servicoService.salvarServico(servicoDTO).getId();
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
