@@ -29,6 +29,7 @@ public class ErpApplication {
 	}
 
 	@Bean
+	@SuppressWarnings("deprecation")
 	public Faker faker() {
 		return new Faker(new Locale("pt-br"));
 	}
