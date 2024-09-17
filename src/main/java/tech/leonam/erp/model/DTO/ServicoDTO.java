@@ -5,7 +5,12 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
@@ -19,6 +24,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import tech.leonam.erp.model.entity.Cliente;
 import tech.leonam.erp.model.entity.Servico;
 import tech.leonam.erp.model.entity.TipoPagamento;
@@ -31,6 +37,7 @@ import tech.leonam.erp.model.enums.StatusServico;
 @Getter
 @Setter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -71,7 +78,9 @@ public class ServicoDTO implements Serializable {
     private LocalDateTime pagamentoFinal;
 
     private String modificadoPor;
+
     private LocalDateTime dataModificacao;
+
     private LocalDateTime dataCriacao;
     private String criadoPor;
 
