@@ -7,29 +7,30 @@
 
     <link href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="../static/css/sidebar.css" rel="stylesheet">
+    <link href="../static/css/style.css" rel="stylesheet">
     <link rel="icon" href="../static/img/logo-menor.webp">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="../static/js/listar-clientes.js"></script>
 </head>
 
 <body>
-<div class="container-fluid">
-    <div class="row flex-nowrap">
+    <div class="row ">
         <div th:replace="~{sidebar}"></div>
-        <section class="col">
-            <div
-                    class="container table-responsive d-flex flex-column justify-content-evenly vh-100 border shadow-lg px-5">
+        <section id="conteudo" class="col-md position-relative overflow-y-auto vh">
+            <button type="button" onclick="sidebar()" class="btn sticky-top rounded-circle p-3" id="sidebar-button">
+                <i class="fa-solid fa-3x fa-bars"></i>
+            </button>
+            <div class="container table-responsive   ">
                 <h1 class="my-4">Lista de Clientes</h1>
 
                 <table class="table table-bordered border-black table-hover text-center">
                     <thead class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Contato</th>
-                        <th>Endereco</th>
-                        <th>Ações</th>
-                    </tr>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Contato</th>
+                            <th>Endereco</th>
+                            <th>Ações</th>
+                        </tr>
                     </thead>
                     <tbody id="clienteTableBody">
                     </tbody>
@@ -37,19 +38,44 @@
                         <nav aria-label="paginacao" class="d-flex justify-content-center">
                             <ul class="pagination pagination-lg">
                                 <li class="page-item" th:classappend="${paginaCorrente == 1} ? 'disabled'">
-                                    <a class="page-link" th:href="@{'listar_clientes?pagina='+ ${paginaCorrente - 1}}"
-                                       aria-label="Previous">
+                                    <a class="page-link" th:href="@{'/listar_clientes?pagina=' + ${paginaCorrente - 1}}"
+                                        aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
-                                </li>
+
                                 <li class="page-item" th:classappend="${paginaCorrente == i} ? 'disabled'"
-                                    th:each="i : ${#numbers.sequence(1, totalPages)}">
-                                    <a class="page-link" th:href="@{'/listar_clientes?pagina=' + ${i}}"></a>
+                                    th:if="${paginaCorrente == 1 || paginas.contains(1)} == false">
+                                    <a class="page-link" th:href="@{'/listar_clientes?pagina=' + 1}" th:text="1"
+                                        th:value="${1}" id="pagina"></a>
                                 </li>
+
+                                <li class="page-item disabled" th:each="i : ${totalPages}"
+                                    th:if="${paginaCorrente == 1 || paginas.contains(1)} == false">
+                                    <span class="page-link">...</span>
+                                </li>
+
+                                </li>
+                                <li class="page-item" th:classappend="${paginaCorrente == i} ? 'active'"
+                                    th:each="i : ${paginas}">
+                                    <a class="page-link" th:href="@{'/listar_clientes?pagina=' + ${i}}"
+                                        th:text="${i}"></a>
+                                </li>
+
+                                <li class="page-item disabled" th:each="i : ${totalPages}"
+                                    th:if="${paginaCorrente == totalPages || paginaCorrente == totalPages-1 || paginas.contains(i)} == false">
+                                    <span class="page-link">...</span>
+                                </li>
+
+                                <li class="page-item" th:classappend="${paginaCorrente == i} ? 'disabled'"
+                                    th:each="i : ${totalPages}"
+                                    th:if="${paginaCorrente == totalPages || paginaCorrente == totalPages-1 || paginas.contains(i)} == false">
+                                    <a class="page-link" th:href="@{'/listar_clientes?pagina=' + ${i}}" th:text="${i}"
+                                        th:value="${i}" id="pagina"></a>
+                                </li>
+
                                 <li class="page-item" th:classappend="${paginaCorrente == totalPages} ? 'disabled'">
-                                    <a confirm="Deseja realmente atualizar o cliente?" class="page-link"
-                                       th:href="@{'listar_clientes?pagina='+ ${paginaCorrente + 1}}"
-                                       aria-label="Next">
+                                    <a class="page-link" th:href="@{'/listar_clientes?pagina=' + ${paginaCorrente + 1}}"
+                                        aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
@@ -60,12 +86,10 @@
                 <input type="hidden" id="pagina" th:data.value="${paginaCorrente}">
             </div>
         </section>
-
     </div>
     <script src="../static/js/sidebar.js"></script>
     <script src="../static/js/bootstrap/bootstrap.bundle.min.js"></script>
-
-</div>
+    <script src="../static/js/listar-clientes.js"></script>
 </body>
 
 </html>
