@@ -2,6 +2,9 @@ package tech.leonam.erp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import java.util.List;
+import java.util.stream.IntStream;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,9 +50,19 @@ public class ControleView {
     @GetMapping("/listar_clientes")
     public String listar_clientes(Model model, @PathVariable @RequestParam(defaultValue = "1") Integer pagina) {
         var consulta = clienteService.buscarTodosOsCLientes(pagina, 20, "id", "ASC");
+
+        int paginaCorrente = consulta.getNumber() ; 
+        int totalPages = consulta.getTotalPages();
+
+        int inicio = Math.max(1, paginaCorrente - 3);
+        int fim = Math.min(totalPages, paginaCorrente + 3);
+        List<Integer> paginas = IntStream.rangeClosed(inicio, fim).boxed().toList();
+
         model.addAttribute("clientes", consulta.getContent());
-        model.addAttribute("paginaCorrente", consulta.getNumber());
-        model.addAttribute("totalPages", consulta.getTotalPages());
+        model.addAttribute("paginaCorrente", paginaCorrente);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("paginas", paginas);
+
         return "listar_clientes";
     }
 
