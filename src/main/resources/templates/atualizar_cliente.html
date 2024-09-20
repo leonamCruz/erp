@@ -11,104 +11,110 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row flex-nowrap">
-            <div th:replace="~{sidebar}"></div>
-            <form class="col" id="clientForm">
-                <div class="container d-flex flex-column justify-content-evenly vh-100 border shadow-lg px-5">
-                    <div class=" d-flex justify-content-center mb-3">
-                        <img src="../static/img/logo-menor.webp" width="150">
-                    </div>
-                    <div class="container">
-                        <div class="my-5">
-                            <div class="col-md-6 d-flex">
-                                <div class="form-check ">
-                                    <input class="form-check-input" type="radio" name="identificacao" id="cpf"
-                                        value="cpf" checked>
-                                    <label class="form-check-label" for="cpf">
-                                        CPF
-                                    </label>
+    <div class="row">
+        <div th:replace="~{sidebar}"></div>
+        <section id="conteudo" class="col-md position-relative overflow-y-auto ">
+            <button type="button" onclick="sidebar()" class="btn sticky-top rounded-circle p-3" id="sidebar-button">
+                <i class="fa-solid fa-3x fa-bars"></i>
+            </button>
+            <div class="container-fluid">
+                <!-- Conteúdo -->
+                <form id="clientForm">
+                    <div class="container d-flex flex-column justify-content-center" style="height: 90vh;">
+                        <div class=" d-flex justify-content-center mb-3">
+                            <img src="../static/img/logo-menor.webp" width="150">
+                        </div>
+                        <div class="container">
+                            <div class="my-5">
+                                <div class="col-md-6 d-flex">
+                                    <div class="form-check ">
+                                        <input class="form-check-input" type="radio" name="identificacao" id="cpf"
+                                            value="cpf" checked>
+                                        <label class="form-check-label" for="cpf">
+                                            CPF
+                                        </label>
+                                    </div>
+                                    <div class="form-check mx-2">
+                                        <input class="form-check-input" type="radio" name="identificacao" id="cnpj"
+                                            value="cnpj">
+                                        <label class="form-check-label" for="cnpj">
+                                            CNPJ
+                                        </label>
+                                    </div>
                                 </div>
-                                <div class="form-check mx-2">
-                                    <input class="form-check-input" type="radio" name="identificacao" id="cnpj"
-                                        value="cnpj">
-                                    <label class="form-check-label" for="cnpj">
-                                        CNPJ
-                                    </label>
+                            </div>
+                            <div class="col-1 mb-5">
+                                <label class="form-label">id</label>
+                                <input width="10" class="form-control" id="id" type="number" placeholder="ID" required
+                                    disabled th:value="${id}" style="cursor: not-allowed;">
+                            </div>
+                            <div class="row d-flex justify-content-between">
+                                <div class="col-md-4 mb-3">
+                                    <label for="nome" class="form-label">Nome do Cliente</label>
+                                    <input maxlength="100" class="form-control" id="nome" type="text"
+                                        placeholder="Digite o nome do Cliente" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label id="label-cpf-cnpj" for="cpf-or-cnpj" class="form-label">CPF ou CNPJ</label>
+                                    <input class="form-control" id="cpf-or-cnpj" type="text"
+                                        placeholder="Digite o CPF ou CNPJ">
+                                </div>
+    
+                                <div class="col-md-4 mb-3">
+                                    <label for="numero" class="form-label">Número para Contato</label>
+                                    <input class="form-control" id="numero" type="text"
+                                        placeholder="Digite o número para contato">
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-1 mb-5">
-                            <label class="form-label">id</label>
-                            <input width="10" class="form-control" id="id" type="number" placeholder="ID" required
-                                disabled th:value="${id}" style="cursor: not-allowed;">
-                        </div>
-                        <div class="row d-flex justify-content-between">
-                            <div class="col-md-4 mb-3">
-                                <label for="nome" class="form-label">Nome do Cliente</label>
-                                <input maxlength="100" class="form-control" id="nome" type="text"
-                                    placeholder="Digite o nome do Cliente" required>
+    
+                            <div class="row mb-3">
+                                <div class="col-md-2 mb-3">
+                                    <label for="cep" class="form-label">CEP</label>
+                                    <input class="form-control" id="cep" type="text" placeholder="Digite o CEP"
+                                        maxlength="9">
+                                </div>
+    
+                                <div class="col-md-10 mb-3">
+                                    <label for="rua" class="form-label">Rua</label>
+                                    <input class="form-control" id="rua" type="text" placeholder="Digite a rua">
+                                </div>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label id="label-cpf-cnpj" for="cpf-or-cnpj" class="form-label">CPF ou CNPJ</label>
-                                <input class="form-control" id="cpf-or-cnpj" type="text"
-                                    placeholder="Digite o CPF ou CNPJ">
+                            <div class="row mb-3 d-flex justify-content-between">
+                                <div class="col-md-3">
+                                    <label for="numero-endereco" class="form-label">Número</label>
+                                    <input class="form-control" id="numero-endereco" type="text"
+                                        placeholder="Número da residência">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="bairro" class="form-label">Bairro</label>
+                                    <input class="form-control" id="bairro" type="text" placeholder="Digite o bairro">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="cidade" class="form-label">Cidade</label>
+                                    <input class="form-control" id="cidade" type="text" placeholder="Digite a cidade">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label" for="estado">Estado</label>
+                                    <select class="form-control border-2 rounded-3" id="estado" name="estado" required>
+                                        <option value="" selected>Selecione o Estado</option>
+                                        <option th:each="estado : ${estados}" th:text="${estado.extenso}"
+                                            th:value="${estado.sigla}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div>
+                                </div>
                             </div>
-
-                            <div class="col-md-4 mb-3">
-                                <label for="numero" class="form-label">Número para Contato</label>
-                                <input class="form-control" id="numero" type="text"
-                                    placeholder="Digite o número para contato">
+                            <div class="d-flex algn-items-center justify-content-center">
+                                <button class="btn btn-lg btn-warning mt-5 mx-2"
+                                    onclick="location.href='/listar_clientes?pagina=1'" type="button">Voltar</button>
+                                <button class="btn btn-lg  btn-success px-3 mt-5 mx-2" type="submit">Atualizar</button>
                             </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-2 mb-3">
-                                <label for="cep" class="form-label">CEP</label>
-                                <input class="form-control" id="cep" type="text" placeholder="Digite o CEP"
-                                    maxlength="9">
-                            </div>
-
-                            <div class="col-md-10 mb-3">
-                                <label for="rua" class="form-label">Rua</label>
-                                <input class="form-control" id="rua" type="text" placeholder="Digite a rua">
-                            </div>
-                        </div>
-                        <div class="row mb-3 d-flex justify-content-between">
-                            <div class="col-md-3">
-                                <label for="numero-endereco" class="form-label">Número</label>
-                                <input class="form-control" id="numero-endereco" type="text"
-                                    placeholder="Número da residência">
-                            </div>
-                            <div class="col-md-3">
-                                <label for="bairro" class="form-label">Bairro</label>
-                                <input class="form-control" id="bairro" type="text" placeholder="Digite o bairro">
-                            </div>
-                            <div class="col-md-3">
-                                <label for="cidade" class="form-label">Cidade</label>
-                                <input class="form-control" id="cidade" type="text" placeholder="Digite a cidade">
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label" for="estado">Estado</label>
-                                <select class="form-control border-2 rounded-3" id="estado" name="estado" required>
-                                    <option value="" selected>Selecione o Estado</option>
-                                    <option th:each="estado : ${estados}" th:text="${estado.extenso}"
-                                        th:value="${estado.sigla}">
-                                    </option>
-                                </select>
-                            </div>
-                            <div>
-                            </div>
-                        </div>
-                        <div class="d-flex algn-items-center justify-content-center">
-                            <button class="btn btn-lg btn-warning mt-5 mx-2"
-                                onclick="location.href='/listar_clientes?pagina=1'" type="button">Voltar</button>
-                            <button class="btn btn-lg  btn-success px-3 mt-5 mx-2" type="submit">Atualizar</button>
                         </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        </section>
     </div>
     <script src="../static/js/sidebar.js"></script>
     <script src="../static/js/atualizar-cliente.js"></script>
