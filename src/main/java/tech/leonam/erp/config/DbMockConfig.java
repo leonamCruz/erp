@@ -36,7 +36,7 @@ public class DbMockConfig {
     private static final List<String> BAIRROS = Arrays.asList(
             "Jardim Paulista", "Vila Madalena", "Centro", "Moema", "Pinheiros",
             "Brooklin", "Santana", "Aclimação", "Vila Mariana", "Itaim Bibi");
-    private final Integer quantidade = 100;
+    private final Integer quantidade = 500;
     
     @Bean
     public String saveAllCliente() {

@@ -7,49 +7,77 @@
 
     <link href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="../static/css/sidebar.css" rel="stylesheet">
-
+    <link href="../static/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="../static/img/logo-menor.webp">
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row flex-nowrap">
-            <div th:replace="~{sidebar}"></div>
-            <div class="col d-flex flex-column justify-content-evenly">
-                <section class="bg-light text-center" style="padding: 120px 0">
-                    <div class="container">
-                        <h1 class="display-3">Bem-vindo à Nossa Página Inicial</h1>
-                        <p class="lead">Descubra mais sobre nossos serviços e ofertas.</p>
-                        <a href="#" class="btn btn-primary btn-lg">Saiba Mais</a>
+    <div class="row ">
+        <div th:replace="~{sidebar}"></div>
+        <section id="conteudo" class="col-md position-relative overflow-y-auto vh">
+            <button type="button" onclick="sidebar()" class="btn sticky-top rounded-circle p-3" id="sidebar-button">
+                <i class="fa-solid fa-3x fa-bars"></i>
+            </button>
+            <div class="container-fluid">
+                <!-- Conteúdo -->
+                <div class="row">
+                    <div class="col bg-light text-center" style="padding: 120px 0;">
+                        <div class="container">
+                            <h1 class="display-3">Bem-vindo à Nossa Página Inicial</h1>
+                            <p class="lead">Descubra mais sobre nossos serviços e ofertas.</p>
+                            <a href="#" class="btn btn-primary btn-lg">Saiba Mais</a>
+                        </div>
                     </div>
-                </section>
-    
-                <section class="py-5">
-                    <div class="container">
-                        <div class="row d-flex">
-                            <div class="col-md-4 text-center">
-                                <h2 class="display-5">Seção 1</h2>
-                                <p class="lead">Texto introdutório sobre a primeira seção.</p>
-                            </div>
-                            <div class="col-md-4 text-center">
-                                <h2 class="display-5">Seção 2</h2>
-                                <p class="lead">Mais informações sobre a segunda seção.</p>
-                            </div>
-                            <div class="col-md-4 text-center">
-                                <h2 class="display-5">Seção 3</h2>
-                                <p class="lead">Breve descrição da terceira seção.</p>
+                    <div class="py-5">
+                        <div class="container">
+                            <div class="row d-flex">
+                                <div class="col-md-4 text-center">
+                                    <h2 class="display-5">Seção 1</h2>
+                                    <p class="lead">Texto introdutório sobre a primeira seção.</p>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <h2 class="display-5">Seção 2</h2>
+                                    <p class="lead">Mais informações sobre a segunda seção.</p>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <h2 class="display-5">Seção 3</h2>
+                                    <p class="lead">Breve descrição da terceira seção.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </section>
+                    <div class="bg-light text-center" style="padding: 120px 0;">
+                        <div class="container">
+                            <h1 class="display-3">Bem-vindo à Nossa Página Inicial</h1>
+                            <p class="lead">Descubra mais sobre nossos serviços e ofertas.</p>
+                            <a href="#" class="btn btn-primary btn-lg">Saiba Mais</a>
+                        </div>
+                    </div>
+                    <div class="py-5">
+                        <div class="container">
+                            <div class="row d-flex">
+                                <div class="col-md-4 text-center">
+                                    <h2 class="display-5">Seção 1</h2>
+                                    <p class="lead">Texto introdutório sobre a primeira seção.</p>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <h2 class="display-5">Seção 2</h2>
+                                    <p class="lead">Mais informações sobre a segunda seção.</p>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <h2 class="display-5">Seção 3</h2>
+                                    <p class="lead">Breve descrição da terceira seção.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
     </div>
     <script src="../static/js/sidebar.js"></script>
     <script src="../static/js/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="../static/js/mascara-cpf.js"></script>
-    <script src="../static/js/validacoes.js"></script>
-    <script src="../static/js/salvar-cliente.js"></script>
 </body>
 
 </html>
