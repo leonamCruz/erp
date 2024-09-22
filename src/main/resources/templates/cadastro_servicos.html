@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="PT-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro Serviços</title>
+
+    <link href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/sidebar.css" rel="stylesheet">
+    <link href="../static/css/style.css" rel="stylesheet">
+    <link href="../static/css/cadastro_servicos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="../static/img/logo-menor.webp">
+</head>
+
+<body>
+    <div class="row">
+        <div th:replace="~{sidebar}"></div>
+        <section id="conteudo" class="col-md position-relative overflow-y-auto">
+            <button type="button" onclick="sidebar()" class="btn sticky-top rounded-circle p-3" id="sidebar-button">
+                <i class="fa-solid fa-3x fa-bars"></i>
+            </button>
+            <div class="container-fluid">
+                <!-- Conteúdo -->
+                <form id="servicoForm">
+                    <div class="container p-5 border border-dark rounded">
+                        <div class="row pb-5">
+                            <h2 class="fw-medium">Cadastro de Serviços</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="nome" placeholder="Digite o nome do serviço" required>
+                                    <label for="nome">Nome</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating mb-3">
+                                    <input min="0" type="number" class="form-control" id="preco" placeholder="Digite o preço" required>
+                                    <label for="preco">Preço</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="clienteId" placeholder="Digite o nome do cliente" required>
+                                    <label for="clienteId">Cliente</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="tipoPagamentoId" placeholder="Digite o tipo de pagamento">
+                                    <label for="tipoPagamentoId">Tipo de Pagamento</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="status" placeholder="Digite o status do pagamento">
+                                    <label for="status">Status Pagamento</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating mb-3">
+                                    <input type="date" class="form-control" id="pagamentoPrevisto" placeholder="dd/MM/yyyy" required>
+                                    <label for="pagamentoPrevisto">Pagamento Previsto</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating mb-3">
+                                    <input type="date" class="form-control" id="pagamentoFinal" placeholder="dd/MM/yyyy">
+                                    <label for="pagamentoFinal">Pagamento Final</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control" id="descricao" placeholder="Digite uma descrição detalhada"></textarea>
+                                    <label for="descricao">Descrição</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+    
+    <script src="../static/js/sidebar.js"></script>
+    <script src="../static/js/cadastro_servicos.js"></script>
+    <script src="../static/js/bootstrap/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

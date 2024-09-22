@@ -19,14 +19,20 @@ public class ControleView {
 
     private final ClienteService clienteService;
 
+    @GetMapping("/")
+    public String index(Model model) {
+        return "home";
+    }
+    
     @GetMapping("/home")
     public String home(Model model) {
         return "home";
     }
 
-    @GetMapping("/")
-    public String index(Model model) {
-        return "home";
+
+    @GetMapping("/sidebar")
+    public String sidebar(Model model) {
+        return "sidebar";
     }
 
     @GetMapping("/vendas")
@@ -71,9 +77,11 @@ public class ControleView {
         return "deletar_clientes";
     }
 
-    @GetMapping("/sidebar")
-    public String sidebar(Model model) {
-        return "sidebar";
+    @GetMapping("/cadastro_servicos")
+    public String cadastro_servicos(Model model) {
+        model.addAttribute("estados", UF.values());
+        return "cadastro_servicos";
     }
+
 
 }

@@ -28,6 +28,11 @@ import tech.leonam.erp.service.ServicoService;
 @RequestMapping("/api/servicos")
 public class ServicoController {
 
+    private final String PADRAO_LINHAS_POR_PAGINA = "20";
+    private final String PADRAO_PAGINA = "0";
+    private final String PADRAO_DE_ORDEM = "id";
+    private final String PADRAO_DE_DIRECAO = "ASC";
+
     @Autowired
     private ServicoService servicoService;
 
@@ -40,10 +45,10 @@ public class ServicoController {
     @GetMapping
     @Cacheable("servicos")
     public ResponseEntity<Page<Servico>> buscarTodosServicos(
-            @RequestParam(defaultValue = "0") @Min(0) Integer pagina,
-            @RequestParam(defaultValue = "10") @Min(1) Integer linhasPorPagina,
-            @RequestParam(defaultValue = "id") String orderBy,
-            @RequestParam(defaultValue = "ASC") String direcao) {
+            @RequestParam(defaultValue = PADRAO_PAGINA) @Min(0) Integer pagina,
+            @RequestParam(defaultValue = PADRAO_LINHAS_POR_PAGINA) @Min(1) Integer linhasPorPagina,
+            @RequestParam(defaultValue = PADRAO_DE_ORDEM) String orderBy,
+            @RequestParam(defaultValue = PADRAO_DE_DIRECAO) String direcao) {
         Page<Servico> servicos = servicoService.buscarTodosServicos(pagina, linhasPorPagina, orderBy, direcao);
         return ResponseEntity.ok().body(servicos);
     }
