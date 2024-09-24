@@ -3,8 +3,8 @@ package tech.leonam.erp.model.DTO;
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -58,7 +57,6 @@ public class ServicoDTO implements Serializable {
         @NotNull(message = "O cliente id é obrigatório e não pode ser nulo")
         private Long clienteId;
 
-        @Size(max = 500, message = "A descrição pode ter no máximo 500 caracteres")
         private String descricao;
 
         @NotNull(message = "A forma de pagamento é obrigatória")
@@ -68,7 +66,7 @@ public class ServicoDTO implements Serializable {
 
         @DateTimeFormat(pattern = "dd/MM/yyyy")
         @NotNull(message = "A data de pagamento previsto é obrigatória")
-        @Future(message = "A data de pagamento prevista deve ser no presente ou no futuro")
+        @FutureOrPresent(message = "A data de pagamento prevista deve ser no presente ou no futuro")
         private LocalDate pagamentoPrevisto;
 
         @DateTimeFormat(pattern = "dd/MM/yyyy")

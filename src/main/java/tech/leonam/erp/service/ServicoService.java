@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import tech.leonam.erp.exceptions.DataPagamentoPrevistoException;
 import tech.leonam.erp.exceptions.IdentificadorInvalidoException;
 import tech.leonam.erp.model.DTO.ServicoDTO;
 import tech.leonam.erp.model.entity.Servico;
@@ -44,9 +45,15 @@ public class ServicoService {
     }
 
     @Transactional
-    public Servico salvarServico(ServicoDTO servicoDTO) throws IdentificadorInvalidoException {
+    public Servico salvarServico(ServicoDTO servicoDTO) throws IdentificadorInvalidoException, DataPagamentoPrevistoException {
 
-        Servico servicoTratado = ServicoDTO.paraEntidade(servicoDTO);
+        log.info("Iniciando o tratamento da requisição");
+            Servico servicoTratado = ServicoDTO.paraEntidade(servicoDTO);
+        servicoTratado.setStatus(StatusServico.PENDENTE);
+        if(servicoTratado.getPagamentoPrevisto().isAfter(servicoTratado.getPagamentoFinal())){
+            log.error("Data do pagamento previsto não pode ser anterior ao pagamento final");
+            throw new DataPagamentoPrevistoException("Data do pagamento previsto não pode ser anterior ao pagamento final");
+        }
         log.info("Serviço tratado para persistência");
         
         log.info("Procurando o tipo de pagamento");

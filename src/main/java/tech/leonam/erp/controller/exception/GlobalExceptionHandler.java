@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import tech.leonam.erp.exceptions.DataPagamentoPrevistoException;
 import tech.leonam.erp.exceptions.IdentificadorInvalidoException;
 
 @RestControllerAdvice
@@ -29,6 +30,16 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ApiError handlerHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        return ApiError.builder()
+                .descricao("Error: " + HttpStatus.BAD_REQUEST)
+                .error(Arrays.asList(ex.getMessage()))
+                .build();
+
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(DataPagamentoPrevistoException.class)
+    public ApiError handlerHttpMessageNotReadableException(DataPagamentoPrevistoException ex) {
         return ApiError.builder()
                 .descricao("Error: " + HttpStatus.BAD_REQUEST)
                 .error(Arrays.asList(ex.getMessage()))

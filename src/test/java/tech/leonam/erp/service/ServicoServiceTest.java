@@ -11,6 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import jakarta.transaction.Transactional;
 import tech.leonam.erp.exceptions.ClienteNaoFoiSalvo;
+import tech.leonam.erp.exceptions.DataPagamentoPrevistoException;
 import tech.leonam.erp.exceptions.IdentificadorInvalidoException;
 import tech.leonam.erp.model.DTO.ServicoDTO;
 import tech.leonam.erp.model.DTO.TipoPagamentoDTO;
@@ -37,7 +38,7 @@ public class ServicoServiceTest {
 
     @Test
     @DisplayName("Deve salvar um serviço")
-    public void deveSalvarServico() throws IdentificadorInvalidoException, ClienteNaoFoiSalvo {
+    public void deveSalvarServico() throws IdentificadorInvalidoException, ClienteNaoFoiSalvo, DataPagamentoPrevistoException {
         ServicoDTO servicoDTO = Gerador.getServicoDTO();
 
         clienteRepository.salvarCliente(Gerador.getClienteDTO());
@@ -63,7 +64,7 @@ public class ServicoServiceTest {
 
     @Test
     @DisplayName("Deve buscar um serviço por id")
-    public void deveBuscarServicoPorId() throws IdentificadorInvalidoException {
+    public void deveBuscarServicoPorId() throws IdentificadorInvalidoException, DataPagamentoPrevistoException {
 
         ServicoDTO servicoDTO = Gerador.getServicoDTO();
 
@@ -113,7 +114,7 @@ public class ServicoServiceTest {
 
     @Test
     @DisplayName("Deve atualizar os status de um servio")
-    public void deveAtualiazarOsStatusDeUmServico() throws IdentificadorInvalidoException{
+    public void deveAtualiazarOsStatusDeUmServico() throws IdentificadorInvalidoException, DataPagamentoPrevistoException{
         ServicoDTO servicoDTO = Gerador.getServicoDTO();
 
         servicoDTO.setStatus(StatusServico.PENDENTE);

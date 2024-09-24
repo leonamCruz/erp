@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import tech.leonam.erp.exceptions.DataPagamentoPrevistoException;
 import tech.leonam.erp.exceptions.IdentificadorInvalidoException;
 import tech.leonam.erp.model.DTO.ServicoDTO;
 import tech.leonam.erp.model.entity.Servico;
@@ -55,7 +56,7 @@ public class ServicoController {
 
     @PostMapping
     public ResponseEntity<Long> salvarServico(@Valid @RequestBody ServicoDTO servicoDTO)
-            throws IdentificadorInvalidoException {
+            throws IdentificadorInvalidoException, DataPagamentoPrevistoException {
         Long id = servicoService.salvarServico(servicoDTO).getId();
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
