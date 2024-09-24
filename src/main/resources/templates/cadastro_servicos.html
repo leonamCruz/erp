@@ -25,56 +25,74 @@
                 <form id="servicoForm">
                     <div class="container p-5 border border-dark rounded">
                         <div class="row pb-5">
-                            <h2 class="fw-medium">Cadastro de Serviços</h2>
+                            <h2 class="display-5 fw-medium">Cadastro de Serviços</h2>
                         </div>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="nome" placeholder="Digite o nome do serviço" required>
-                                    <label for="nome">Nome</label>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-floating mb-3">
-                                    <input min="0" type="number" class="form-control" id="preco" placeholder="Digite o preço" required>
-                                    <label for="preco">Preço</label>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="clienteId" placeholder="Digite o nome do cliente" required>
+                                    <select class="form-select" id="clienteId" required>
+                                        <option value="" selected>...</option>
+                                        <option th:each="cliente : ${clientes}" th:value="${cliente.id}"
+                                            th:text="${cliente.nome}"></option>
+                                        </option>
+                                    </select>
                                     <label for="clienteId">Cliente</label>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="tipoPagamentoId" placeholder="Digite o tipo de pagamento">
+                                    <input type="text" class="form-control" id="nome"
+                                        placeholder="Digite o nome do serviço" required>
+                                    <label for="nome">Nome do Serviço</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">R$</span>
+                                    <div class="form-floating">
+                                        <input min="0" type="number" step="0.01" class="form-control" id="preco"
+                                            placeholder="Digite o preço" required>
+                                        <label for="preco">Preço</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    <select class="form-select" id="tipoPagamentoId" required>
+                                        <option value="" selected>...</option>
+                                        <option th:each="tipoPagamento : ${tipoPagamentos}" th:text="${tipoPagamento.nome}"
+                                            th:value="${tipoPagamento.id}">
+                                        </option>
+                                    </select>
                                     <label for="tipoPagamentoId">Tipo de Pagamento</label>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="status" placeholder="Digite o status do pagamento">
-                                    <label for="status">Status Pagamento</label>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-floating mb-3">
-                                    <input type="date" class="form-control" id="pagamentoPrevisto" placeholder="dd/MM/yyyy" required>
+                                    <input type="date" class="form-control data-input" id="pagamentoPrevisto"
+                                        placeholder="dd/MM/yyyy"  min="">
                                     <label for="pagamentoPrevisto">Pagamento Previsto</label>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-floating mb-3">
-                                    <input type="date" class="form-control" id="pagamentoFinal" placeholder="dd/MM/yyyy">
+                                    <input type="date" class="form-control data-input" id="pagamentoFinal"
+                                        placeholder="dd/MM/yyyy">
                                     <label for="pagamentoFinal">Pagamento Final</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <textarea class="form-control" id="descricao" placeholder="Digite uma descrição detalhada"></textarea>
+                                    <textarea class="form-control" id="descricao"
+                                        placeholder="Digite uma descrição detalhada"></textarea>
                                     <label for="descricao">Descrição</label>
                                 </div>
+                            </div>
+
+                            <div class="d-flex algn-items-center justify-content-center">
+                                <button class="btn btn-lg btn-danger mt-5 mx-2" type="reset">Limpar</button>
+                                <button class="btn btn-lg  btn-success px-3 mt-5 mx-2" id="save-client-button"
+                                    type="submit">Salvar</button>
                             </div>
                         </div>
                     </div>
@@ -82,10 +100,11 @@
             </div>
         </section>
     </div>
-    
+
     <script src="../static/js/sidebar.js"></script>
     <script src="../static/js/cadastro_servicos.js"></script>
     <script src="../static/js/bootstrap/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

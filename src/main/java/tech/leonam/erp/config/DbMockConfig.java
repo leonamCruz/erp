@@ -3,6 +3,7 @@ package tech.leonam.erp.config;
 import java.math.BigDecimal;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -111,8 +112,8 @@ public class DbMockConfig {
                             .id(longSobreQuatidade())
                             .build());
             servico.setStatus(StatusServico.values()[random.nextInt(StatusServico.values().length)]);
-            servico.setPagamentoPrevisto(LocalDateTime.now().plusDays(random.nextInt(1, 30)));
-            servico.setPagamentoFinal(LocalDateTime.now().plusDays(random.nextInt(31, 60)));
+            servico.setPagamentoPrevisto(LocalDate.now().plusDays(random.nextInt(1, 30)));
+            servico.setPagamentoFinal(LocalDate.now().plusDays(random.nextInt(31, 60)));
             servico.setCriadoPor(faker.name().fullName());
             servico.setModificadoPor(faker.name().fullName());
 

@@ -1,10 +1,10 @@
 package tech.leonam.erp.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,23 +12,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import lombok.AllArgsConstructor;
 import tech.leonam.erp.model.enums.UF;
 import tech.leonam.erp.service.ClienteService;
+import tech.leonam.erp.service.TipoPagamentoService;
 
 @Controller
 @AllArgsConstructor
 public class ControleView {
 
     private final ClienteService clienteService;
+    private final TipoPagamentoService tipoPagamentoService;
 
     @GetMapping("/")
     public String index(Model model) {
         return "home";
     }
-    
+
     @GetMapping("/home")
     public String home(Model model) {
         return "home";
     }
-
 
     @GetMapping("/sidebar")
     public String sidebar(Model model) {
@@ -57,7 +58,7 @@ public class ControleView {
     public String listar_clientes(Model model, @PathVariable @RequestParam(defaultValue = "1") Integer pagina) {
         var consulta = clienteService.buscarTodosOsCLientes(pagina, 20, "id", "ASC");
 
-        int paginaCorrente = consulta.getNumber() ; 
+        int paginaCorrente = consulta.getNumber();
         int totalPages = consulta.getTotalPages();
 
         int inicio = Math.max(1, paginaCorrente - 3);
@@ -79,9 +80,9 @@ public class ControleView {
 
     @GetMapping("/cadastro_servicos")
     public String cadastro_servicos(Model model) {
-        model.addAttribute("estados", UF.values());
+        model.addAttribute("clientes", clienteService.buscarTodosNomesDosClientes());
+        model.addAttribute("tipoPagamentos", tipoPagamentoService.buscarTodosNomesDosTiposDePagamentos());
         return "cadastro_servicos";
     }
-
 
 }
