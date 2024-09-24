@@ -11,19 +11,19 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum StatusServico {
 
-    ATIVO(1, "Ativo"),
-    INATIVO(2, "Inativo"),
-    PENDENTE(3, "Pendente");
+    CONCLUIDO(1, "Concluído"),
+    EM_ANDAMENTO(2, "Em andamento"),
+    CANCELADO(3, "Cancelado");
 
     private final int codigo;
     private final String descricao;
 
     public static StatusServico fromCodigo(int codigo) {
-        for (StatusServico tipo : StatusServico.values()) {
-            if (tipo.getCodigo() == codigo) {
-                return tipo;
+        for (StatusServico status : StatusServico.values()) {
+            if (status.getCodigo() == codigo) {
+                return status;
             }
         }
-        throw new IllegalArgumentException("Código de pagamento inválido: " + codigo);
+        throw new IllegalArgumentException("Código de status inválido: " + codigo);
     }
 }

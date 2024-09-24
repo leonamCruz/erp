@@ -98,7 +98,7 @@ public class ServicoServiceTest {
         servicoEsperado.setNome("teste");
         servicoEsperado.setPreco(new BigDecimal(0));
         servicoEsperado.setDescricao("teste");
-        servicoEsperado.setStatus(StatusServico.INATIVO);
+        servicoEsperado.setStatus(StatusServico.CANCELADO);
 
         Long idRetornado = servicoService.atualizarServico(id, servicoEsperado);
 
@@ -108,7 +108,7 @@ public class ServicoServiceTest {
         Assertions.assertThat(servicoRetornado.getNome()).isEqualTo("teste");
         Assertions.assertThat(servicoRetornado.getPreco()).isEqualTo(new BigDecimal(0));
         Assertions.assertThat(servicoRetornado.getDescricao()).isEqualTo("teste");
-        Assertions.assertThat(servicoRetornado.getStatus()).isEqualTo(StatusServico.INATIVO);
+        Assertions.assertThat(servicoRetornado.getStatus()).isEqualTo(StatusServico.CANCELADO);
 
     }
 
@@ -117,17 +117,17 @@ public class ServicoServiceTest {
     public void deveAtualiazarOsStatusDeUmServico() throws IdentificadorInvalidoException, DataPagamentoPrevistoException{
         ServicoDTO servicoDTO = Gerador.getServicoDTO();
 
-        servicoDTO.setStatus(StatusServico.PENDENTE);
+        servicoDTO.setStatus(StatusServico.EM_ANDAMENTO);
 
         Servico servicoSalvo = servicoService.salvarServico(servicoDTO);
 
-        Assertions.assertThat(servicoSalvo.getStatus()).isEqualTo(StatusServico.PENDENTE);
+        Assertions.assertThat(servicoSalvo.getStatus()).isEqualTo(StatusServico.EM_ANDAMENTO);
 
-        servicoService.alterarStatusDoServico(id, StatusServico.ATIVO);
+        servicoService.alterarStatusDoServico(id, StatusServico.CONCLUIDO);
 
         Servico servicoRetornado = servicoService.buscarServicosPeloId(id);
 
-        Assertions.assertThat(servicoRetornado.getStatus()).isEqualTo(StatusServico.ATIVO);
+        Assertions.assertThat(servicoRetornado.getStatus()).isEqualTo(StatusServico.CONCLUIDO);
 
     }
 

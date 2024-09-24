@@ -49,7 +49,7 @@ public class ServicoService {
 
         log.info("Iniciando o tratamento da requisição");
             Servico servicoTratado = ServicoDTO.paraEntidade(servicoDTO);
-        servicoTratado.setStatus(StatusServico.PENDENTE);
+        servicoTratado.setStatus(StatusServico.EM_ANDAMENTO);
         if(servicoTratado.getPagamentoPrevisto().isAfter(servicoTratado.getPagamentoFinal())){
             log.error("Data do pagamento previsto não pode ser anterior ao pagamento final");
             throw new DataPagamentoPrevistoException("Data do pagamento previsto não pode ser anterior ao pagamento final");

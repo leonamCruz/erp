@@ -22,8 +22,8 @@
             </button>
             <div class="container-fluid">
                 <!-- Conteúdo -->
-                <form id="servicoForm">
-                    <div class="container p-5 border border-dark rounded">
+                <form id="servicoForm ">
+                    <div class="container p-5 border border-dark shadow-lg rounded">
                         <div class="row pb-5">
                             <h2 class="display-5 fw-medium">Cadastro de Serviços</h2>
                         </div>
@@ -41,7 +41,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="nome"
+                                    <input type="text" class="form-control" id="nome" maxlength="250"
                                         placeholder="Digite o nome do serviço" required>
                                     <label for="nome">Nome do Serviço</label>
                                 </div>
@@ -70,7 +70,7 @@
                             <div class="col-6">
                                 <div class="form-floating mb-3">
                                     <input type="date" class="form-control data-input" id="pagamentoPrevisto"
-                                        placeholder="dd/MM/yyyy"  min="">
+                                        placeholder="dd/MM/yyyy"  min="" required>
                                     <label for="pagamentoPrevisto">Pagamento Previsto</label>
                                 </div>
                             </div>

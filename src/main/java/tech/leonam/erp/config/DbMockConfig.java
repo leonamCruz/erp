@@ -19,6 +19,7 @@ import tech.leonam.erp.model.entity.Cliente;
 import tech.leonam.erp.model.entity.Servico;
 import tech.leonam.erp.model.entity.TipoPagamento;
 import tech.leonam.erp.model.enums.StatusServico;
+import tech.leonam.erp.model.enums.StatusTipoPagamento;
 import tech.leonam.erp.model.enums.UF;
 import tech.leonam.erp.repository.ClienteRepository;
 import tech.leonam.erp.repository.ServicoRepository;
@@ -136,6 +137,7 @@ public class DbMockConfig {
             tipoPagamento.setModificadoPor(faker.name().fullName());
             tipoPagamento.setDataCriacao(LocalDateTime.now().minusDays(random.nextInt(0, 365)));
             tipoPagamento.setDataModificacao(LocalDateTime.now().minusDays(random.nextInt(0, 365)));
+            tipoPagamento.setStatus(StatusTipoPagamento.values()[random.nextInt(StatusTipoPagamento.values().length)]);
 
             tiposPagamento.add(tipoPagamento);
         }

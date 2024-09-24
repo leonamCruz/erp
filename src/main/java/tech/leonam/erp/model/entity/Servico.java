@@ -3,8 +3,8 @@ package tech.leonam.erp.model.entity;
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -97,7 +97,9 @@ public class Servico implements Serializable {
     private LocalDateTime dataModificacao;
 
     @CreatedBy
-    // @Column(nullable = false, updatable = false)
+    @Column(
+        // nullable = false, 
+        updatable = false)
     private String criadoPor;
 
     @Column
