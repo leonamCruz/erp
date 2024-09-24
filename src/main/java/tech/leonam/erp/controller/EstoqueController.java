@@ -26,6 +26,18 @@ public class EstoqueController {
     public ResponseEntity<List<Estoque>> listarEstoque() {
         return ResponseEntity.ok().body(estoqueService.retornaTodoEstoque());
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deletarEstoque(@PathVariable Long id) {
+        estoqueService.deletarEstoquePorId(id);
+        return ResponseEntity.ok().body(String.format("O id: %d foi deletado com sucesso", id));
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<String> alterarEstoque(@PathVariable Long id, @RequestBody @Valid EstoqueDTO dto) {
+        estoqueService.alteraEstoque(dto, id);
+        return ResponseEntity.ok().body("Estoque alterado com sucesso");
+    }
 }
 
 
