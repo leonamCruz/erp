@@ -37,29 +37,32 @@ public class ServicoService {
                 });
     }
 
-    public Page<Servico> buscarTodosServicos(Integer pagina, Integer linhasPorPagina, String orderBy, String direcao) {
+    public Page<Servico> buscarTodosServicos(Integer pagina, Integer linhasPorPagina, String orderBy, String direcao,
+            Integer status) {
         log.info("Buscando todos os serviços - Página: {}, Linhas por página: {}, OrderBy: {}, Direção: {}",
                 pagina, linhasPorPagina, orderBy, direcao);
         PageRequest pageRequest = PageRequest.of(pagina, linhasPorPagina, Sort.Direction.valueOf(direcao), orderBy);
-        return servicoRepository.findAll(pageRequest);
+        return servicoRepository.findAllByStatus(StatusServico.fromCodigo(status), pageRequest);
     }
 
     @Transactional
-    public Servico salvarServico(ServicoDTO servicoDTO) throws IdentificadorInvalidoException, DataPagamentoPrevistoException {
+    public Servico salvarServico(ServicoDTO servicoDTO)
+            throws IdentificadorInvalidoException, DataPagamentoPrevistoException {
 
         log.info("Iniciando o tratamento da requisição");
-            Servico servicoTratado = ServicoDTO.paraEntidade(servicoDTO);
+        Servico servicoTratado = ServicoDTO.paraEntidade(servicoDTO);
         servicoTratado.setStatus(StatusServico.EM_ANDAMENTO);
-        if(servicoTratado.getPagamentoPrevisto().isAfter(servicoTratado.getPagamentoFinal())){
+        if (servicoTratado.getPagamentoPrevisto().isAfter(servicoTratado.getPagamentoFinal())) {
             log.error("Data do pagamento previsto não pode ser anterior ao pagamento final");
-            throw new DataPagamentoPrevistoException("Data do pagamento previsto não pode ser anterior ao pagamento final");
+            throw new DataPagamentoPrevistoException(
+                    "Data do pagamento previsto não pode ser anterior ao pagamento final");
         }
         log.info("Serviço tratado para persistência");
-        
+
         log.info("Procurando o tipo de pagamento");
         TipoPagamento tipoBuscado = tipoPagamentoService.buscarTipoPagamentoPeloId(servicoDTO.getTipoPagamentoId());
         servicoTratado.setTipoPagamento(tipoBuscado);
-        
+
         log.info("Salvando novo serviço: {}", servicoDTO);
         Servico servico = servicoRepository.save(servicoTratado);
 
@@ -108,5 +111,4 @@ public class ServicoService {
                     return new IdentificadorInvalidoException("Identificador do serviço inválido");
                 });
     }
-
 }

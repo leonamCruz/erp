@@ -49,8 +49,9 @@ public class ServicoController {
             @RequestParam(defaultValue = PADRAO_PAGINA) @Min(0) Integer pagina,
             @RequestParam(defaultValue = PADRAO_LINHAS_POR_PAGINA) @Min(1) Integer linhasPorPagina,
             @RequestParam(defaultValue = PADRAO_DE_ORDEM) String orderBy,
-            @RequestParam(defaultValue = PADRAO_DE_DIRECAO) String direcao) {
-        Page<Servico> servicos = servicoService.buscarTodosServicos(pagina, linhasPorPagina, orderBy, direcao);
+            @RequestParam(defaultValue = PADRAO_DE_DIRECAO) String direcao,
+            @RequestParam(defaultValue = "2") Integer status) {
+        Page<Servico> servicos = servicoService.buscarTodosServicos(pagina, linhasPorPagina, orderBy, direcao, status);
         return ResponseEntity.ok().body(servicos);
     }
 
@@ -74,10 +75,11 @@ public class ServicoController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PatchMapping("/{id}/status")
+    @PatchMapping("/{id}/atualizar")
     public ResponseEntity<Void> alterarStatusDoServico(@PathVariable @Min(1) Long id,
             @RequestParam StatusServico status) throws IdentificadorInvalidoException {
         servicoService.alterarStatusDoServico(id, status);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

@@ -8,7 +8,7 @@
     <link href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="../static/css/sidebar.css" rel="stylesheet">
     <link href="../static/css/style.css" rel="stylesheet">
-    <link href="../static/css/cadastro_servicos.css" rel="stylesheet">
+    <link href="../static/css/servicos/cadastro_servicos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="../static/img/logo-menor.webp">
 </head>
@@ -22,7 +22,7 @@
             </button>
             <div class="container-fluid">
                 <!-- Conteúdo -->
-                <form id="servicoForm ">
+                <form id="servicoForm">
                     <div class="container p-5 border border-dark shadow-lg rounded">
                         <div class="row pb-5">
                             <h2 class="display-5 fw-medium">Cadastro de Serviços</h2>
@@ -60,8 +60,8 @@
                                 <div class="form-floating">
                                     <select class="form-select" id="tipoPagamentoId" required>
                                         <option value="" selected>...</option>
-                                        <option th:each="tipoPagamento : ${tipoPagamentos}" th:text="${tipoPagamento.nome}"
-                                            th:value="${tipoPagamento.id}">
+                                        <option th:each="tipoPagamento : ${tipoPagamentos}"
+                                            th:text="${tipoPagamento.nome}" th:value="${tipoPagamento.id}">
                                         </option>
                                     </select>
                                     <label for="tipoPagamentoId">Tipo de Pagamento</label>
@@ -70,7 +70,7 @@
                             <div class="col-6">
                                 <div class="form-floating mb-3">
                                     <input type="date" class="form-control data-input" id="pagamentoPrevisto"
-                                        placeholder="dd/MM/yyyy"  min="" required>
+                                        placeholder="dd/MM/yyyy" min="" required>
                                     <label for="pagamentoPrevisto">Pagamento Previsto</label>
                                 </div>
                             </div>
@@ -100,9 +100,9 @@
             </div>
         </section>
     </div>
-    <script src="../static/js/sidebar.js"></script>
-    <script src="../static/js/cadastro_servicos.js"></script>
-    <script src="../static/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../../static/js/sidebar.js"></script>
+    <script src="../../static/js/servicos/cadastro_servicos.js" defer></script>
+    <script src="../../static/js/bootstrap/bootstrap.bundle.min.js"></script>
 
 </body>
 
