@@ -1,5 +1,7 @@
 package tech.leonam.erp.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -10,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import tech.leonam.erp.exceptions.IdentificadorInvalidoException;
 import tech.leonam.erp.model.DTO.TipoPagamentoDTO;
+import tech.leonam.erp.model.DTO.responseApi.TipoPagamentoNomesDTO;
 import tech.leonam.erp.model.entity.TipoPagamento;
 import tech.leonam.erp.repository.TipoPagamentoRepository;
 
@@ -38,7 +41,7 @@ public class TipoPagamentoService {
     }
 
     @Transactional
-    public TipoPagamento salvarTipoPagamento(TipoPagamentoDTO tipoPagamentoDTO){
+    public TipoPagamento salvarTipoPagamento(TipoPagamentoDTO tipoPagamentoDTO) {
         log.info("Salvando novo tipo de pagamento: {}", tipoPagamentoDTO);
         TipoPagamento tipoPagamento = TipoPagamentoDTO.paraEntidade(tipoPagamentoDTO);
         log.info("Tipo de pagamento tratado");
@@ -75,5 +78,12 @@ public class TipoPagamentoService {
             log.error("Falha ao deletar. Tipo de pagamento com ID: {} não encontrado", id);
             throw new IdentificadorInvalidoException("Identificador do tipo de pagamento inválido");
         }
+    }
+
+    public List<TipoPagamentoNomesDTO> buscarTodosNomesDosTiposDePagamentos() {
+        return tipoPagamentoRepository.findAllTipoPagamentoNomesDTOs()
+                .stream()
+                .distinct()
+                .toList();
     }
 }

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Listar Clientes</title>
+    <title>Servicos Concluídos</title>
 
     <link href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="../static/css/sidebar.css" rel="stylesheet">
@@ -19,33 +19,35 @@
             <button type="button" onclick="sidebar()" class="btn sticky-top rounded-circle p-3" id="sidebar-button">
                 <i class="fa-solid fa-3x fa-bars"></i>
             </button>
-            <div class="container table-responsive   ">
-                <h1 class="my-4">Lista de Clientes</h1>
+            <div class="container table-responsive ">
+                <h1 class="my-4">Concluídos</h1>
 
-                <table class="table table-bordered border-black table-hover text-center">
+                <table class="table table-bordered border-black table-hover text-center shadow">
                     <thead class="table-dark">
                         <tr>
                             <th>ID</th>
-                            <th>Nome</th>
-                            <th>Contato</th>
-                            <th>Endereco</th>
+                            <th>Nome do Serviço</th>
+                            <th>Preço</th>
+                            <th>Pagamento Previsto</th>
+                            <th>Pagamento Final</th>
+                            <th>Status</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
-                    <tbody id="clienteTableBody">
+                    <tbody id="emAndamentoTableBody">
                     </tbody>
                     <caption class="text-center my-5">
                         <nav aria-label="paginacao" class="d-flex justify-content-center">
                             <ul class="pagination pagination-lg">
                                 <li class="page-item" th:classappend="${paginaCorrente == 1} ? 'disabled'">
-                                    <a class="page-link" th:href="@{'/listar_clientes?pagina=' + ${paginaCorrente - 1}}"
+                                    <a class="page-link" th:href="@{'/servicos_em_andamento?pagina=' + ${paginaCorrente - 1}}"
                                         aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
 
                                 <li class="page-item" th:classappend="${paginaCorrente == i} ? 'disabled'"
                                     th:if="${paginaCorrente == 1 || paginas.contains(1)} == false">
-                                    <a class="page-link" th:href="@{'/listar_clientes?pagina=' + 1}" th:text="1"
+                                    <a class="page-link" th:href="@{'/servicos_em_andamento?pagina=' + 1}" th:text="1"
                                         th:value="${1}" id="pagina"></a>
                                 </li>
 
@@ -57,7 +59,7 @@
                                 </li>
                                 <li class="page-item" th:classappend="${paginaCorrente == i} ? 'active'"
                                     th:each="i : ${paginas}">
-                                    <a class="page-link" th:href="@{'/listar_clientes?pagina=' + ${i}}"
+                                    <a class="page-link" th:href="@{'/servicos_em_andamento?pagina=' + ${i}}"
                                         th:text="${i}"></a>
                                 </li>
 
@@ -69,12 +71,12 @@
                                 <li class="page-item" th:classappend="${paginaCorrente == i} ? 'disabled'"
                                     th:each="i : ${totalPages}"
                                     th:if="${paginaCorrente == totalPages || paginaCorrente == totalPages-1 || paginas.contains(i)} == false">
-                                    <a class="page-link" th:href="@{'/listar_clientes?pagina=' + ${i}}" th:text="${i}"
+                                    <a class="page-link" th:href="@{'/servicos_em_andamento?pagina=' + ${i}}" th:text="${i}"
                                         th:value="${i}" id="pagina"></a>
                                 </li>
 
                                 <li class="page-item" th:classappend="${paginaCorrente == totalPages} ? 'disabled'">
-                                    <a class="page-link" th:href="@{'/listar_clientes?pagina=' + ${paginaCorrente + 1}}"
+                                    <a class="page-link" th:href="@{'/servicos_em_andamento?pagina=' + ${paginaCorrente + 1}}"
                                         aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
@@ -89,7 +91,7 @@
     </div>
     <script src="../static/js/sidebar.js"></script>
     <script src="../static/js/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="../static/js/listar-clientes.js"></script>
+    <script src="../../static/js/servicos/servicos_concluidos.js"></script>
 </body>
 
 </html>

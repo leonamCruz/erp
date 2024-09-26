@@ -20,10 +20,10 @@ import tech.leonam.erp.service.ClienteService;
 public class ClienteControle {
 
     private final ClienteService clienteServico;
-    private static final String PADRAO_LINHAS_POR_PAGINA = "20";
-    private static final String PADRAO_PAGINA = "0";
-    private static final String PADRAO_DE_ORDEM = "id";
-    private static final String PADRAO_DE_DIRECAO = "ASC";
+    private final String PADRAO_LINHAS_POR_PAGINA = "20";
+    private final String PADRAO_PAGINA = "0";
+    private final String PADRAO_DE_ORDEM = "id";
+    private final String PADRAO_DE_DIRECAO = "ASC";
 
 
     @PostMapping

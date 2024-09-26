@@ -11,6 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import jakarta.transaction.Transactional;
 import tech.leonam.erp.exceptions.ClienteNaoFoiSalvo;
+import tech.leonam.erp.exceptions.DataPagamentoPrevistoException;
 import tech.leonam.erp.exceptions.IdentificadorInvalidoException;
 import tech.leonam.erp.model.DTO.ServicoDTO;
 import tech.leonam.erp.model.DTO.TipoPagamentoDTO;
@@ -37,7 +38,7 @@ public class ServicoServiceTest {
 
     @Test
     @DisplayName("Deve salvar um serviço")
-    public void deveSalvarServico() throws IdentificadorInvalidoException, ClienteNaoFoiSalvo {
+    public void deveSalvarServico() throws IdentificadorInvalidoException, ClienteNaoFoiSalvo, DataPagamentoPrevistoException {
         ServicoDTO servicoDTO = Gerador.getServicoDTO();
 
         clienteRepository.salvarCliente(Gerador.getClienteDTO());
@@ -63,7 +64,7 @@ public class ServicoServiceTest {
 
     @Test
     @DisplayName("Deve buscar um serviço por id")
-    public void deveBuscarServicoPorId() throws IdentificadorInvalidoException {
+    public void deveBuscarServicoPorId() throws IdentificadorInvalidoException, DataPagamentoPrevistoException {
 
         ServicoDTO servicoDTO = Gerador.getServicoDTO();
 
@@ -97,7 +98,7 @@ public class ServicoServiceTest {
         servicoEsperado.setNome("teste");
         servicoEsperado.setPreco(new BigDecimal(0));
         servicoEsperado.setDescricao("teste");
-        servicoEsperado.setStatus(StatusServico.INATIVO);
+        servicoEsperado.setStatus(StatusServico.CANCELADO);
 
         Long idRetornado = servicoService.atualizarServico(id, servicoEsperado);
 
@@ -107,26 +108,26 @@ public class ServicoServiceTest {
         Assertions.assertThat(servicoRetornado.getNome()).isEqualTo("teste");
         Assertions.assertThat(servicoRetornado.getPreco()).isEqualTo(new BigDecimal(0));
         Assertions.assertThat(servicoRetornado.getDescricao()).isEqualTo("teste");
-        Assertions.assertThat(servicoRetornado.getStatus()).isEqualTo(StatusServico.INATIVO);
+        Assertions.assertThat(servicoRetornado.getStatus()).isEqualTo(StatusServico.CANCELADO);
 
     }
 
     @Test
     @DisplayName("Deve atualizar os status de um servio")
-    public void deveAtualiazarOsStatusDeUmServico() throws IdentificadorInvalidoException{
+    public void deveAtualiazarOsStatusDeUmServico() throws IdentificadorInvalidoException, DataPagamentoPrevistoException{
         ServicoDTO servicoDTO = Gerador.getServicoDTO();
 
-        servicoDTO.setStatus(StatusServico.PENDENTE);
+        servicoDTO.setStatus(StatusServico.EM_ANDAMENTO);
 
         Servico servicoSalvo = servicoService.salvarServico(servicoDTO);
 
-        Assertions.assertThat(servicoSalvo.getStatus()).isEqualTo(StatusServico.PENDENTE);
+        Assertions.assertThat(servicoSalvo.getStatus()).isEqualTo(StatusServico.EM_ANDAMENTO);
 
-        servicoService.alterarStatusDoServico(id, StatusServico.ATIVO);
+        servicoService.alterarStatusDoServico(id, StatusServico.CONCLUIDO);
 
         Servico servicoRetornado = servicoService.buscarServicosPeloId(id);
 
-        Assertions.assertThat(servicoRetornado.getStatus()).isEqualTo(StatusServico.ATIVO);
+        Assertions.assertThat(servicoRetornado.getStatus()).isEqualTo(StatusServico.CONCLUIDO);
 
     }
 

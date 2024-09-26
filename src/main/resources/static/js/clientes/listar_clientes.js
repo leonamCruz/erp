@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             .then(clientes => {
 
                 var tbody = document.getElementById("clienteTableBody");
-                tbody.innerHTML = ""; // Limpa a tabela antes de adicionar novos dados
+                tbody.innerHTML = "";
 
                 clientes.content.forEach(cliente => {
                     var tr = document.createElement("tr");
@@ -43,9 +43,9 @@ document.addEventListener('DOMContentLoaded', async function () {
             });
     }
 
-    
+
     loadClientes(pagina);
-    
+
 });
 
 function deleteCliente(id) {
@@ -54,11 +54,9 @@ function deleteCliente(id) {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                // Inclua outros headers se necessário
             }
         }).then(response => {
             if (response.ok) {
-                // Ação após a exclusão, como recarregar a página ou atualizar a lista
                 location.reload();
             } else {
                 alert('Falha ao deletar o cliente.');

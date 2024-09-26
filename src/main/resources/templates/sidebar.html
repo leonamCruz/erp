@@ -21,7 +21,9 @@
                 </a>
                 <ul class="collapse flex-column ms-1" id="subMenuServico" data-bs-parent="#menuServico">
                     <li><a th:href="@{/cadastro_servicos}" class="nav-link px-0 text-white">Cadastro</a></li>
-                    <li><a th:href="@{/listar_servicos?pagina=1}" class="nav-link px-0 text-white">Listar</a></li>
+                    <li><a th:href="@{/servicos_em_andamento?pagina=1}" class="nav-link px-0 text-white">Em Andamento</a></li>
+                    <li><a th:href="@{/servicos_concluidos?pagina=1}" class="nav-link px-0 text-white">Concluídos</a></li>
+                    <li><a th:href="@{/servicos_cancelados?pagina=1}" class="nav-link px-0 text-white">Cancelados</a></li>
                 </ul>
             </li>
         </ul>

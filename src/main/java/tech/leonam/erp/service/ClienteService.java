@@ -1,5 +1,7 @@
 package tech.leonam.erp.service;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,6 +13,7 @@ import tech.leonam.erp.exceptions.ClienteNaoDeletado;
 import tech.leonam.erp.exceptions.ClienteNaoFoiSalvo;
 import tech.leonam.erp.exceptions.IdentificadorInvalidoException;
 import tech.leonam.erp.model.DTO.ClienteDTO;
+import tech.leonam.erp.model.DTO.responseApi.ClienteNomesDTO;
 import tech.leonam.erp.model.entity.Cliente;
 import tech.leonam.erp.model.enums.TipoPessoa;
 import tech.leonam.erp.repository.ClienteRepository;
@@ -69,5 +72,12 @@ public class ClienteService {
     public void verificaSeExisteIdOuDaThrow(Long id) throws IdentificadorInvalidoException {
         if (!clienteRepository.existsById(id))
             throw new IdentificadorInvalidoException("Cliente com o id " + id + " não foi encontrado");
+    }
+
+    public List<ClienteNomesDTO> buscarTodosNomesDosClientes() {
+        return clienteRepository.findAll()
+                .stream()
+                .map(m -> ClienteNomesDTO.nome(m))
+                .toList();
     }
 }

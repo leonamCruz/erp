@@ -77,7 +77,7 @@ public class ServicoControllerTest {
     public void deveBuscarTodosOsServicos() throws Exception {
         Page<Servico> servicos = Gerador.getPaginaServicos();
         Mockito.when(servicoService.buscarTodosServicos(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString(),
-                Mockito.anyString()))
+                Mockito.anyString(), Mockito.anyInt()))
                 .thenReturn(servicos);
 
         mockMvc.perform(MockMvcRequestBuilders.get(SERVICO_API)
@@ -129,7 +129,7 @@ public class ServicoControllerTest {
     @DisplayName("Deve alterar o status de um serviço")
     public void deveAlterarStatusDoServico() throws Exception {
         Long id = 1L;
-        StatusServico status = StatusServico.ATIVO;
+        StatusServico status = StatusServico.EM_ANDAMENTO;
 
         Mockito.doNothing().when(servicoService).alterarStatusDoServico(id, status);
 

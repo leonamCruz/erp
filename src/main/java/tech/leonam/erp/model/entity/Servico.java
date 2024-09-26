@@ -3,6 +3,7 @@ package tech.leonam.erp.model.entity;
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -78,12 +79,12 @@ public class Servico implements Serializable {
     private StatusServico status;
 
     @Column(nullable = false)
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime pagamentoPrevisto;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDate pagamentoPrevisto;
 
     @Column(nullable = true)
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime pagamentoFinal;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDate pagamentoFinal;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
@@ -96,7 +97,9 @@ public class Servico implements Serializable {
     private LocalDateTime dataModificacao;
 
     @CreatedBy
-    @Column(nullable = false, updatable = false)
+    @Column(
+        // nullable = false, 
+        updatable = false)
     private String criadoPor;
 
     @Column

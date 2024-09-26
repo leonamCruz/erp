@@ -3,6 +3,7 @@ package tech.leonam.erp.config;
 import java.math.BigDecimal;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +19,7 @@ import tech.leonam.erp.model.entity.Cliente;
 import tech.leonam.erp.model.entity.Servico;
 import tech.leonam.erp.model.entity.TipoPagamento;
 import tech.leonam.erp.model.enums.StatusServico;
+import tech.leonam.erp.model.enums.StatusTipoPagamento;
 import tech.leonam.erp.model.enums.UF;
 import tech.leonam.erp.repository.ClienteRepository;
 import tech.leonam.erp.repository.ServicoRepository;
@@ -111,8 +113,8 @@ public class DbMockConfig {
                             .id(longSobreQuatidade())
                             .build());
             servico.setStatus(StatusServico.values()[random.nextInt(StatusServico.values().length)]);
-            servico.setPagamentoPrevisto(LocalDateTime.now().plusDays(random.nextInt(1, 30)));
-            servico.setPagamentoFinal(LocalDateTime.now().plusDays(random.nextInt(31, 60)));
+            servico.setPagamentoPrevisto(LocalDate.now().plusDays(random.nextInt(1, 30)));
+            servico.setPagamentoFinal(LocalDate.now().plusDays(random.nextInt(31, 60)));
             servico.setCriadoPor(faker.name().fullName());
             servico.setModificadoPor(faker.name().fullName());
 
@@ -135,6 +137,7 @@ public class DbMockConfig {
             tipoPagamento.setModificadoPor(faker.name().fullName());
             tipoPagamento.setDataCriacao(LocalDateTime.now().minusDays(random.nextInt(0, 365)));
             tipoPagamento.setDataModificacao(LocalDateTime.now().minusDays(random.nextInt(0, 365)));
+            tipoPagamento.setStatus(StatusTipoPagamento.values()[random.nextInt(StatusTipoPagamento.values().length)]);
 
             tiposPagamento.add(tipoPagamento);
         }
