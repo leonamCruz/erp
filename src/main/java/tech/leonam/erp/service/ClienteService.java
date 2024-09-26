@@ -63,8 +63,8 @@ public class ClienteService {
 
     }
 
-    public Page<Cliente> buscarTodosOsCLientes(Integer pagina, Integer linhasPorPagina, String orderBy,
-            String direcao) {
+    public Page<Cliente> buscarTodosOsClientes(Integer pagina, Integer linhasPorPagina, String orderBy,
+                                               String direcao) {
         PageRequest pageRequest = PageRequest.of(pagina, linhasPorPagina, Sort.Direction.valueOf(direcao), orderBy);
         return clienteRepository.findAll(pageRequest);
     }
