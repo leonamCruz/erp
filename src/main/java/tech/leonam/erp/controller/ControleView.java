@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.AllArgsConstructor;
 import tech.leonam.erp.exceptions.IdentificadorInvalidoException;
+import tech.leonam.erp.model.DTO.responseApi.ClienteNomesDTO;
+import tech.leonam.erp.model.entity.Servico;
 import tech.leonam.erp.model.enums.StatusServico;
 import tech.leonam.erp.model.enums.UF;
 import tech.leonam.erp.service.ClienteService;
@@ -144,7 +146,14 @@ public class ControleView {
 
     @GetMapping("/visualizar_servico")
     public String visualizar_servico(Model model, @PathVariable @RequestParam Long id) throws IdentificadorInvalidoException {
-        model.addAttribute("servico", servicoService.buscarServicosPeloId(id));
+        Servico servico = servicoService.buscarServicosPeloId(id);
+        List<ClienteNomesDTO> consulta = clienteService.buscarTodosNomesDosClientes();
+
+        
+        model.addAttribute("servico", servico);
+        model.addAttribute("clientes", consulta);
+        model.addAttribute("tipoPagamentos", tipoPagamentoService.buscarTodosNomesDosTiposDePagamentos());
+        model.addAttribute("statusLista", StatusServico.values());
         return "/servicos/visualizar_servico";
     }
 
