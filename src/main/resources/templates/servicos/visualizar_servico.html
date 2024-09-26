@@ -21,7 +21,134 @@
             </button>
             <div class="container-fluid">
                 <!-- Conteúdo -->
+                <div class="container p-5 shadow">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="display-5 fw-medium text-center">Detalhes do Serviço</h2>
+                        </div>
+                    </div>
+                
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="card-header">
+                                    <h4>Cliente</h4>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text" id="clienteNome" th:text="${servico.getCliente().getNome()}">---</p>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="card-header">
+                                    <h4>Nome do Serviço</h4>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text" id="nomeServico" th:text="${servico.getNome()}">---</p>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="card-header">
+                                    <h4>Preço</h4>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text" id="precoServico" th:text="${'R$' + servico.getPreco()}">---</p>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="card-header">
+                                    <h4>Status do Serviço</h4>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text" id="statusServico" th:text="${servico.getStatus()}">---</p>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="card-header">
+                                    <h4>Tipo de Pagamento</h4>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text" id="tipoPagamento" th:text="${servico.getTipoPagamento().getNome()}">---</p>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="card-header">
+                                    <h4>Pagamento Previsto</h4>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text" id="pagamentoPrevisto"  th:text="${#temporals.format(servico.getPagamentoPrevisto(),'dd-MM-yyyy')}">---</p>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="card-header">
+                                    <h4>Pagamento Final</h4>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text" id="pagamentoFinal" th:text="${#temporals.format(servico.getPagamentoFinal(),'dd-MM-yyyy')}">---</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="card-header">
+                                    <h4>Criado Por</h4>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text" id="criadoPor" th:text="${servico.getCriadoPor()}">---</p>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="card-header">
+                                    <h4>Modificado Por</h4>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text" id="modificadoPor" th:text="${servico.getModificadoPor()}">---</p>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <div class="col-12">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="card-header">
+                                    <h4>Descrição</h4>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text" id="descricaoServico" th:text="${servico.getDescricao()}">---</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center">
+                            <button class="btn btn-lg btn-secondary mx-2" onclick="window.history.back()">Voltar</button>
+                            <button class="btn btn-lg btn-primary mx-2" id="editarServico">Editar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                
 
             </div>
         </section>

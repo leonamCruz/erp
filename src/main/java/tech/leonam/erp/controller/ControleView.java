@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.AllArgsConstructor;
+import tech.leonam.erp.exceptions.IdentificadorInvalidoException;
 import tech.leonam.erp.model.enums.StatusServico;
 import tech.leonam.erp.model.enums.UF;
 import tech.leonam.erp.service.ClienteService;
@@ -139,6 +140,12 @@ public class ControleView {
         model.addAttribute("clientes", clienteService.buscarTodosNomesDosClientes());
         model.addAttribute("tipoPagamentos", tipoPagamentoService.buscarTodosNomesDosTiposDePagamentos());
         return "/servicos/cadastro_servicos";
+    }
+
+    @GetMapping("/visualizar_servico")
+    public String visualizar_servico(Model model, @PathVariable @RequestParam Long id) throws IdentificadorInvalidoException {
+        model.addAttribute("servico", servicoService.buscarServicosPeloId(id));
+        return "/servicos/visualizar_servico";
     }
 
 }
