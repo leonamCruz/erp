@@ -1,3 +1,8 @@
-#conteudo{
-    height: 100vh;
+body {
+  overflow: hidden;
+  box-sizing: border-box;
+  
+}
+#conteudo {
+  height: 100vh;
 }

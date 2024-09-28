@@ -1,11 +1,12 @@
-<nav id="sidebar" th:fragment="sidebar" class="col col-md-2 d-flex flex-column bg-dark text-white ">
+<nav id="sidebar" th:fragment="sidebar" class="col-lg-2 d-flex flex-column bg-dark text-white">
     <div class="container-fluid d-flex flex-column px-3 py-0 h-100 ">
-        <a href="/" class="d-flex pb-md-3 text-white">
-            <span class="fs-3 fw-medium text-decoration-none">Menu</span>
+        <a href="/" class="d-flex align-items-center justify-content-center my-4">
+            <img src="../static/img/logo-menor.webp" alt="logo da empresa" height="120vh">
         </a>
-        <ul class="nav ">
-            <li class="col-md-12 col">
-                <a href="#subMenuCliente" data-bs-toggle="collapse" class="nav-link px-0 text-white">
+        <hr class="row">
+        <ul class="nav">
+            <li class="col-lg-12 col">
+                <a href="#subMenuCliente" data-bs-toggle="collapse" class="nav-link px-0 text-white fs-3 fw-medium">
                     <i class="fs-4 bi-speedometer2"></i>
                     <span class="ms-1 d-sm-inline">Clientes</span>
                 </a>
@@ -14,23 +15,26 @@
                     <li><a th:href="@{/listar_clientes?pagina=1}" class="nav-link px-0 text-white">Listar</a></li>
                 </ul>
             </li>
-            <li class="col-md-12 col">
-                <a href="#subMenuServico" data-bs-toggle="collapse" class="nav-link px-0 text-white">
+            <li class="col-lg-12 col">
+                <a href="#subMenuServico" data-bs-toggle="collapse" class="nav-link px-0 text-white fs-3 fw-medium">
                     <i class="fs-4 bi-briefcase"></i>
                     <span class="ms-1">Serviços</span>
                 </a>
                 <ul class="collapse flex-column ms-1" id="subMenuServico" data-bs-parent="#menuServico">
                     <li><a th:href="@{/cadastro_servicos}" class="nav-link px-0 text-white">Cadastro</a></li>
-                    <li><a th:href="@{/servicos_em_andamento?pagina=1}" class="nav-link px-0 text-white">Em Andamento</a></li>
-                    <li><a th:href="@{/servicos_concluidos?pagina=1}" class="nav-link px-0 text-white">Concluídos</a></li>
-                    <li><a th:href="@{/servicos_cancelados?pagina=1}" class="nav-link px-0 text-white">Cancelados</a></li>
+                    <li><a th:href="@{/servicos_em_andamento?pagina=1}" class="nav-link px-0 text-white">Em
+                            Andamento</a></li>
+                    <li><a th:href="@{/servicos_concluidos?pagina=1}" class="nav-link px-0 text-white">Concluídos</a>
+                    </li>
+                    <li><a th:href="@{/servicos_cancelados?pagina=1}" class="nav-link px-0 text-white">Cancelados</a>
+                    </li>
                 </ul>
             </li>
         </ul>
-        <div class="row dropdown pb-3 mt-auto text-end text-md-start ">
+        <div class="row dropdown pb-3 mt-auto text-end text-md-start fs-5">
             <hr>
-            <a href="#" class="text-white text-decoration-none dropdown-toggle"
-                id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <a href="#" class="text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
+                data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="https://github.com/mdo.png" alt="user image" width="30" height="30" class="rounded-circle">
                 <span class="mx-1">user</span>
             </a>
@@ -38,7 +42,9 @@
                 <li><a class="dropdown-item" href="#">New project...</a></li>
                 <li><a class="dropdown-item" href="#">Settings</a></li>
                 <li><a class="dropdown-item" href="#">Profile</a></li>
-                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
                 <li><a class="dropdown-item" href="#">Sign out</a></li>
             </ul>
         </div>

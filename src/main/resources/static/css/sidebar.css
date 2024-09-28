@@ -1,17 +1,7 @@
-body{
-    overflow: hidden;
-    box-sizing: border-box;
-}
 #sidebar {
-  height: 100vh;
-  width: 230px;
+  background: rgb(17,10,121);
+  background: linear-gradient(176deg, rgba(17,10,121,1) 8%, rgba(48,48,193,1) 65%, rgba(8,65,77,1) 100%);
 }
 #sidebar.hidden {
   display: none;
-}
-@media screen and (max-width: 768px) {
-  #sidebar {
-    width: 100vw;
-    height: auto;
-  }
 }
