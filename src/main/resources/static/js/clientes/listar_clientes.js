@@ -3,19 +3,19 @@ document.addEventListener('DOMContentLoaded', async function () {
     const params = new URLSearchParams(url.search);
     const pagina = params.get('pagina');
 
-   function loadClientes(pagina) {
-    fetch('api/cliente/page?pagina=' + (pagina - 1))
-        .then(response => response.json())
-        .then(clientes => {
+    function loadClientes(pagina) {
+        fetch('api/cliente/page?pagina=' + (pagina - 1))
+            .then(response => response.json())
+            .then(clientes => {
 
-            var accordionExample = document.getElementById("accordionExample");
-            accordionExample.innerHTML = "";  
+                var accordionExample = document.getElementById("accordionExample");
+                accordionExample.innerHTML = "";
 
-            clientes.content.forEach((cliente, index) => {
-                var accordionItem = document.createElement("div");
-                accordionItem.className = "accordion-item  ";
+                clientes.content.forEach((cliente, index) => {
+                    var accordionItem = document.createElement("div");
+                    accordionItem.className = "accordion-item  ";
 
-                accordionItem.innerHTML = `
+                    accordionItem.innerHTML = `
                 <h2 class="accordion-header" id="heading${index}">
                     <button class="accordion-button collapsed d-flex align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}">
                         <i class="fa-solid fa-user me-2"></i> 
@@ -52,16 +52,13 @@ document.addEventListener('DOMContentLoaded', async function () {
                 </div>
                 `;
 
-                accordionExample.appendChild(accordionItem);
+                    accordionExample.appendChild(accordionItem);
+                });
+            })
+            .catch(error => {
+                alert('Erro na requisição:', error);
             });
-        })
-        .catch(error => {
-            alert('Erro na requisição:', error);
-        });
-}
-
-    
-
+    }
 
     loadClientes(pagina);
 

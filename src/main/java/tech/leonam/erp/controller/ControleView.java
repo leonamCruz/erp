@@ -1,6 +1,10 @@
 package tech.leonam.erp.controller;
 
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.springframework.stereotype.Controller;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import lombok.AllArgsConstructor;
 import tech.leonam.erp.exceptions.IdentificadorInvalidoException;
 import tech.leonam.erp.model.DTO.responseApi.ClienteNomesDTO;
+import tech.leonam.erp.model.entity.Cliente;
 import tech.leonam.erp.model.entity.Servico;
 import tech.leonam.erp.model.enums.StatusServico;
 import tech.leonam.erp.model.enums.UF;
@@ -63,6 +68,7 @@ public class ControleView {
     @GetMapping("/listar_clientes")
     public String listar_clientes(Model model, @PathVariable @RequestParam(defaultValue = "1") Integer pagina) {
         var consulta = clienteService.buscarTodosOsClientes(pagina, 20, "id", "ASC");
+        var consultaLista = clienteService.buscarTodosOsClientes();
 
         int paginaCorrente = consulta.getNumber();
         int totalPages = consulta.getTotalPages();
@@ -75,13 +81,39 @@ public class ControleView {
         model.addAttribute("paginaCorrente", paginaCorrente);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("paginas", paginas);
+        model.addAttribute("contaClientes", consultaLista.size());
+        model.addAttribute("clientesPorUF", consultaLista.stream()
+                .collect(Collectors.groupingBy(Cliente::getUf, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .limit(3) 
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1,
+                        LinkedHashMap::new // Para manter a ordem
+                )));
+        model.addAttribute("clientesRecentes", consultaLista.stream()
+        .sorted(Comparator.comparing(Cliente::getCriadoPor))
+        .map(Cliente::getNome)
+        .limit(3)
+        );
+        model.addAttribute("dataClientesRecentes", consultaLista.stream()
+        .sorted(Comparator.comparing(Cliente::getCriadoPor))
+        .map(Cliente::getDataCriacao)
+        .limit(3)
+        )
+        
+        ;
 
         return "/clientes/listar_clientes";
     }
 
     @GetMapping("/servicos_em_andamento")
     public String servicos_em_andamento(Model model, @PathVariable @RequestParam(defaultValue = "1") Integer pagina) {
-        var consulta = servicoService.buscarTodosServicos(pagina, 20, "id", "ASC", StatusServico.EM_ANDAMENTO.getCodigo());
+        var consulta = servicoService.buscarTodosServicos(pagina, 20, "id", "ASC",
+                StatusServico.EM_ANDAMENTO.getCodigo());
 
         int paginaCorrente = consulta.getNumber();
         int totalPages = consulta.getTotalPages();
@@ -97,7 +129,6 @@ public class ControleView {
 
         return "/servicos/servicos_em_andamento";
     }
-
 
     @GetMapping("/servicos_cancelados")
     public String servicos_cancelados(Model model, @PathVariable @RequestParam(defaultValue = "1") Integer pagina) {
@@ -145,11 +176,11 @@ public class ControleView {
     }
 
     @GetMapping("/visualizar_servico")
-    public String visualizar_servico(Model model, @PathVariable @RequestParam Long id) throws IdentificadorInvalidoException {
+    public String visualizar_servico(Model model, @PathVariable @RequestParam Long id)
+            throws IdentificadorInvalidoException {
         Servico servico = servicoService.buscarServicosPeloId(id);
         List<ClienteNomesDTO> consulta = clienteService.buscarTodosNomesDosClientes();
 
-        
         model.addAttribute("servico", servico);
         model.addAttribute("clientes", consulta);
         model.addAttribute("tipoPagamentos", tipoPagamentoService.buscarTodosNomesDosTiposDePagamentos());

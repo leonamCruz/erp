@@ -69,6 +69,10 @@ public class ClienteService {
         return clienteRepository.findAll(pageRequest);
     }
 
+    public List<Cliente> buscarTodosOsClientes() {
+        return clienteRepository.findAll();
+    }
+
     public void verificaSeExisteIdOuDaThrow(Long id) throws IdentificadorInvalidoException {
         if (!clienteRepository.existsById(id))
             throw new IdentificadorInvalidoException("Cliente com o id " + id + " não foi encontrado");
