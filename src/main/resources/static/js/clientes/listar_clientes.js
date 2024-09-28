@@ -25,14 +25,14 @@ document.addEventListener('DOMContentLoaded', async function () {
                 <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}" data-bs-parent="#accordionExample">
                     <div class="accordion-body bg-light">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <ul class="list-group">
                                     <li class="list-group-item mb-2"><strong>Id:</strong> ${cliente.id}</li>
                                     <li class="list-group-item mb-2"><strong>Nome:</strong> ${cliente.nome}</li>
                                     <li class="list-group-item mb-2"><strong>Contato:</strong> ${formatPhoneNumber(cliente.numeroContato)}</li>
                                 </ul>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <ul class="list-group">
                                     <li class="list-group-item mb-2"><strong>Endereço:</strong> ${cliente.endereco}</li>
                                     <li class="list-group-item mb-2"><strong>Bairro:</strong> ${cliente.bairro}</li>

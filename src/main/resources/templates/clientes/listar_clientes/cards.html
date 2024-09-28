@@ -1,6 +1,6 @@
-<div class=" mb-4" th:fragment="clientes/listar_clientes/cards.html">
+<div th:fragment="clientes/listar_clientes/cards.html" class="mb-4">
     <div class="row ">
-        <div class="col-lg-4 col-12">
+        <div class="col-lg-4 col-12 mb-md-4">
             <div class="card l-bg-cherry shadow-sm">
                 <div class="card-statistic-3 p-4">
                     <div class="card-icon card-icon-large">
@@ -16,26 +16,26 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-12">
+        <div class="col-lg-4 col-12 mb-md-4">
             <div class="card l-bg-cherry shadow-sm">
                 <div class="card-statistic-3 p-4">
                     <div class="card-icon card-icon-large">
-                        <i class="fas fa-map-marked-alt"></i>
+                        <i class="fa-regular fa-user"></i>
                     </div>
                     <div class="mb-4">
                         <h5 class="card-title mb-3 py-2">Total de Clientes Cadastrados</h5>
-                        <h1 class="display-3 my-3 fw-medium" th:text="${contaClientes}"></h1>
+                        <h1 class="display-3 my-3" th:text="${contaClientes + ' Und'}"></h1>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-12">
+        <div class="col-lg-4 col-12 mb-md-4">
             <div class="card l-bg-cherry shadow-sm">
                 <div class="card-statistic-3 p-4">
                     <div class="card-icon card-icon-large">
-                        <i class="fas fa-map-marked-alt"></i>
+                        <i class="fa-regular fa-clock"></i>
                     </div>
-                    <h5 class="card-title">Estados Mais Cadastrados</h5>
+                    <h5 class="card-title">Clientes Recém Cadastrados</h5>
                     <ul class="list-group">
                         <li class="list-group-item" th:each="cliente : ${clientesRecentes}">
                             <span th:text="${cliente}"></span>
