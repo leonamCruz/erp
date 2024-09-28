@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <title>Listar Clientes</title>
 
-    <link href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <link href="../static/css/sidebar.css" rel="stylesheet">
+    <link href="../../static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/css/sidebar.css" rel="stylesheet">
+    <link href="../../static/css/clientes/listar_clientes.css" rel="stylesheet">
     <link href="../static/css/style.css" rel="stylesheet">
     <link rel="icon" href="../static/img/logo-menor.webp">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -15,26 +16,22 @@
 <body>
     <div class="row ">
         <div th:replace="~{sidebar}"></div>
-        <section id="conteudo" class="col-md position-relative overflow-y-auto vh">
+        <section id="conteudo" class="col-md position-relative overflow-y-auto ">
             <button type="button" onclick="sidebar()" class="btn sticky-top rounded-circle p-3" id="sidebar-button">
                 <i class="fa-solid fa-3x fa-bars"></i>
             </button>
-            <div class="container table-responsive ">
+
+            <div th:replace="~{clientes/listar_clientes/cards.html}"></div>
+
+
+            <div class=" border border-2 px-5 py-2 rounded shadow">
                 <h1 class="my-4">Lista de Clientes</h1>
 
+                <div class="accordion" id="accordionExample">
+
+                </div>
                 <table class="table table-bordered border-black table-hover text-center shadow">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Contato</th>
-                            <th>Endereco</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="clienteTableBody">
-                    </tbody>
-                    <caption class="text-center my-5">
+                    <caption class="text-center ">
                         <nav aria-label="paginacao" class="d-flex justify-content-center">
                             <ul class="pagination pagination-lg">
                                 <li class="page-item" th:classappend="${paginaCorrente == 1} ? 'disabled'">
@@ -85,6 +82,7 @@
                 </table>
                 <input type="hidden" id="pagina" th:data.value="${paginaCorrente}">
             </div>
+
         </section>
     </div>
     <script src="../static/js/sidebar.js"></script>
