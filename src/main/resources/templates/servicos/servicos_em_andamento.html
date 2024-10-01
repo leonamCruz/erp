@@ -22,6 +22,9 @@
             <div class=" border border-2 px-5 py-2 rounded shadow">
                 <h1 class="my-4">Em andamento</h1>
 
+                <div th:replace="~{servicos/em_andamento/cards.html}"></div>
+
+
                 <div class="accordion" id="accordionServicos">
 
                 </div>
@@ -30,7 +33,8 @@
                         <nav aria-label="paginacao" class="d-flex justify-content-center">
                             <ul class="pagination pagination-lg">
                                 <li class="page-item" th:classappend="${paginaCorrente == 1} ? 'disabled'">
-                                    <a class="page-link" th:href="@{'/servicos_em_andamento?pagina=' + ${paginaCorrente - 1}}"
+                                    <a class="page-link"
+                                        th:href="@{'/servicos_em_andamento?pagina=' + ${paginaCorrente - 1}}"
                                         aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
@@ -61,12 +65,13 @@
                                 <li class="page-item" th:classappend="${paginaCorrente == i} ? 'disabled'"
                                     th:each="i : ${totalPages}"
                                     th:if="${paginaCorrente == totalPages || paginaCorrente == totalPages-1 || paginas.contains(i)} == false">
-                                    <a class="page-link" th:href="@{'/servicos_em_andamento?pagina=' + ${i}}" th:text="${i}"
-                                        th:value="${i}" id="pagina"></a>
+                                    <a class="page-link" th:href="@{'/servicos_em_andamento?pagina=' + ${i}}"
+                                        th:text="${i}" th:value="${i}" id="pagina"></a>
                                 </li>
 
                                 <li class="page-item" th:classappend="${paginaCorrente == totalPages} ? 'disabled'">
-                                    <a class="page-link" th:href="@{'/servicos_em_andamento?pagina=' + ${paginaCorrente + 1}}"
+                                    <a class="page-link"
+                                        th:href="@{'/servicos_em_andamento?pagina=' + ${paginaCorrente + 1}}"
                                         aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
@@ -79,6 +84,7 @@
             </div>
         </section>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../static/js/sidebar.js"></script>
     <script src="../static/js/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="../../static/js/servicos/servicos_em_andamento.js"></script>
