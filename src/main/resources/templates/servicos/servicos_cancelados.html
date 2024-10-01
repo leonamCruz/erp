@@ -15,10 +15,76 @@
 <body>
     <div class="row ">
         <div th:replace="~{sidebar}"></div>
+
+
+
+
         <section id="conteudo" class="col position-relative overflow-y-auto ms-3 me-2">
             <button type="button" onclick="sidebar()" class="btn sticky-top rounded-circle p-3" id="sidebar-button">
                 <i class="fa-solid fa-3x fa-bars"></i>
             </button>
+
+            <div class=" border border-2 px-5 py-2 rounded shadow">
+                <h1 class="my-4">Cancelados</h1>
+
+                <div class="accordion" id="accordionServicos">
+
+                </div>
+                <table class="table table-bordered border-black table-hover text-center shadow">
+                    <caption class="text-center ">
+                        <nav aria-label="paginacao" class="d-flex justify-content-center">
+                            <ul class="pagination pagination-lg">
+                                <li class="page-item" th:classappend="${paginaCorrente == 1} ? 'disabled'">
+                                    <a class="page-link" th:href="@{'/listar_clientes?pagina=' + ${paginaCorrente - 1}}"
+                                        aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+
+                                <li class="page-item" th:classappend="${paginaCorrente == i} ? 'disabled'"
+                                    th:if="${paginaCorrente == 1 || paginas.contains(1)} == false">
+                                    <a class="page-link" th:href="@{'/listar_clientes?pagina=' + 1}" th:text="1"
+                                        th:value="${1}" id="pagina"></a>
+                                </li>
+
+                                <li class="page-item disabled" th:each="i : ${totalPages}"
+                                    th:if="${paginaCorrente == 1 || paginas.contains(1)} == false">
+                                    <span class="page-link">...</span>
+                                </li>
+
+                                </li>
+                                <li class="page-item" th:classappend="${paginaCorrente == i} ? 'active'"
+                                    th:each="i : ${paginas}">
+                                    <a class="page-link" th:href="@{'/listar_clientes?pagina=' + ${i}}"
+                                        th:text="${i}"></a>
+                                </li>
+
+                                <li class="page-item disabled" th:each="i : ${totalPages}"
+                                    th:if="${paginaCorrente == totalPages || paginaCorrente == totalPages-1 || paginas.contains(i)} == false">
+                                    <span class="page-link">...</span>
+                                </li>
+
+                                <li class="page-item" th:classappend="${paginaCorrente == i} ? 'disabled'"
+                                    th:each="i : ${totalPages}"
+                                    th:if="${paginaCorrente == totalPages || paginaCorrente == totalPages-1 || paginas.contains(i)} == false">
+                                    <a class="page-link" th:href="@{'/listar_clientes?pagina=' + ${i}}" th:text="${i}"
+                                        th:value="${i}" id="pagina"></a>
+                                </li>
+
+                                <li class="page-item" th:classappend="${paginaCorrente == totalPages} ? 'disabled'">
+                                    <a class="page-link" th:href="@{'/listar_clientes?pagina=' + ${paginaCorrente + 1}}"
+                                        aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </caption>
+                </table>
+                <input type="hidden" id="pagina" th:data.value="${paginaCorrente}">
+            </div>
+
+
+            
             <div class="container table-responsive ">
                 <h1 class="my-4">Cancelados</h1>
 
@@ -36,54 +102,6 @@
                     </thead>
                     <tbody id="canceladosTabela">
                     </tbody>
-                    <caption class="text-center my-5">
-                        <nav aria-label="paginacao" class="d-flex justify-content-center">
-                            <ul class="pagination pagination-lg">
-                                <li class="page-item" th:classappend="${paginaCorrente == 1} ? 'disabled'">
-                                    <a class="page-link" th:href="@{'/servicos_cancelados?pagina=' + ${paginaCorrente - 1}}"
-                                        aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-
-                                <li class="page-item" th:classappend="${paginaCorrente == i} ? 'disabled'"
-                                    th:if="${paginaCorrente == 1 || paginas.contains(1)} == false">
-                                    <a class="page-link" th:href="@{'/servicos_cancelados?pagina=' + 1}" th:text="1"
-                                        th:value="${1}" id="pagina"></a>
-                                </li>
-
-                                <li class="page-item disabled" th:each="i : ${totalPages}"
-                                    th:if="${paginaCorrente == 1 || paginas.contains(1)} == false">
-                                    <span class="page-link">...</span>
-                                </li>
-
-                                </li>
-                                <li class="page-item" th:classappend="${paginaCorrente == i} ? 'active'"
-                                    th:each="i : ${paginas}">
-                                    <a class="page-link" th:href="@{'/servicos_cancelados?pagina=' + ${i}}"
-                                        th:text="${i}"></a>
-                                </li>
-
-                                <li class="page-item disabled" th:each="i : ${totalPages}"
-                                    th:if="${paginaCorrente == totalPages || paginaCorrente == totalPages-1 || paginas.contains(i)} == false">
-                                    <span class="page-link">...</span>
-                                </li>
-
-                                <li class="page-item" th:classappend="${paginaCorrente == i} ? 'disabled'"
-                                    th:each="i : ${totalPages}"
-                                    th:if="${paginaCorrente == totalPages || paginaCorrente == totalPages-1 || paginas.contains(i)} == false">
-                                    <a class="page-link" th:href="@{'/servicos_cancelados?pagina=' + ${i}}" th:text="${i}"
-                                        th:value="${i}" id="pagina"></a>
-                                </li>
-
-                                <li class="page-item" th:classappend="${paginaCorrente == totalPages} ? 'disabled'">
-                                    <a class="page-link" th:href="@{'/servicos_cancelados?pagina=' + ${paginaCorrente + 1}}"
-                                        aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </caption>
                 </table>
                 <input type="hidden" id="pagina" th:data.value="${paginaCorrente}">
             </div>
