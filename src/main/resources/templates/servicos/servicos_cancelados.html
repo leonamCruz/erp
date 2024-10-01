@@ -35,14 +35,14 @@
                         <nav aria-label="paginacao" class="d-flex justify-content-center">
                             <ul class="pagination pagination-lg">
                                 <li class="page-item" th:classappend="${paginaCorrente == 1} ? 'disabled'">
-                                    <a class="page-link" th:href="@{'/listar_clientes?pagina=' + ${paginaCorrente - 1}}"
+                                    <a class="page-link" th:href="@{'/servicos_cancelados?pagina=' + ${paginaCorrente - 1}}"
                                         aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
 
                                 <li class="page-item" th:classappend="${paginaCorrente == i} ? 'disabled'"
                                     th:if="${paginaCorrente == 1 || paginas.contains(1)} == false">
-                                    <a class="page-link" th:href="@{'/listar_clientes?pagina=' + 1}" th:text="1"
+                                    <a class="page-link" th:href="@{'/servicos_cancelados?pagina=' + 1}" th:text="1"
                                         th:value="${1}" id="pagina"></a>
                                 </li>
 
@@ -54,7 +54,7 @@
                                 </li>
                                 <li class="page-item" th:classappend="${paginaCorrente == i} ? 'active'"
                                     th:each="i : ${paginas}">
-                                    <a class="page-link" th:href="@{'/listar_clientes?pagina=' + ${i}}"
+                                    <a class="page-link" th:href="@{'/servicos_cancelados?pagina=' + ${i}}"
                                         th:text="${i}"></a>
                                 </li>
 
@@ -66,12 +66,12 @@
                                 <li class="page-item" th:classappend="${paginaCorrente == i} ? 'disabled'"
                                     th:each="i : ${totalPages}"
                                     th:if="${paginaCorrente == totalPages || paginaCorrente == totalPages-1 || paginas.contains(i)} == false">
-                                    <a class="page-link" th:href="@{'/listar_clientes?pagina=' + ${i}}" th:text="${i}"
+                                    <a class="page-link" th:href="@{'/servicos_cancelados?pagina=' + ${i}}" th:text="${i}"
                                         th:value="${i}" id="pagina"></a>
                                 </li>
 
                                 <li class="page-item" th:classappend="${paginaCorrente == totalPages} ? 'disabled'">
-                                    <a class="page-link" th:href="@{'/listar_clientes?pagina=' + ${paginaCorrente + 1}}"
+                                    <a class="page-link" th:href="@{'/servicos_cancelados?pagina=' + ${paginaCorrente + 1}}"
                                         aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
@@ -79,29 +79,6 @@
                             </ul>
                         </nav>
                     </caption>
-                </table>
-                <input type="hidden" id="pagina" th:data.value="${paginaCorrente}">
-            </div>
-
-
-            
-            <div class="container table-responsive ">
-                <h1 class="my-4">Cancelados</h1>
-
-                <table class="table table-bordered border-black table-hover text-center shadow">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome do Serviço</th>
-                            <th>Preço</th>
-                            <th>Pagamento Previsto</th>
-                            <th>Pagamento Final</th>
-                            <th>Status</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="canceladosTabela">
-                    </tbody>
                 </table>
                 <input type="hidden" id="pagina" th:data.value="${paginaCorrente}">
             </div>
