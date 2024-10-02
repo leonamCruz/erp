@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+    new DatePicker('.data-input');
     document.getElementById("editarServico").addEventListener("click", function() {
         const id = document.getElementById("id").value.trim(); 
         const servicoData = {
@@ -37,3 +38,23 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+
+class DatePicker {
+    constructor(selector) {
+        this.dateInputs = document.querySelectorAll(selector);
+        this.setMinDate(); 
+    }
+
+    setMinDate() {
+        const hoje = new Date();
+        const dia = String(hoje.getDate()).padStart(2, '0');
+        const mes = String(hoje.getMonth() + 1).padStart(2, '0'); 
+        const ano = hoje.getFullYear();
+        const dataMinima = `${ano}-${mes}-${dia}`; 
+
+        this.dateInputs.forEach(input => {
+            input.setAttribute('min', dataMinima);
+        });
+    }
+}

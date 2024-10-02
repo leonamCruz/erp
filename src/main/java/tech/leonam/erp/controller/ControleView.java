@@ -87,7 +87,7 @@ public class ControleView {
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .limit(3) 
+                .limit(3)
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
@@ -95,16 +95,14 @@ public class ControleView {
                         LinkedHashMap::new // Para manter a ordem
                 )));
         model.addAttribute("clientesRecentes", consultaLista.stream()
-        .sorted(Comparator.comparing(Cliente::getCriadoPor))
-        .map(Cliente::getNome)
-        .limit(3)
-        );
+                .sorted(Comparator.comparing(Cliente::getCriadoPor))
+                .map(Cliente::getNome)
+                .limit(3));
         model.addAttribute("dataClientesRecentes", consultaLista.stream()
-        .sorted(Comparator.comparing(Cliente::getCriadoPor))
-        .map(Cliente::getDataCriacao)
-        .limit(3)
-        )
-        
+                .sorted(Comparator.comparing(Cliente::getCriadoPor))
+                .map(Cliente::getDataCriacao)
+                .limit(3))
+
         ;
 
         return "/clientes/listar_clientes";
@@ -114,6 +112,7 @@ public class ControleView {
     public String servicos_em_andamento(Model model, @PathVariable @RequestParam(defaultValue = "1") Integer pagina) {
         var consulta = servicoService.buscarTodosServicos(pagina, 20, "id", "ASC",
                 StatusServico.EM_ANDAMENTO.getCodigo());
+        var consultaLista = servicoService.buscarTodosServicos();
 
         int paginaCorrente = consulta.getNumber();
         int totalPages = consulta.getTotalPages();
@@ -126,6 +125,10 @@ public class ControleView {
         model.addAttribute("paginaCorrente", paginaCorrente);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("paginas", paginas);
+        model.addAttribute("servicosRecentes", consultaLista.stream()
+                .sorted(Comparator.comparing(Servico::getCriadoPor))
+                .map(Servico::getNome)
+                .limit(5));
 
         return "/servicos/servicos_em_andamento";
     }

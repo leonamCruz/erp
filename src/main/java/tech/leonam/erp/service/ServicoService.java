@@ -5,6 +5,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
+import java.util.List;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -127,5 +128,9 @@ public class ServicoService {
         resultado.put("porcentagem", porcentagem);
 
         return resultado;
+    }
+
+    public List<Servico> buscarTodosServicos() {
+        return servicoRepository.findAll();
     }
 }

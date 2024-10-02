@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     <h2 class="accordion-header" id="heading${index}">
                         <button class="accordion-button collapsed d-flex align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}">
                             <i class="fa-solid fa-briefcase me-2"></i> 
-                            <span class="fw-bold">${servico.nome}</span> - R$ ${servico.preco.toFixed(2)}
+                            <span class="fw-bold">${servico.nome}</span> : R$ ${servico.preco.toFixed(2)}
                         </button>
                     </h2>
                     <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}" data-bs-parent="#accordionServicos">
@@ -91,72 +91,3 @@ function formatDate(dateString) {
     const date = new Date(dateString);
     return date.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
 }
-
-async function porcentagem() {
-    const ctx = document.getElementById('myChart');
-    fetch('api/servicos/porcentagemStatusServicoTotal?status=2')
-        .then(response => response.json())
-        .then(servico => {
-            let totalStatus = Object.keys(servico).find(key => key === 'totalStatus');
-            let totalServicos = Object.keys(servico).find(key => key === 'totalServicos');
-
-            new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ["EM ANDAMENTO", "SERVIÇOS"],
-                    datasets: [{
-                        label: ["Total"],
-                        data: [servico.totalStatus, servico.totalServicos - servico.totalStatus],
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    label: "Total:",
-                    responsive: true,
-                    plugins: {
-                        tooltip: {
-                            enabled: false
-                        },
-                        legend: {
-                            display: true,
-                            position: 'bottom',
-                            onClick: (e) => e.stopPropagation() 
-                        }
-                    }
-                },
-                plugins: [{
-                    beforeDraw: function (chart) {
-                        const width = chart.width,
-                            height = chart.height,
-                            ctx = chart.ctx;
-                        console.log(servico)
-                        ctx.restore();
-                        const fontSize = (height / 120).toFixed(2);
-                        ctx.font = `${fontSize}em sans-serif`; 
-                        ctx.fontWeight = '500';
-
-                        const text = servico.porcentagem + "%",
-                            textX = Math.round((width - ctx.measureText(text).width) / 2) + 8,
-                            textY = height / 2 - 10;
-
-                        ctx.fillText(text, textX, textY);
-                        ctx.save();
-                    }
-                }]
-            });
-        })
-        .catch(error => {
-            alert('Erro na requisição:', error);
-        });
-}
-porcentagem();
