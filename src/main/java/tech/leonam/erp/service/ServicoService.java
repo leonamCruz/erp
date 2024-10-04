@@ -4,6 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import java.util.HashMap;
+import java.util.List;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -110,5 +112,25 @@ public class ServicoService {
                     log.error("Falha ao atualizar. Serviço com ID: {} não encontrado", id);
                     return new IdentificadorInvalidoException("Identificador do serviço inválido");
                 });
+    }
+
+    public HashMap<String, Double> porcentagemStatusServicoTotal(StatusServico status) {
+        Double totalStatus = (double) servicoRepository.findAllByStatus(status, null)
+                .stream()
+                .count();
+        Double totalServicos = (double) servicoRepository.count();
+        Double porcentagem = (totalStatus / totalServicos) * 100;
+
+        HashMap<String, Double> resultado = new HashMap<>();
+
+        resultado.put("totalStatus", totalStatus);
+        resultado.put("totalServicos", totalServicos);
+        resultado.put("porcentagem", porcentagem);
+
+        return resultado;
+    }
+
+    public List<Servico> buscarTodosServicos() {
+        return servicoRepository.findAll();
     }
 }

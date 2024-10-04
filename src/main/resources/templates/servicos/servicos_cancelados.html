@@ -15,28 +15,23 @@
 <body>
     <div class="row ">
         <div th:replace="~{sidebar}"></div>
-        <section id="conteudo" class="col-md position-relative overflow-y-auto vh">
+
+
+
+
+        <section id="conteudo" class="col position-relative overflow-y-auto ms-3 me-2">
             <button type="button" onclick="sidebar()" class="btn sticky-top rounded-circle p-3" id="sidebar-button">
                 <i class="fa-solid fa-3x fa-bars"></i>
             </button>
-            <div class="container table-responsive ">
+
+            <div class=" border border-2 px-5 py-2 rounded shadow">
                 <h1 class="my-4">Cancelados</h1>
 
+                <div class="accordion" id="accordionServicos">
+
+                </div>
                 <table class="table table-bordered border-black table-hover text-center shadow">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome do Serviço</th>
-                            <th>Preço</th>
-                            <th>Pagamento Previsto</th>
-                            <th>Pagamento Final</th>
-                            <th>Status</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="canceladosTabela">
-                    </tbody>
-                    <caption class="text-center my-5">
+                    <caption class="text-center ">
                         <nav aria-label="paginacao" class="d-flex justify-content-center">
                             <ul class="pagination pagination-lg">
                                 <li class="page-item" th:classappend="${paginaCorrente == 1} ? 'disabled'">

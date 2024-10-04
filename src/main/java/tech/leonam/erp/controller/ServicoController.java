@@ -1,5 +1,7 @@
 package tech.leonam.erp.controller;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -81,5 +83,11 @@ public class ServicoController {
         servicoService.alterarStatusDoServico(id, status);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("porcentagemStatusServicoTotal")
+    public HashMap<String, Double> getMethodName(@RequestParam(defaultValue = "2") Integer status) {
+        return servicoService.porcentagemStatusServicoTotal(StatusServico.fromCodigo(status));
+    }
+    
 
 }

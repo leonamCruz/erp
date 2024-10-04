@@ -15,7 +15,7 @@
 <body>
     <div class="row">
         <div th:replace="~{sidebar}"></div>
-        <section id="conteudo" class="col-md position-relative overflow-y-auto">
+        <section id="conteudo" class="col position-relative overflow-y-auto ms-3 me-2">
             <button type="button" onclick="sidebar()" class="btn sticky-top rounded-circle p-3" id="sidebar-button">
                 <i class="fa-solid fa-3x fa-bars"></i>
             </button>
@@ -116,7 +116,7 @@
                                     <h4>Pagamento Previsto</h4>
                                 </div>
                                 <div class="card-body">
-                                    <input type="date" class="form-control" id="pagamentoPrevisto"
+                                    <input type="date" class="form-control data-input" id="pagamentoPrevisto"
                                         th:value="${#temporals.format(servico.getPagamentoPrevisto(),'yyyy-MM-dd')}">
                                 </div>
                             </div>
@@ -128,7 +128,7 @@
                                     <h4>Pagamento Final</h4>
                                 </div>
                                 <div class="card-body">
-                                    <input type="date" class="form-control" id="pagamentoFinal"
+                                    <input type="date" class="form-control data-input" id="pagamentoFinal"
                                         th:value="${#temporals.format(servico.getPagamentoFinal(),'yyyy-MM-dd')}">
                                 </div>
                             </div>

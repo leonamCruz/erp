@@ -3,40 +3,58 @@ document.addEventListener('DOMContentLoaded', async function () {
     const params = new URLSearchParams(url.search);
     const pagina = params.get('pagina');
 
+
     function loadServicos(pagina) {
         fetch('api/servicos?pagina=' + (pagina - 1))
             .then(response => response.json())
             .then(servicos => {
-                var tbody = document.getElementById("emAndamentoTableBody");
-                tbody.innerHTML = "";
+                var accordionServicos = document.getElementById("accordionServicos");
+                accordionServicos.innerHTML = "";
 
-                servicos.content.forEach(servico => {
-                    var tr = document.createElement("tr");
-                    tr.className = "align-middle";
+                servicos.content.forEach((servico, index) => {
+                    var accordionItem = document.createElement("div");
+                    accordionItem.className = "accordion-item";
 
-                    tr.innerHTML = `
-                    <td>${servico.id}</td>
-                    <td style="width: 20em;">${servico.nome}</td>
-                    <td style="width: 150px;">R$ ${servico.preco.toFixed(2)}</td>
-                    <td>${formatDate(servico.pagamentoPrevisto)}</td>
-                    <td>${formatDate(servico.pagamentoFinal)}</td>
-                    <td>${servico.status}</td>
-                    <td>
-                        <div class="d-flex">
-                        <a class="btn btn-info btn-sm mx-1" onclick="window.location.href = '/visualizar_servico?id=${servico.id}'; return false;">
-                            <i class="fa-solid fa-eye"></i> Visualizar
-                        </a>
-                        <a class="btn btn-success btn-sm mx-1" onclick="if (confirm('Deseja realmente marcar o serviço como concluído?')) { atualizarStatusServico(${servico.id}, 'CONCLUIDO'); } return false;">
-                            <i class="fa-solid fa-check"></i> Concluir
-                        </a>
-                        <a class="btn btn-warning btn-sm mx-1" onclick="if (confirm('Deseja realmente cancelar o serviço?')) { atualizarStatusServico(${servico.id}, 'CANCELADO'); } return false;">
-                            <i class="fa-solid fa-ban"></i> Cancelar
-                        </a>
+                    accordionItem.innerHTML = `
+                    <h2 class="accordion-header" id="heading${index}">
+                        <button class="accordion-button collapsed d-flex align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}">
+                            <i class="fa-solid fa-briefcase me-2"></i> 
+                            <span class="fw-bold">${servico.nome}</span> : R$ ${servico.preco.toFixed(2)}
+                        </button>
+                    </h2>
+                    <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}" data-bs-parent="#accordionServicos">
+                        <div class="accordion-body bg-light">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul class="list-group">
+                                        <li class="list-group-item mb-2"><strong>ID:</strong> ${servico.id}</li>
+                                        <li class="list-group-item mb-2"><strong>Nome do Serviço:</strong> ${servico.nome}</li>
+                                        <li class="list-group-item mb-2"><strong>Status:</strong> ${servico.status}</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul class="list-group">
+                                        <li class="list-group-item mb-2"><strong>Pagamento Previsto:</strong> ${formatDate(servico.pagamentoPrevisto)}</li>
+                                        <li class="list-group-item mb-2"><strong>Pagamento Final:</strong> ${formatDate(servico.pagamentoFinal)}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end mt-3">
+                                <a class="btn btn-outline-info btn-sm mx-1" onclick="window.location.href = '/visualizar_servico?id=${servico.id}'; return false;">
+                                    <i class="fa-solid fa-eye"></i> Visualizar
+                                </a>
+                                <a class="btn btn-outline-success btn-sm mx-1" onclick="if (confirm('Deseja realmente marcar o serviço como concluído?')) { atualizarStatusServico(${servico.id}, 'CONCLUIDO'); } return false;">
+                                    <i class="fa-solid fa-check"></i> Concluir
+                                </a>
+                                <a class="btn btn-outline-warning btn-sm mx-1" onclick="if (confirm('Deseja realmente cancelar o serviço?')) { atualizarStatusServico(${servico.id}, 'CANCELADO'); } return false;">
+                                    <i class="fa-solid fa-ban"></i> Cancelar
+                                </a>
+                            </div>
                         </div>
-                    </td>
-                `;
+                    </div>
+                    `;
 
-                    tbody.appendChild(tr);
+                    accordionServicos.appendChild(accordionItem);
                 });
             })
             .catch(error => {
@@ -55,17 +73,17 @@ function atualizarStatusServico(id, novoStatus) {
         },
         body: JSON.stringify({ status: novoStatus })
     })
-    .then(response => {
-        if (response.ok) {
-            alert(`Serviço ${novoStatus === 'CONCLUIDO' ? 'concluído' : 'cancelado'} com sucesso!`);
-            location.reload();
-        } else {
-            alert(`Falha ao ${novoStatus === 'CONCLUIDO' ? 'concluir' : 'cancelar'} o serviço.`);
-        }
-    })
-    .catch(error => {
-        console.error('Erro:', error);
-    });
+        .then(response => {
+            if (response.ok) {
+                alert(`Serviço ${novoStatus === 'CONCLUIDO' ? 'concluído' : 'cancelado'} com sucesso!`);
+                location.reload();
+            } else {
+                alert(`Falha ao ${novoStatus === 'CONCLUIDO' ? 'concluir' : 'cancelar'} o serviço.`);
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
 }
 
 function formatDate(dateString) {
